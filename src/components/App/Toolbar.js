@@ -1,11 +1,3 @@
-/**
- * React Starter Kit for Firebase and GraphQL
- * https://github.com/kriasoft/react-firebase-starter
- * Copyright (c) 2015-present Kriasoft | MIT License
- */
-
-/* @flow */
-
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import MuiToolbar from 'material-ui/Toolbar';
@@ -16,7 +8,6 @@ import Avatar from 'material-ui/Avatar/Avatar';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import styled from 'styled-components';
 
-import auth from '../../auth';
 import history from '../../history';
 import Link from '../../components/Link';
 import LoginDialog from './LoginDialog';
@@ -41,7 +32,6 @@ class Toolbar extends React.Component<{}, {}> {
   };
 
   componentDidMount() {
-    this.unlisten = auth.onShowLoginDialog(this.showLoginDialog);
   }
 
   componentWillUnmount() {
@@ -89,7 +79,7 @@ class Toolbar extends React.Component<{}, {}> {
                 onClose={this.handleAccountMenuClose}
               >
                 <MenuItem onClick={this.goToAccount}>My Account</MenuItem>
-                <MenuItem onClick={auth.signOut}>Sign Out</MenuItem>
+                <MenuItem>Sign Out</MenuItem>
               </Menu>
             </React.Fragment>
           )}
@@ -98,7 +88,7 @@ class Toolbar extends React.Component<{}, {}> {
               <Button color="inherit" href="/about" onClick={Link.handleClick}>
                 About Us
               </Button>
-              <Button color="inherit" onClick={auth.showLoginDialog}>
+              <Button color="inherit">
                 Sign In
               </Button>
             </React.Fragment>
