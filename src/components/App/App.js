@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MuiThemeProvider } from 'material-ui/styles';
-
+import {MuiThemeProvider} from 'material-ui/styles';
+import {graphql, QueryRenderer} from 'react-relay';
+import environment from '../../relay';
 import theme from '../../theme';
 import Toolbar from './Toolbar';
 import Footer from './Footer';
@@ -14,25 +15,42 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
-  componentDidMount() {
-    window.document.title = this.props.route.title;
-  }
+    componentDidMount() {
+        window.document.title = this.props.route.title;
+    }
 
-  componentDidUpdate() {
-    window.document.title = this.props.route.title;
-  }
-
-  render() {
-    return (
-      <MuiThemeProvider theme={theme}>
-        <Container>
-          <Toolbar user={this.props.user} />
-          {this.props.route.body}
-          <Footer />
-        </Container>
-      </MuiThemeProvider>
-    );
-  }
+    componentDidUpdate() {
+        window.document.title = this.props.route.title;
+    }
+    render() {
+        return (
+            <QueryRenderer
+                environment={environment}
+                query={graphql`
+                  query AppQuery {
+                    user {
+                        name
+                    }
+                  }
+                `}
+                render={({error, props}) => {
+                    if (error) {
+                        return <div>Error!</div>;
+                    }
+                    if (!props) {
+                        return <div>Loading...</div>;
+                    }
+                    return <MuiThemeProvider theme={theme}>
+                        <Container>
+                            <Toolbar user={this.props.user}/>
+                            {this.props.route.body}
+                            <Footer/>
+                        </Container>
+                    </MuiThemeProvider>;
+                }}
+            />
+        );
+    }
 }
 
 export default App;

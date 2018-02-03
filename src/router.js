@@ -5,10 +5,6 @@ import { graphql } from 'relay-runtime';
 const routes = [
   {
     path: '/',
-    query: graphql`query routerHomeQuery {
-      me { ...App_me }
-      stories(first: 50) { ...Home_stories }
-    }`, // prettier-ignore
     components: () => [
       import(/* webpackChunkName: 'home' */ './Home'),
       import(/* webpackChunkName: 'home' */ './Home/Hero'),
@@ -21,10 +17,6 @@ const routes = [
   },
   {
     path: '/story-:id',
-    query: graphql`query routerStoryQuery($id: ID!) {
-      me { ...App_me }
-      story: node(id: $id) { ...Story_story }
-    }`, // prettier-ignore
     components: () => [import(/* webpackChunkName: 'home' */ './Story')],
     render: ([Story], data) => ({
       title: data.title,
@@ -41,7 +33,6 @@ const routes = [
   },
   {
     path: '/getting-started',
-    query: graphql`query routerGettingStartedQuery { me { ...App_me } }`, // prettier-ignore
     components: () => [
       import(/* webpackChunkName: 'start' */ './GettingStarted'),
     ],
@@ -52,7 +43,6 @@ const routes = [
   },
   {
     path: '/about',
-    query: graphql`query routerAboutQuery { me { ...App_me } }`, // prettier-ignore
     components: () => [import(/* webpackChunkName: 'about' */ './About')],
     render: ([About]) => ({
       title: 'About Us',

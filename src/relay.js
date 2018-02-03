@@ -1,7 +1,6 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
-// Define a function that fetches the results of an operation (query/mutation/etc)
-// and returns the result as a Promise:
+
 function fetchQuery(
   operation,
   variables,
@@ -9,7 +8,7 @@ function fetchQuery(
   // uploadables,
 ) {
   return fetch(
-    'url must be here',
+    '/graphql',
     {
       method: 'POST',
       headers: {

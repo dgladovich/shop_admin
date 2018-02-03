@@ -1,0 +1,21 @@
+[
+  "20180116201649-create-user.js",
+  "20180119174659-create-shop-cart.js",
+  "20180119183440-create-order.js",
+  "20180119183715-create-order-products.js",
+  "20180119183909-create-deliveries.js",
+  "20180119184258-create-product-wishes.js",
+  "20180119184850-create-product.js",
+  "20180119185148-create-product-comment.js",
+  "20180119185559-create-category.js",
+  "20180119185942-create-visit.js",
+  "20180119190243-create-product-visit.js",
+  "20180119190459-create-product-rating.js",
+  "20180119190611-create-product-images.js",
+  "20180119201243-create-delivery.js",
+  "20180119201547-create-product-filter.js",
+  "20180119201855-create-filter-category.js",
+  "20180119202221-create-wish.js",
+  "20180119202450-create-filter.js",
+  "20180120190733-create-shop-user.js"
+]
