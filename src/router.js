@@ -3,11 +3,11 @@ import Router from 'universal-router';
 import { graphql } from 'relay-runtime';
 
 const routes = [
-  {
+/*  {
     path: '/',
     components: () => [
-      import(/* webpackChunkName: 'home' */ './Home'),
-      import(/* webpackChunkName: 'home' */ './Home/Hero'),
+      import(/!* webpackChunkName: 'home' *!/ './Home'),
+      import(/!* webpackChunkName: 'home' *!/ './Home/Hero'),
     ],
     render: ([Home, Hero], data) => ({
       title: 'Home page',
@@ -17,7 +17,7 @@ const routes = [
   },
   {
     path: '/story-:id',
-    components: () => [import(/* webpackChunkName: 'home' */ './Story')],
+    components: () => [import(/!* webpackChunkName: 'home' *!/ './Story')],
     render: ([Story], data) => ({
       title: data.title,
       body: <Story story={data.story} />,
@@ -25,7 +25,7 @@ const routes = [
   },
   {
     path: '/error',
-    components: () => [import(/* webpackChunkName: 'main' */ './ErrorPage')],
+    components: () => [import(/!* webpackChunkName: 'main' *!/ './ErrorPage')],
     render: ([ErrorPage]) => ({
       title: 'Error',
       body: <ErrorPage />,
@@ -34,7 +34,7 @@ const routes = [
   {
     path: '/getting-started',
     components: () => [
-      import(/* webpackChunkName: 'start' */ './GettingStarted'),
+      import(/!* webpackChunkName: 'start' *!/ './GettingStarted'),
     ],
     render: ([GettingStarted]) => ({
       title: 'Getting Started',
@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: '/about',
-    components: () => [import(/* webpackChunkName: 'about' */ './About')],
+    components: () => [import(/!* webpackChunkName: 'about' *!/ './About')],
     render: ([About]) => ({
       title: 'About Us',
       body: <About />,
@@ -51,12 +51,12 @@ const routes = [
   },
   {
     path: '/tasks/:status(pending|completed)?',
-    components: () => [import(/* webpackChunkName: 'home' */ './Home')],
+    components: () => [import(/!* webpackChunkName: 'home' *!/ './Home')],
     render: ([Home]) => ({
       title: 'Untitled Page',
       body: <Home />,
     }),
-  },
+  },*/
 ];
 
 function resolveRoute({ route, fetch, next }, params) {
