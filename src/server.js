@@ -49,7 +49,6 @@ app.use(bodyParser.json());
 });*/
 
 //app.use(passport.initialize());
-
 if (__DEV__) {
   app.enable('trust proxy');
 }
@@ -71,8 +70,7 @@ app.use(
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
-    console.log('actioned some route');
-    res.send('some shit i send for test');
+    res.end('build/index.html');
   } catch (err) {
     next(err);
   }
@@ -86,10 +84,24 @@ pe.skipNodeFiles();
 pe.skipPackage('express');
 
 // eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
+/*app.use((err, req, res, next) => {
   console.error(pe.render(err));
   res.status(err.status || 500);
   res.send(``);
+});*/
+
+app.use(function(err, req, res, next) {
+    // in case of specific URIError
+    if (err instanceof URIError) {
+        err.message = 'Failed to decode param: ' + req.url;
+        err.status = err.statusCode = 400;
+
+        // .. your redirect here if still needed
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    } else {
+        // ..
+    }
+    // ..
 });
 
 //
