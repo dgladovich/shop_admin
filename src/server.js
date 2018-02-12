@@ -9,7 +9,9 @@ import schema from './data/schema';
 import config from './config';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
+import index from './router/index';
+//import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
+//import jwt from 'jsonwebtoken';
 //import jwt from 'jsonwebtoken';
 //import nodeFetch from 'node-fetch';
 //import assets from './assets.json'; // eslint-disable-line import/no-unresolved
@@ -47,7 +49,7 @@ app.use(bodyParser.json());
   }
   next(err);
 });*/
-
+app.use('/', index);
 //app.use(passport.initialize());
 if (__DEV__) {
   app.enable('trust proxy');
@@ -68,13 +70,14 @@ app.use(
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
-app.get('*', async (req, res, next) => {
+/*app.get('*', async (req, res, next) => {
   try {
     res.end('build/index.html');
   } catch (err) {
     next(err);
   }
-});
+});*/
+
 
 //
 // Error handling
