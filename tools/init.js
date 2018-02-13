@@ -1,1 +1,1 @@
-import start from './start';start();
+import start from './start';start().then((app)=>{    console.log('App started from init')});

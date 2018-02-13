@@ -6,7 +6,6 @@ import history from './history';
 import routes from './routes';
 import registerServiceWorker from './registerServiceWorker';
 
-console.log('client is launching')
 const render = props =>
   new Promise((resolve, reject) => {
     try {
