@@ -15,6 +15,13 @@ const Container = styled.div`
 `;
 
 class App extends React.Component {
+    state = {
+        location: history.location,
+        params: {},
+        query: graphql`query AppQuery { user { name }}`,
+        variables: {},
+        component: null,
+    };
     componentDidMount() {
         window.document.title = this.props.route.title;
     }
@@ -22,32 +29,27 @@ class App extends React.Component {
     componentDidUpdate() {
         window.document.title = this.props.route.title;
     }
+
     render() {
         return (
             <QueryRenderer
                 environment={environment}
-                query={graphql`
-                  query AppQuery {
-                    user {
-                        name
-                    }
-                  }
-                `}
+                query={this.state.query}
                 render={({error, props}) => {
-                    if (error) {
-                        return <div>Error!</div>;
-                    }
-                    if (!props) {
-                        return <div>Loading...</div>;
-                    }
-                    return <MuiThemeProvider theme={theme}>
-                        <Container>
-                            <Toolbar user={this.props.user}/>
-                            {this.props.route.body}
-                            <Footer/>
-                        </Container>
-                    </MuiThemeProvider>;
-                }}
+     if (error) {
+     return <div>Error!</div>;
+     }
+     if (!props) {
+     return <div>Loading...</div>;
+     }
+     return <MuiThemeProvider theme={theme}>
+     <Container>
+     <Toolbar user={this.props.user}/>
+     {this.props.route.body}
+     <Footer/>
+     </Container>
+     </MuiThemeProvider>;
+     }}
             />
         );
     }
