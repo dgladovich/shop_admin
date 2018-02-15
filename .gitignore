@@ -2,4 +2,4 @@
 /build
 database.sqlite
 /functions/node_modules
-.idea
+/.idea
