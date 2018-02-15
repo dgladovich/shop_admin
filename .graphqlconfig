@@ -1,7 +1,0 @@
-{
-  "projects": {
-    "shop_admin": {
-      "schemaPath": "./src/schema.graphql"
-    }
-  }
-}
