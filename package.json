@@ -11,7 +11,6 @@
     "heroku-postbuild": "cross-env NODE_ENV=production webpack --config webpack.config.js && cross-env NODE_ENV=production ./node_modules/.bin/babel ./server --out-dir ./lib",
     "clean": "rm -rf build && mkdir build"
   },
-  "pre-commit": "lint",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lvarayut/relay-fullstack.git"
