@@ -1,64 +1,42 @@
-// @flow
-import { graphql, commitMutation, Environment } from 'react-relay/compat';
+import Relay from 'react-relay';
 
-const mutation = graphql`
-  mutation AddFeatureMutation($input: AddFeatureInput!) {
-    addFeature(input: $input) {
-      featureEdge {
-        __typename
-        node {
-          name
-          description
-          url
-        }
-      }
-      viewer {
-        id
-      }
-    }
+class AddFeatureMutation extends Relay.Mutation {
+
+  getMutation() {
+    return Relay.QL`
+      mutation { addFeature }
+    `;
   }
-`;
 
-function getConfigs(viewerId) {
-  return [{
-    type: 'RANGE_ADD',
-    parentName: 'viewer',
-    parentID: viewerId,
-    connectionName: 'features',
-    edgeName: 'featureEdge',
-    rangeBehaviors: {
-      '': 'append',
-    },
-  }];
-}
+  getVariables() {
+    return {
+      name: this.props.name,
+      description: this.props.description,
+      url: this.props.url
+    };
+  }
 
-function getOptimisticResponse(data, viewerId) {
-  return {
-    addFeature: {
-      featureEdge: {
-        node: data,
-      },
-      viewer: {
-        id: viewerId
+  getFatQuery() {
+    return Relay.QL`
+      fragment on AddFeaturePayload {
+        featureEdge,
+        viewer { features }
       }
-    }
-  };
+    `;
+  }
+
+  getConfigs() {
+    return [{
+      type: 'RANGE_ADD',
+      parentName: 'viewer',
+      parentID: this.props.viewerId,
+      connectionName: 'features',
+      edgeName: 'featureEdge',
+      rangeBehaviors: {
+        '': 'append',
+      },
+    }];
+  }
 }
 
-function commit(
-  environment: Environment,
-  data: Object,
-  viewerId: number
-) {
-  commitMutation(
-    environment,
-    {
-      mutation,
-      variables: { input: data },
-      optimisticResponse: () => getOptimisticResponse(data, viewerId),
-      configs: getConfigs(viewerId),
-    }
-  );
-}
-
-export default { commit };
+export default AddFeatureMutation;

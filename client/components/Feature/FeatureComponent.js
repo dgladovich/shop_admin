@@ -1,7 +1,5 @@
-// @flow
 /* eslint-disable global-require */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Grid, Cell, Card, CardTitle, CardText, CardActions, Button } from 'react-mdl';
 import Page from '../Page/PageComponent';
 import styles from './Feature.scss';
@@ -9,8 +7,7 @@ import AddFeature from './AddFeatureComponent';
 
 export default class Feature extends React.Component {
   static propTypes = {
-    viewer: PropTypes.object.isRequired,
-    relay: PropTypes.object.isRequired,
+    viewer: React.PropTypes.object.isRequired
   };
 
   render() {
@@ -36,7 +33,7 @@ export default class Feature extends React.Component {
             })}
           </Grid>
         </Page>
-        <AddFeature relay={this.props.relay} viewer={this.props.viewer} />
+        <AddFeature viewer={this.props.viewer} />
       </div>
     );
   }

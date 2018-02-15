@@ -1,31 +1,16 @@
-// @flow
-
 import React from 'react';
+import Relay from 'react-relay';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
+import { browserHistory, applyRouterMiddleware, Router } from 'react-router';
+import useRelay from 'react-router-relay';
+
 import '../node_modules/react-mdl/extra/material';
-import Root from './root';
+import Route from './routes/Route';
 
 const rootNode = document.createElement('div');
+document.body.appendChild(rootNode);
 
-if (document.body) {
-  document.body.appendChild(rootNode);
-}
-
-const render = (Component) => {
-  ReactDOM.render(
-    <AppContainer >
-      <Component />
-    </AppContainer>,
-    rootNode
-  );
-};
-
-render(Root);
-
-// Hot Module Replacement API
-if (module.hot) {
-  module.hot.accept('./root', () => {
-    render(Root);
-  });
-}
+ReactDOM.render(
+  <Router history={browserHistory} routes={Route} render={applyRouterMiddleware(useRelay)} environment={Relay.Store} />,
+  rootNode
+);

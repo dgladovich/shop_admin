@@ -1,6 +1,5 @@
-// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
+import Relay from 'react-relay';
 import Dropdown from 'react-dropdown';
 import { Grid, Cell, Button } from 'react-mdl';
 import Page from '../Page/PageComponent';
@@ -19,10 +18,9 @@ const inputData = {
   css: { name: 'css', url: 'https://www.w3.org/Style/CSS/Overview.en.html', description: 'Cascading Style Sheets (CSS) is a simple mechanism for adding style to Web documents.' }
 };
 
-export default class AddFeature extends React.Component {
+export default class Feature extends React.Component {
   static propTypes = {
-    viewer: PropTypes.object.isRequired,
-    relay: PropTypes.object.isRequired,
+    viewer: React.PropTypes.object.isRequired
   };
 
   state = {
@@ -31,20 +29,18 @@ export default class AddFeature extends React.Component {
     }
   }
 
-  onSelect = (e: {label: string, value: string}) => {
+  onSelect = (e) => {
     this.setState({ form: { dropdown: e } });
   }
 
   addFeature = () => {
-    const { value } = this.state.form.dropdown;
+    const value = this.state.form.dropdown.value;
     if (value === 'none') {
       return;
     }
-    AddFeatureMutation.commit(
-      this.props.relay.environment,
-      inputData[value],
-      this.props.viewer.id,
-    );
+
+    const addFeatureMutation = new AddFeatureMutation({ viewerId: this.props.viewer.id, ...inputData[value] });
+    Relay.Store.commitUpdate(addFeatureMutation);
   }
 
   render() {

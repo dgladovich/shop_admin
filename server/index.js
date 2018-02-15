@@ -1,4 +1,3 @@
-// @flow
 /* eslint-disable no-console, no-shadow */
 import path from 'path';
 import webpack from 'webpack';
@@ -41,7 +40,7 @@ if (config.env === 'development') {
   // Launch Relay by creating a normal express server
   const relayServer = express();
   relayServer.use(historyApiFallback());
-  relayServer.use('/', express.static(path.join(__dirname, '../build/app')));
+  relayServer.use('/', express.static(path.join(__dirname, '../build')));
   relayServer.use('/graphql', graphQLHTTP({ schema }));
   relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
 }

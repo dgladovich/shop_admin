@@ -1,14 +1,12 @@
-// @flow
-import {
-  createFragmentContainer,
-  graphql,
-} from 'react-relay/compat';
+import Relay from 'react-relay';
 import Footer from './FooterComponent';
 
-export default createFragmentContainer(Footer, {
-  viewer: graphql`
-    fragment FooterContainer_viewer on User {
-      username
-      website
-    }`
+export default Relay.createContainer(Footer, {
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on User {
+        username
+        website
+      }`
+  }
 });
