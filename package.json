@@ -42,7 +42,9 @@
   },
   "babel": {
     "passPerPreset": true,
-    "plugins": ["relay"],
+    "plugins": [
+      "relay"
+    ],
     "presets": [
       [
         "@babel/preset-env",
@@ -56,7 +58,10 @@
       "@babel/preset-flow",
       "@babel/preset-react"
     ],
-    "ignore": ["node_modules", "build"]
+    "ignore": [
+      "node_modules",
+      "build"
+    ]
   },
   "devDependencies": {
     "@babel/core": "7.0.0-beta.36",
