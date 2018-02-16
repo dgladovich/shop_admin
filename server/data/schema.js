@@ -12,6 +12,7 @@ import {
   GraphQLString
 } from 'graphql';
 
+
 import {
   connectionArgs,
   connectionDefinitions,
@@ -31,7 +32,7 @@ import {
   getFeatures,
   addFeature
 } from './database';
-
+import { resolver } from 'graphql-sequelize';
 
 /**
  * We get the node interface and field from the Relay library.

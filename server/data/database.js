@@ -1,6 +1,8 @@
 // @flow
 import DataLoader from 'dataloader';
 
+
+
 class User {
   id: string;
   name: string;
