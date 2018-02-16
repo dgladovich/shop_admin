@@ -1,7 +1,7 @@
 {
-  "name": "relay-fullstack",
+  "name": "shop_admin",
   "version": "1.0.0",
-  "description": "Relay Starter Kit - Integrated with Relay, GraphQL, Express, ES6/ES7, JSX, Webpack, Babel, Material Design Lite, and PostCSS",
+  "description": "Admin panel for shop with the latest tech stack",
   "scripts": {
     "start": "nodemon --watch server/data/**/*.js --exec \"npm run update && npm run start-sub-task\"",
     "start-sub-task": "./node_modules/.bin/babel-node server/index.js",
@@ -14,11 +14,7 @@
     "clean": "rm -rf build && mkdir build",
     "relay": "relay-compiler --src ./client --schema server/data/schema.graphql"
   },
-  "pre-commit": "lint",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lvarayut/relay-fullstack.git"
-  },
+
   "engines": {
     "node": ">=6.6.0",
     "npm": ">=3.10.8"
@@ -38,12 +34,8 @@
     "scaffolding",
     "fullstack"
   ],
-  "author": "Varayut Lerdkanlayanawat",
+  "author": "Denis Bogotin",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lvarayut/relay-fullstack/issues"
-  },
-  "homepage": "https://github.com/lvarayut/relay-fullstack",
   "devDependencies": {
     "babel-plugin-relay": "dev",
     "eslint": "^4.11.0",
@@ -85,6 +77,7 @@
     "html-webpack-plugin": "^2.30.1",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
+    "pg": "^7.4.1",
     "postcss-loader": "^2.0.9",
     "precss": "^2.0.0",
     "prop-types": "^15.6.0",
@@ -96,6 +89,7 @@
     "react-relay": "^1.4.1",
     "react-router": "^3.2.0",
     "react-router-relay": "^0.14.0",
+    "sequelize": "^4.33.4",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
