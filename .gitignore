@@ -32,6 +32,7 @@ flow-typed/npm/
 /out/
 .idea/
 .idea_modules/
+.idea/workspace.xml
 
 # --------------------
 # Vim Files
