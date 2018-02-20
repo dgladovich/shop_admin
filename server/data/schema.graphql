@@ -69,6 +69,23 @@ type PageInfo {
   endCursor: String
 }
 
+# Product to sold
+type Product implements Node {
+  # The ID of an object
+  id: ID!
+
+  # Products name
+  name: String
+
+  # Product price
+  price: Int
+}
+
+# Store where products locate
+type ProductRoot {
+  product: [Product]
+}
+
 type Query {
   # Fetches an object given its ID
   node(
@@ -76,6 +93,7 @@ type Query {
     id: ID!
   ): Node
   viewer: User
+  products: ProductRoot
 }
 
 # A person who uses our app

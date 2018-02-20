@@ -1,7 +1,6 @@
 // @flow
 import DataLoader from 'dataloader';
-
-
+import db from '../models';
 
 class User {
   id: string;
@@ -52,6 +51,10 @@ function getUser(id: string) {
   return id === lvarayut.id ? lvarayut : null;
 }
 
+function getProducts() {
+  return db.Product.findAll();
+}
+
 function getFeature(id: string) {
   return features.find(w => w.id === id);
 }
@@ -71,6 +74,8 @@ function fetchFeature(id) {
     resolve(getFeature(id));
   });
 }
+
+
 
 const userLoader = new DataLoader(
   ids => Promise.all(ids.map(fetchUser))
@@ -97,5 +102,6 @@ export {
   User,
   Feature,
   getFeatures,
+  getProducts,
   addFeature
 };
