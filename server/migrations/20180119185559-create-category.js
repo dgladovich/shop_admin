@@ -17,9 +17,6 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
-      created_at: {
-        type: Sequelize.DATE
-      },
       description: {
         type: Sequelize.STRING
       },

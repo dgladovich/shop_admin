@@ -14,9 +14,6 @@ module.exports = {
       product_id: {
         type: Sequelize.INTEGER
       },
-      created_at: {
-        type: Sequelize.DATE
-      },
       status: {
         type: Sequelize.STRING
       },

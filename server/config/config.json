@@ -1,15 +1,15 @@
 {
   "development": {
-    "username": "shop_admin",
+    "username": "dev_shop_user",
     "password": "lovesaveworld",
-    "database": "portfolioshop",
+    "database": "dev_shop",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "shop_admin",
+    "username": "test_user",
     "password": "lovesaveworld",
-    "database": "portfolioshop",
+    "database": "test_shop",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
@@ -21,3 +21,4 @@
     "dialect": "postgres"
   }
 }
+
