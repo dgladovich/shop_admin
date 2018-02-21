@@ -13,12 +13,14 @@ export default class Navbar extends React.Component {
           <Navigation>
             <Link to='/signup'>Sign up</Link>
             <Link to='/login'>Login</Link>
+            <Link to='/products'>Products</Link>
           </Navigation>
         </Header>
         <Drawer title={<Link to='/' style={{ fontSize: '1.5em' }}>{title}</Link>} className='mdl-layout--small-screen-only'>
           <Navigation>
             <Link to='/signup'>Sign up</Link>
             <Link to='/login'>Login</Link>
+            <Link to='/products'>Products</Link>
           </Navigation>
         </Drawer>
       </Layout>

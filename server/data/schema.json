@@ -54,17 +54,13 @@
               "deprecationReason": null
             },
             {
-              "name": "products",
+              "name": "productRoot",
               "description": null,
               "args": [],
               "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Product",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "ProductRoot",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -472,28 +468,39 @@
         },
         {
           "kind": "OBJECT",
-          "name": "Product",
-          "description": "Product to sold",
+          "name": "ProductRoot",
+          "description": "Root of products array",
           "fields": [
             {
-              "name": "id",
-              "description": "The ID of an object",
+              "name": "products",
+              "description": null,
               "args": [],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
+                  "kind": "OBJECT",
+                  "name": "Product",
                   "ofType": null
                 }
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Product",
+          "description": "Feature integrated in our starter kit",
+          "fields": [
             {
               "name": "name",
-              "description": "Products name",
+              "description": "Name of the feature",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -505,7 +512,7 @@
             },
             {
               "name": "price",
-              "description": "Product price",
+              "description": "Description of the feature",
               "args": [],
               "type": {
                 "kind": "SCALAR",

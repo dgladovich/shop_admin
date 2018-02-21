@@ -6,7 +6,6 @@ import { Grid, Cell, Card, CardTitle, CardText, CardActions, Button } from 'reac
 import Page from '../Page/PageComponent';
 import styles from './Feature.scss';
 import AddFeature from './AddFeatureComponent';
-
 export default class Feature extends React.Component {
   static propTypes = {
     viewer: PropTypes.object.isRequired,

@@ -93,22 +93,6 @@ const userType = new GraphQLObjectType({
     interfaces: [nodeInterface]
 });
 
-const productType = new GraphQLObjectType({
-    name: 'Product',
-    description: 'Product to sold',
-    fields: ()=>({
-        id: globalIdField('Product'),
-        name: {
-            type: GraphQLString,
-            description: 'Products name'
-        },
-        price: {
-            type: GraphQLInt,
-            description: 'Product price'
-        }
-
-    }),
-});
 
 
 const featureType = new GraphQLObjectType({
@@ -128,6 +112,31 @@ const featureType = new GraphQLObjectType({
             type: GraphQLString,
             description: 'Url of the feature'
         },
+    }),
+});
+const productType = new GraphQLObjectType({
+    name: 'Product',
+    description: 'Feature integrated in our starter kit',
+    fields: () => ({
+        name: {
+            type: GraphQLString,
+            description: 'Name of the feature'
+        },
+        price: {
+            type: GraphQLInt,
+            description: 'Description of the feature'
+        },
+    }),
+});
+
+const productRoot = new GraphQLObjectType({
+    name: 'ProductRoot',
+    description: 'Root of products array',
+    fields: () => ({
+        products: {
+            type: new GraphQLList(productType),
+            resolve: resolver( db.Product )
+        }
     }),
 });
 
@@ -181,11 +190,10 @@ const queryType = new GraphQLObjectType({
             type: userType,
             resolve: () => userLoader.load('1')
         },
-        products: {
-            type: new GraphQLList(productType),
+        productRoot: {
+            type: productRoot,
             resolve: resolver(db.Product)
         }
-
     })
 });
 

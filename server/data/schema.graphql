@@ -69,16 +69,18 @@ type PageInfo {
   endCursor: String
 }
 
-# Product to sold
+# Feature integrated in our starter kit
 type Product {
-  # The ID of an object
-  id: ID!
-
-  # Products name
+  # Name of the feature
   name: String
 
-  # Product price
+  # Description of the feature
   price: Int
+}
+
+# Root of products array
+type ProductRoot {
+  products: [Product]
 }
 
 type Query {
@@ -88,7 +90,7 @@ type Query {
     id: ID!
   ): Node
   viewer: User
-  products: [Product]
+  productRoot: ProductRoot
 }
 
 # A person who uses our app
