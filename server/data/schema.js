@@ -55,12 +55,6 @@ const {nodeInterface, nodeField} = nodeDefinitions(
             default:
                 return null;
         }
-/*        if (type === 'User') {
-            return userLoader.load(id);
-        } else if (type === 'Feature') {
-            return featureLoader.load(id);
-        }
-        return null;*/
     },
     (obj) => {
         if (obj instanceof User) {
@@ -114,19 +108,8 @@ const productType = new GraphQLObjectType({
         }
 
     }),
-    interfaces: [nodeInterface]
-})
-
-const shopRoot = new GraphQLObjectType({
-    name: 'ProductRoot',
-    description: 'Store where products locate',
-    fields: {
-        product: {
-            type: new GraphQLList(productType),
-        }
-    },
-    interface: [nodeInterface]
 });
+
 
 const featureType = new GraphQLObjectType({
     name: 'Feature',
@@ -146,7 +129,6 @@ const featureType = new GraphQLObjectType({
             description: 'Url of the feature'
         },
     }),
-    interfaces: [nodeInterface]
 });
 
 /**
@@ -200,7 +182,7 @@ const queryType = new GraphQLObjectType({
             resolve: () => userLoader.load('1')
         },
         products: {
-            type: shopRoot,
+            type: new GraphQLList(productType),
             resolve: resolver(db.Product)
         }
 

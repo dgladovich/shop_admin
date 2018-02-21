@@ -12,7 +12,7 @@ type AddFeaturePayload {
 }
 
 # Feature integrated in our starter kit
-type Feature implements Node {
+type Feature {
   # The ID of an object
   id: ID!
 
@@ -70,7 +70,7 @@ type PageInfo {
 }
 
 # Product to sold
-type Product implements Node {
+type Product {
   # The ID of an object
   id: ID!
 
@@ -81,11 +81,6 @@ type Product implements Node {
   price: Int
 }
 
-# Store where products locate
-type ProductRoot {
-  product: [Product]
-}
-
 type Query {
   # Fetches an object given its ID
   node(
@@ -93,7 +88,7 @@ type Query {
     id: ID!
   ): Node
   viewer: User
-  products: ProductRoot
+  products: [Product]
 }
 
 # A person who uses our app

@@ -51,9 +51,6 @@ function getUser(id: string) {
   return id === lvarayut.id ? lvarayut : null;
 }
 
-function getProducts() {
-  return db.Product.findAll();
-}
 
 function getFeature(id: string) {
   return features.find(w => w.id === id);
@@ -102,6 +99,5 @@ export {
   User,
   Feature,
   getFeatures,
-  getProducts,
   addFeature
 };
