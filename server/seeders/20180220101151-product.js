@@ -11,8 +11,8 @@ for (let i = 0; i < 50; i++) {
     products.push({
         name: faker.commerce.product(),
         price: faker.commerce.price(),
-        createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-        updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+        created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+        updated_at: moment().format('YYYY-MM-DD HH:mm:ss'),
     })
 }
 module.exports = {

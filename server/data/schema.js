@@ -45,6 +45,7 @@ import db from '../models';
 const {nodeInterface, nodeField} = nodeDefinitions(
     (globalId) => {
         const {type, id} = fromGlobalId(globalId);
+        console.log('Type is MF:', type)
         switch (type) {
             case 'User':
                 return userLoader.load(id);

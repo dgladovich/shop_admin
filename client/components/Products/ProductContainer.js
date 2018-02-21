@@ -8,7 +8,7 @@ import ProductComponent from './ProductComponent';
 
 export default createFragmentContainer(ProductComponent, {
     products: graphql`
-        fragment ProductContainer_viewer on ProductRoot {
+        fragment ProductContainer_products on ProductRoot {
             products{
                 name,
                 price
