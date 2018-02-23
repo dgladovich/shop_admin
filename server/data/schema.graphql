@@ -69,18 +69,40 @@ type PageInfo {
   endCursor: String
 }
 
-# Feature integrated in our starter kit
+# Product 
 type Product {
-  # Name of the feature
+  # Name of the product
   name: String
 
-  # Description of the feature
+  # Description of the pruduct
   price: Int
+}
+
+# A connection to a list of items.
+type ProductConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ProductEdge]
+}
+
+# An edge in a connection.
+type ProductEdge {
+  # The item at the end of the edge
+  node: Product
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 # Root of products array
 type ProductRoot {
-  products: [Product]
+  # The ID of an object
+  id: ID!
+
+  # Products that I have
+  products: ProductConnection
 }
 
 type Query {

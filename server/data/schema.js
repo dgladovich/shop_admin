@@ -45,7 +45,6 @@ import db from '../models';
 const {nodeInterface, nodeField} = nodeDefinitions(
     (globalId) => {
         const {type, id} = fromGlobalId(globalId);
-        console.log('Type is MF:', type)
         switch (type) {
             case 'User':
                 return userLoader.load(id);
@@ -117,15 +116,15 @@ const featureType = new GraphQLObjectType({
 });
 const productType = new GraphQLObjectType({
     name: 'Product',
-    description: 'Feature integrated in our starter kit',
+    description: 'Product ',
     fields: () => ({
         name: {
             type: GraphQLString,
-            description: 'Name of the feature'
+            description: 'Name of the product'
         },
         price: {
             type: GraphQLInt,
-            description: 'Description of the feature'
+            description: 'Description of the pruduct'
         },
     }),
 });
@@ -134,11 +133,12 @@ const productRoot = new GraphQLObjectType({
     name: 'ProductRoot',
     description: 'Root of products array',
     fields: () => ({
+        id: globalIdField('Products'),
         products: {
-            type: new GraphQLList(productType),
-            resolve: resolver( db.Product )
-        }
-    }),
+            type: productConnection,
+            description: 'Products that I have',
+        },
+    })
 });
 
 /**
@@ -147,6 +147,11 @@ const productRoot = new GraphQLObjectType({
 const {connectionType: featureConnection, edgeType: featureEdge} = connectionDefinitions({
     name: 'Feature',
     nodeType: featureType
+});
+
+const {connectionType: productConnection, edgeType: productEdge} = connectionDefinitions({
+    name: 'Product',
+    nodeType: productType
 });
 
 /**
@@ -193,7 +198,7 @@ const queryType = new GraphQLObjectType({
         },
         productRoot: {
             type: productRoot,
-            resolve: resolver(db.Product)
+            resolve: resolver(db.Product, {list: true})
         }
     })
 });
