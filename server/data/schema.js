@@ -135,8 +135,9 @@ const productRoot = new GraphQLObjectType({
     fields: () => ({
         id: globalIdField('Products'),
         products: {
-            type: productConnection,
+            type: new GraphQLList(productType),
             description: 'Products that I have',
+            resolve: resolver( db.Product, {list: true} )
         },
     })
 });
@@ -198,7 +199,7 @@ const queryType = new GraphQLObjectType({
         },
         productRoot: {
             type: productRoot,
-            resolve: resolver(db.Product, {list: true})
+            resolve: resolver( db.Product )
         }
     })
 });

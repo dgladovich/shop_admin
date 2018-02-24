@@ -78,31 +78,13 @@ type Product {
   price: Int
 }
 
-# A connection to a list of items.
-type ProductConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # A list of edges.
-  edges: [ProductEdge]
-}
-
-# An edge in a connection.
-type ProductEdge {
-  # The item at the end of the edge
-  node: Product
-
-  # A cursor for use in pagination
-  cursor: String!
-}
-
 # Root of products array
 type ProductRoot {
   # The ID of an object
   id: ID!
 
   # Products that I have
-  products: ProductConnection
+  products: [Product]
 }
 
 type Query {
