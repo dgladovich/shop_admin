@@ -29,9 +29,11 @@ import {
     Feature,
     userLoader,
     featureLoader,
+    productLoader,
     getFeatures,
     getProducts,
-    addFeature
+    addFeature,
+    addProduct,
 } from './database';
 import {resolver} from 'graphql-sequelize';
 import db from '../models';
@@ -52,6 +54,8 @@ const {nodeInterface, nodeField} = nodeDefinitions(
             case 'Feature':
                 return featureLoader.load(id);
                 break;
+            case 'Product':
+                return productLoader.load(id);
             default:
                 return null;
         }
@@ -80,6 +84,11 @@ const userType = new GraphQLObjectType({
             description: 'Features that I have',
             args: connectionArgs,
             resolve: (source, args) => connectionFromPromisedArray(featureLoader.loadMany(source.features), args)
+        },
+        products: {
+            type: new GraphQLList(productType),
+            description: 'Products that I have',
+            resolve: resolver( db.Product )
         },
         username: {
             type: GraphQLString,
@@ -183,6 +192,28 @@ const addFeatureMutation = mutationWithClientMutationId({
 
     mutateAndGetPayload: ({name, description, url}) => addFeature(name, description, url)
 });
+const addProductMutation = mutationWithClientMutationId({
+    name: 'AddProduct',
+    inputFields: {
+        name: {type: new GraphQLNonNull(GraphQLString)},
+        price: {type: new GraphQLNonNull(GraphQLInt)},
+    },
+
+    outputFields: {
+        product: {
+            type: productType,
+            resolve: (obj) => {
+                console.log('Object of product mutation:', obj)
+            }
+        },
+        viewer: {
+            type: userType,
+            resolve: () => userLoader.load('1')
+        }
+    },
+
+    mutateAndGetPayload: ({name, price}) => addProduct(name, price)
+});
 
 /**
  * This is the type that will be the root of our query,
@@ -211,7 +242,8 @@ const queryType = new GraphQLObjectType({
 const mutationType = new GraphQLObjectType({
     name: 'Mutation',
     fields: () => ({
-        addFeature: addFeatureMutation
+        addFeature: addFeatureMutation,
+        addProduct: addProductMutation
         // Add your own mutations here
     })
 });

@@ -91,7 +91,8 @@ function fetchFeature(id) {
 }
 
 function fetchProducts(){
-    console.log(db.Product.findAll());
+    console.log('fetching products')
+    return db.Product.findAll()
 }
 
 const userLoader = new DataLoader(
@@ -100,6 +101,12 @@ const userLoader = new DataLoader(
 
 const featureLoader = new DataLoader(
     ids => Promise.all(ids.map(fetchFeature))
+);
+
+const productLoader = new DataLoader(
+    () => {
+        return fetchProducts()
+    }
 );
 
 let curFeatures = 9;
@@ -113,12 +120,22 @@ function addFeature(name: string, description: string, url: string) {
     curFeatures += 1;
     return newFeature;
 }
+function addProduct(name: string, price: number){
+    return db.Product.create({
+        name: name,
+        price: price
+    }).then((product)=>{
+        return product;
+    })
+}
 
 export {
     userLoader,
     featureLoader,
+    productLoader,
     User,
     Feature,
     getFeatures,
-    addFeature
+    addFeature,
+    addProduct
 };

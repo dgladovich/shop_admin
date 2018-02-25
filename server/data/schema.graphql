@@ -11,6 +11,18 @@ type AddFeaturePayload {
   clientMutationId: String
 }
 
+input AddProductInput {
+  name: String!
+  price: Int!
+  clientMutationId: String
+}
+
+type AddProductPayload {
+  product: Product
+  viewer: User
+  clientMutationId: String
+}
+
 # Feature integrated in our starter kit
 type Feature {
   # The ID of an object
@@ -46,6 +58,7 @@ type FeatureEdge {
 
 type Mutation {
   addFeature(input: AddFeatureInput!): AddFeaturePayload
+  addProduct(input: AddProductInput!): AddProductPayload
 }
 
 # An object with an ID
@@ -104,6 +117,9 @@ type User implements Node {
 
   # Features that I have
   features(after: String, first: Int, before: String, last: Int): FeatureConnection
+
+  # Products that I have
+  products: [Product]
 
   # Users's username
   username: String
