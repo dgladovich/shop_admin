@@ -135,6 +135,14 @@ const productType = new GraphQLObjectType({
             type: GraphQLInt,
             description: 'Description of the pruduct'
         },
+        created_at: {
+            type: GraphQLString,
+            description: 'Date where product created'
+        },
+        updadet_at: {
+            type: GraphQLString,
+            description: 'Date where product updated'
+        }
     }),
 });
 
@@ -197,13 +205,15 @@ const addProductMutation = mutationWithClientMutationId({
     inputFields: {
         name: {type: new GraphQLNonNull(GraphQLString)},
         price: {type: new GraphQLNonNull(GraphQLInt)},
+        created_at: {type: new GraphQLNonNull(GraphQLString)},
+        updated_at: {type: new GraphQLNonNull(GraphQLString)},
     },
 
     outputFields: {
         product: {
             type: productType,
             resolve: (obj) => {
-                console.log('Object of product mutation:', obj)
+                return obj.dataValues;
             }
         },
         viewer: {
@@ -244,7 +254,6 @@ const mutationType = new GraphQLObjectType({
     fields: () => ({
         addFeature: addFeatureMutation,
         addProduct: addProductMutation
-        // Add your own mutations here
     })
 });
 

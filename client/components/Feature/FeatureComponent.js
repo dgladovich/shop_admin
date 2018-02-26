@@ -13,6 +13,7 @@ export default class Feature extends React.Component {
   };
 
   render() {
+      console.log('shit happens')
     return (
       <div>
         <Page heading='Integrated with'>

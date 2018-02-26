@@ -91,7 +91,6 @@ function fetchFeature(id) {
 }
 
 function fetchProducts(){
-    console.log('fetching products')
     return db.Product.findAll()
 }
 
@@ -120,10 +119,12 @@ function addFeature(name: string, description: string, url: string) {
     curFeatures += 1;
     return newFeature;
 }
-function addProduct(name: string, price: number){
+function addProduct(name: string, price: number, created_at: string, updated_at: string){
     return db.Product.create({
         name: name,
-        price: price
+        price: price,
+        created_at: created_at,
+        updated_at: created_at,
     }).then((product)=>{
         return product;
     })
