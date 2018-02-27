@@ -99,7 +99,10 @@ const userLoader = new DataLoader(
 );
 
 const featureLoader = new DataLoader(
-    ids => Promise.all(ids.map(fetchFeature))
+    ids => {
+        console.log(ids)
+        return Promise.all(ids.map(fetchFeature))
+    }
 );
 
 const productLoader = new DataLoader(

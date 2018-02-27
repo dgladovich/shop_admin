@@ -16,9 +16,9 @@ export default class AddProduct extends React.Component {
         viewer: PropTypes.object.isRequired,
         relay: PropTypes.object.isRequired,
     };
-
-    onSelect = (e: {label: string, value: string}) => {
-        this.setState({ form: { dropdown: e } });
+    state: {
+        name: '',
+        price: 0,
     }
 
     addProduct = () => {
@@ -29,8 +29,9 @@ export default class AddProduct extends React.Component {
         AddProductMutation.commit(
             this.props.relay.environment,
             value,
-            this.props.viewer.__dataID__,
+            this.props.viewer.id,
         );
+        console.log(this)
     }
 
     render() {

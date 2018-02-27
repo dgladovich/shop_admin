@@ -16,6 +16,7 @@ import {
 import {
     connectionArgs,
     connectionDefinitions,
+    connectionFromArray,
     connectionFromPromisedArray,
     fromGlobalId,
     globalIdField,
@@ -65,6 +66,8 @@ const {nodeInterface, nodeField} = nodeDefinitions(
             return userType;
         } else if (obj instanceof Feature) {
             return featureType;
+        } else if (obj instanceof Product) {
+            return productType;
         }
         return null;
     }
@@ -88,7 +91,13 @@ const userType = new GraphQLObjectType({
         products: {
             type: new GraphQLList(productType),
             description: 'Products that I have',
-            resolve: resolver( db.Product )
+            resolve: resolver(db.Product)
+        },
+        mproducts: {
+            type: productConnection,
+            description: 'New modified product shit',
+            args: connectionArgs,
+            resolve: (source, args) => connectionFromPromisedArray(db.Product.findAll(), args)
         },
         username: {
             type: GraphQLString,
@@ -96,12 +105,10 @@ const userType = new GraphQLObjectType({
         },
         website: {
             type: GraphQLString,
-            description: 'User\'s website'
         }
     }),
     interfaces: [nodeInterface]
 });
-
 
 
 const featureType = new GraphQLObjectType({
@@ -127,6 +134,7 @@ const productType = new GraphQLObjectType({
     name: 'Product',
     description: 'Product ',
     fields: () => ({
+        id: globalIdField('Product'),
         name: {
             type: GraphQLString,
             description: 'Name of the product'
@@ -154,7 +162,7 @@ const productRoot = new GraphQLObjectType({
         products: {
             type: new GraphQLList(productType),
             description: 'Products that I have',
-            resolve: resolver( db.Product, {list: true} )
+            resolve: resolver(db.Product, {list: true})
         },
     })
 });
@@ -210,10 +218,11 @@ const addProductMutation = mutationWithClientMutationId({
     },
 
     outputFields: {
-        product: {
-            type: productType,
+        productEdge: {
+            type: productEdge,
             resolve: (obj) => {
-                return obj.dataValues;
+                const cursor = cursorForObjectInConnection(getFeatures(), obj);
+                return {node: obj.dataValues, cursor: cursor}
             }
         },
         viewer: {
@@ -240,7 +249,7 @@ const queryType = new GraphQLObjectType({
         },
         productRoot: {
             type: productRoot,
-            resolve: resolver( db.Product )
+            resolve: resolver(db.Product)
         }
     })
 });

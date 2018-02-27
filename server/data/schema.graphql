@@ -20,7 +20,7 @@ input AddProductInput {
 }
 
 type AddProductPayload {
-  product: Product
+  productEdge: ProductEdge
   viewer: User
   clientMutationId: String
 }
@@ -86,6 +86,9 @@ type PageInfo {
 
 # Product 
 type Product {
+  # The ID of an object
+  id: ID!
+
   # Name of the product
   name: String
 
@@ -97,6 +100,24 @@ type Product {
 
   # Date where product updated
   updadet_at: String
+}
+
+# A connection to a list of items.
+type ProductConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ProductEdge]
+}
+
+# An edge in a connection.
+type ProductEdge {
+  # The item at the end of the edge
+  node: Product
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 # Root of products array
@@ -129,9 +150,10 @@ type User implements Node {
   # Products that I have
   products: [Product]
 
+  # New modified product shit
+  mproducts(after: String, first: Int, before: String, last: Int): ProductConnection
+
   # Users's username
   username: String
-
-  # User's website
   website: String
 }

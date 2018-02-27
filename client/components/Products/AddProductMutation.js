@@ -4,9 +4,11 @@ import { graphql, commitMutation, Environment } from 'react-relay/compat';
 const mutation = graphql`
     mutation AddProductMutation($input: AddProductInput!) {
         addProduct(input: $input) {
-            product{
-                name,
-                price
+            productEdge {
+                node {
+                    name
+                    price
+                }
             }
             viewer {
                 id
@@ -21,6 +23,7 @@ function getConfigs(viewerId) {
         parentName: 'viewer',
         parentID: viewerId,
         connectionName: 'products',
+        edgeName: 'product',
         rangeBehaviors: {
             '': 'append',
         },
@@ -28,7 +31,6 @@ function getConfigs(viewerId) {
 }
 
 function getOptimisticResponse(data, viewerId) {
-    console.log('first row', data, viewerId)
     return {
         addProduct: {
             products: data,
@@ -44,7 +46,6 @@ function commit(
     data: Object,
     viewerId: number
 ) {
-    console.log('viewerId:', viewerId)
     commitMutation(
         environment,
         {

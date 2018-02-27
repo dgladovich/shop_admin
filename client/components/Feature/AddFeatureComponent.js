@@ -45,6 +45,7 @@ export default class AddFeature extends React.Component {
       inputData[value],
       this.props.viewer.id,
     );
+    console.log(this)
   }
 
   render() {
