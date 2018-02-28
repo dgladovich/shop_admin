@@ -222,6 +222,7 @@ const addProductMutation = mutationWithClientMutationId({
             type: productEdge,
             resolve: (obj) => {
                 const cursor = cursorForObjectInConnection(getFeatures(), obj);
+                console.log(cursor)
                 return {node: obj.dataValues, cursor: cursor}
             }
         },

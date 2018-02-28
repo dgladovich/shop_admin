@@ -33,7 +33,9 @@ function getConfigs(viewerId) {
 function getOptimisticResponse(data, viewerId) {
     return {
         addProduct: {
-            products: data,
+            productEdge: {
+                node: data
+            },
             viewer: {
                 id: viewerId
             }
