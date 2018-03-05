@@ -22,12 +22,14 @@ import {
     globalIdField,
     mutationWithClientMutationId,
     nodeDefinitions,
+    offsetToCursor,
     cursorForObjectInConnection
 } from 'graphql-relay';
 
 import {
     User,
     Feature,
+    Product,
     userLoader,
     featureLoader,
     productLoader,
@@ -220,10 +222,12 @@ const addProductMutation = mutationWithClientMutationId({
     outputFields: {
         productEdge: {
             type: productEdge,
-            resolve: (obj) => {
-                const cursor = cursorForObjectInConnection(getFeatures(), obj);
-                console.log(cursor)
-                return {node: obj.dataValues, cursor: cursor}
+            resolve: async (obj) => {
+                let products = await db.Product.findAll({raw: true});
+                let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
+                //const cursorId = cursorForObjectInConnection(productsObjects, object);
+                const cursorId = offsetToCursor(products.length);
+                return {node: obj.dataValues, cursor: cursorId}
             }
         },
         viewer: {

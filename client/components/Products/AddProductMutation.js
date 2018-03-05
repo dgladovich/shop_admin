@@ -4,6 +4,7 @@ import { graphql, commitMutation, Environment } from 'react-relay/compat';
 const mutation = graphql`
     mutation AddProductMutation($input: AddProductInput!) {
         addProduct(input: $input) {
+            __typename
             productEdge {
                 node {
                     name
@@ -21,7 +22,7 @@ function getConfigs(viewerId) {
     return [{
         type: 'RANGE_ADD',
         parentName: 'viewer',
-        parentID: viewerId,
+        parentID: viewerId,  
         connectionName: 'products',
         edgeName: 'product',
         rangeBehaviors: {

@@ -74,8 +74,8 @@ function getFeatures() {
     return features;
 }
 
-function getProducts() {
-    return features;
+function getProducts(d) {
+
 }
 
 function fetchUser(id) {
@@ -91,6 +91,7 @@ function fetchFeature(id) {
 }
 
 function fetchProducts(){
+
     return db.Product.findAll()
 }
 
@@ -139,7 +140,9 @@ export {
     productLoader,
     User,
     Feature,
+    Product,
     getFeatures,
+    getProducts,
     addFeature,
     addProduct
 };
