@@ -147,11 +147,8 @@ type User implements Node {
   # Features that I have
   features(after: String, first: Int, before: String, last: Int): FeatureConnection
 
-  # Products that I have
-  products: [Product]
-
   # New modified product shit
-  mproducts(after: String, first: Int, before: String, last: Int): ProductConnection
+  products(after: String, first: Int, before: String, last: Int): ProductConnection
 
   # Users's username
   username: String

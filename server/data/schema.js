@@ -91,11 +91,6 @@ const userType = new GraphQLObjectType({
             resolve: (source, args) => connectionFromPromisedArray(featureLoader.loadMany(source.features), args)
         },
         products: {
-            type: new GraphQLList(productType),
-            description: 'Products that I have',
-            resolve: resolver(db.Product)
-        },
-        mproducts: {
             type: productConnection,
             description: 'New modified product shit',
             args: connectionArgs,

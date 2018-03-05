@@ -33,6 +33,7 @@ function getConfigs(viewerId) {
 }
 
 function getOptimisticResponse(data, viewerId) {
+  console.log(data)
   return {
     addFeature: {
       featureEdge: {

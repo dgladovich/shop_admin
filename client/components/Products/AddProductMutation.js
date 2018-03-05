@@ -19,12 +19,13 @@ const mutation = graphql`
 `;
 
 function getConfigs(viewerId) {
+    console.log(viewerId)
     return [{
         type: 'RANGE_ADD',
         parentName: 'viewer',
         parentID: viewerId,  
         connectionName: 'products',
-        edgeName: 'product',
+        edgeName: 'productEdge',
         rangeBehaviors: {
             '': 'append',
         },
@@ -32,6 +33,7 @@ function getConfigs(viewerId) {
 }
 
 function getOptimisticResponse(data, viewerId) {
+    console.log(data)
     return {
         addProduct: {
             productEdge: {
