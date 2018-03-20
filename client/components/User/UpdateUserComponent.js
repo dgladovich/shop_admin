@@ -3,16 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Cell, Button, Textfield } from 'react-mdl';
 import Page from '../Page/PageComponent';
-import {MDLSelectField} from 'react-mdl-select';
-import AddProductMutation from './AddProductMutation';
+import UpdateUserMutation from './UpdateUserMutation';
 
-const inputData = {
-    nodejs: { name: 'Nodejs', url: 'https://nodejs.org', description: 'Node.js® is a JavaScript runtime built on Chrome\'s V8 JavaScript engine' },
-    html: { name: 'Html5', url: 'https://www.w3.org/TR/html5/', description: '5th major revision of the core language of the World Wide Web' },
-    css: { name: 'css', url: 'https://www.w3.org/Style/CSS/Overview.en.html', description: 'Cascading Style Sheets (CSS) is a simple mechanism for adding style to Web documents.' }
-};
 
-export default class AddProduct extends React.Component {
+export default class UpdateUser extends React.Component {
     static propTypes = {
         viewer: PropTypes.object.isRequired,
         relay: PropTypes.object.isRequired,
@@ -23,10 +17,6 @@ export default class AddProduct extends React.Component {
     }
 
     addProduct = () => {
-        let value = Object.assign(this.state, {
-            created_at: '2018-02-12',
-            updated_at: '2018-02-12',
-        });
         AddProductMutation.commit(
             this.props.relay.environment,
             value,
@@ -54,17 +44,6 @@ export default class AddProduct extends React.Component {
                             error="Input is not a number!"
                             label="Number..."
                             style={{width: '200px'}}
-                        />
-                        <MDLSelectField
-                            label="Category"
-                            value={{name: 'Main shit', id: 34}}
-                            autocomplete
-                            floatingLabel
-                            onChange={() => {
-                            }}
-                            items={[{name: 'shit one', id: 123}, {name: 'shit two', id: 12}]}
-                            keyField="id"
-                            valueField="name"
                         />
                     </Cell>
                     <Cell col={3} style={{ textAlign: 'center' }}>

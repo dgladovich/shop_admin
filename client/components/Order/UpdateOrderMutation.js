@@ -2,13 +2,14 @@
 import { graphql, commitMutation, Environment } from 'react-relay/compat';
 
 const mutation = graphql`
-    mutation AddProductMutation($input: AddProductInput!) {
-        addProduct(input: $input) {
-            __typename
-            productEdge {
+    mutation UpdateOrderMutation($input: UpdateOrderInput!) {
+        updateOrder(input: $input) {
+            orderEdge {
+                __typename
                 node {
                     name
-                    price
+                    description
+                    url
                 }
             }
             viewer {
@@ -20,21 +21,17 @@ const mutation = graphql`
 
 function getConfigs(viewerId) {
     return [{
-        type: 'RANGE_ADD',
-        parentName: 'viewer',
-        parentID: viewerId,  
-        connectionName: 'products',
-        edgeName: 'productEdge',
-        rangeBehaviors: {
-            '': 'append',
+        type: 'FIELDS_CHANGE',
+        fieldIDs: {
+            orders: this.props.order_id,
         },
     }];
 }
 
 function getOptimisticResponse(data, viewerId) {
     return {
-        addProduct: {
-            productEdge: {
+        updateOrder: {
+            orderEdge: {
                 node: data
             },
             viewer: {

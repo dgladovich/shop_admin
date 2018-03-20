@@ -107,6 +107,76 @@ const userType = new GraphQLObjectType({
     interfaces: [nodeInterface]
 });
 
+const orderType = new GraphQLObjectType({
+    name: 'Order',
+    description: 'Order which in queue',
+    fields: () => ({
+        id: globalIdField('Order'),
+        products: {
+            type: productConnection,
+            description: 'Products, which user ordered',
+            args: connectionArgs,
+            resolve: (source, args) => connectionFromPromisedArray(db.Product.findAll(), args)
+        },
+        user: {
+            type: userType,
+            description: 'Users\'s username'
+        },
+        website: {
+            type: GraphQLString,
+        },
+        delivery_date: {
+            type: GraphQLString,
+        },
+        address: {
+            type: GraphQLString
+        },
+        delivery_service: {
+            type: GraphQLString
+        },
+        payment: {
+            type: GraphQLString
+        },
+        status: {
+            type: GraphQLString
+        },
+        total_price: {
+            type: GraphQLFloat
+        },
+        createdAt: {
+            type: GraphQLString
+        },
+        updatedAt: {
+            type: GraphQLString
+        }
+    }),
+    interfaces: [nodeInterface]
+});
+const orderProductType = new GraphQLObjectType({
+    name: 'OrderProducts',
+    description: 'Order which in queue',
+    fields: () => ({
+        id: globalIdField('OrderProduct'),
+        product_id: {
+            type: GraphQLInt
+        },
+        product: {
+            type: productType
+
+        },
+        order_id: {
+            type: GraphQLInt
+        },
+        createdAt: {
+            type: GraphQLString
+        },
+        updatedAt: {
+            type: GraphQLString
+        }
+    }),
+    interfaces: [nodeInterface]
+});
+
 
 const featureType = new GraphQLObjectType({
     name: 'Feature',
@@ -233,6 +303,64 @@ const addProductMutation = mutationWithClientMutationId({
 
     mutateAndGetPayload: ({name, price}) => addProduct(name, price)
 });
+const updateOrderMutation = mutationWithClientMutationId({
+    name: 'UpdateOrder',
+    inputFields: {
+        delivery_date: {type: new GraphQLNonNull(GraphQLString)},
+        address: {type: new GraphQLNonNull(GraphQLInt)},
+        delivery_service: {type: new GraphQLNonNull(GraphQLString)},
+        payment: {type: new GraphQLNonNull(GraphQLString)},
+        status: {type: new GraphQLNonNull(GraphQLString)},
+    },
+
+    outputFields: {
+        productEdge: {
+            type: productEdge,
+            resolve: async (obj) => {
+                let products = await db.Product.findAll({raw: true});
+                let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
+                //const cursorId = cursorForObjectInConnection(productsObjects, object);
+                const cursorId = offsetToCursor(products.length);
+                return {node: obj.dataValues, cursor: cursorId}
+            }
+        },
+        viewer: {
+            type: userType,
+            resolve: () => userLoader.load('1')
+        }
+    },
+
+    mutateAndGetPayload: ({name, price}) => addProduct(name, price)
+});
+const addCategoryMutation = mutationWithClientMutationId({
+    name: 'AddCategory',
+    inputFields: {
+        delivery_date: {type: new GraphQLNonNull(GraphQLString)},
+        address: {type: new GraphQLNonNull(GraphQLInt)},
+        delivery_service: {type: new GraphQLNonNull(GraphQLString)},
+        payment: {type: new GraphQLNonNull(GraphQLString)},
+        status: {type: new GraphQLNonNull(GraphQLString)},
+    },
+
+    outputFields: {
+        productEdge: {
+            type: productEdge,
+            resolve: async (obj) => {
+                let products = await db.Product.findAll({raw: true});
+                let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
+                //const cursorId = cursorForObjectInConnection(productsObjects, object);
+                const cursorId = offsetToCursor(products.length);
+                return {node: obj.dataValues, cursor: cursorId}
+            }
+        },
+        viewer: {
+            type: userType,
+            resolve: () => userLoader.load('1')
+        }
+    },
+
+    mutateAndGetPayload: ({name, price}) => addProduct(name, price)
+});
 
 /**
  * This is the type that will be the root of our query,
@@ -262,7 +390,9 @@ const mutationType = new GraphQLObjectType({
     name: 'Mutation',
     fields: () => ({
         addFeature: addFeatureMutation,
-        addProduct: addProductMutation
+        addProduct: addProductMutation,
+        addCategory: addCategoryMutation,
+        updateOrder: updateOrderMutation
     })
 });
 

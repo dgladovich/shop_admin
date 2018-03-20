@@ -1,3 +1,18 @@
+input AddCategoryInput {
+  delivery_date: String!
+  address: Int!
+  delivery_service: String!
+  payment: String!
+  status: String!
+  clientMutationId: String
+}
+
+type AddCategoryPayload {
+  productEdge: ProductEdge
+  viewer: User
+  clientMutationId: String
+}
+
 input AddFeatureInput {
   name: String!
   description: String!
@@ -61,6 +76,8 @@ type FeatureEdge {
 type Mutation {
   addFeature(input: AddFeatureInput!): AddFeaturePayload
   addProduct(input: AddProductInput!): AddProductPayload
+  addCategory(input: AddCategoryInput!): AddCategoryPayload
+  updateOrder(input: UpdateOrderInput!): UpdateOrderPayload
 }
 
 # An object with an ID
@@ -137,6 +154,21 @@ type Query {
   ): Node
   viewer: User
   productRoot: ProductRoot
+}
+
+input UpdateOrderInput {
+  delivery_date: String!
+  address: Int!
+  delivery_service: String!
+  payment: String!
+  status: String!
+  clientMutationId: String
+}
+
+type UpdateOrderPayload {
+  productEdge: ProductEdge
+  viewer: User
+  clientMutationId: String
 }
 
 # A person who uses our app
