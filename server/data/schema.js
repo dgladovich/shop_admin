@@ -92,9 +92,21 @@ const userType = new GraphQLObjectType({
         },
         products: {
             type: productConnection,
-            description: 'New modified product shit',
+            description: 'Array of products',
             args: connectionArgs,
             resolve: (source, args) => connectionFromPromisedArray(db.Product.findAll(), args)
+        },
+        categories: {
+            type: categoryConnection,
+            description: 'Array of categories',
+            args: connectionArgs,
+            resolve: ()=>{return []}
+        },
+        visits: {
+            type: visitConnection,
+            description: 'Array of visits for preset time interval',
+            args: connectionArgs,
+            resolve: ()=>{return []}
         },
         username: {
             type: GraphQLString,
@@ -197,6 +209,46 @@ const featureType = new GraphQLObjectType({
         },
     }),
 });
+
+const categoryType = new GraphQLObjectType({
+    name: 'Category',
+    description: 'Category of shop and his parent',
+    fields: () => ({
+        id: globalIdField('Category Id'),
+        title: {
+            type: GraphQLString,
+            description: 'Title of category'
+        },
+        description: {
+            type: GraphQLString,
+            description: 'Description of the category'
+        },
+        view_title: {
+            type: GraphQLString,
+            description: 'Title for view element'
+        },
+        image: {
+            type: GraphQLString,
+            description: 'Image src for category'
+        },
+        parent: {
+            type: GraphQLString,
+            description: 'Id of parent category'
+        },
+        children: {
+            type: GraphQLString,
+            description: 'Subcategories for category'
+        },
+        createdAt: {
+            type: GraphQLString,
+            description: 'Date, when category created'
+        },
+        updatedAt: {
+            type: GraphQLInt,
+            description: 'Date, when category updated'
+        },
+    }),
+});
 const productType = new GraphQLObjectType({
     name: 'Product',
     description: 'Product ',
@@ -221,17 +273,19 @@ const productType = new GraphQLObjectType({
     }),
 });
 
-const productRoot = new GraphQLObjectType({
-    name: 'ProductRoot',
-    description: 'Root of products array',
+const visitType = new GraphQLObjectType({
+    name: 'Visit',
+    description: 'Visit object',
     fields: () => ({
-        id: globalIdField('Products'),
-        products: {
-            type: new GraphQLList(productType),
-            description: 'Products that I have',
-            resolve: resolver(db.Product, {list: true})
+        date: {
+            type: GraphQLString,
+            description: 'Date of calendar'
         },
-    })
+        quantity: {
+            type: GraphQLInt,
+            description: 'Quantity of visits for this day'
+        }
+    }),
 });
 
 /**
@@ -245,6 +299,16 @@ const {connectionType: featureConnection, edgeType: featureEdge} = connectionDef
 const {connectionType: productConnection, edgeType: productEdge} = connectionDefinitions({
     name: 'Product',
     nodeType: productType
+});
+
+const {connectionType: categoryConnection, edgeType: categoryEdge} = connectionDefinitions({
+    name: 'Category',
+    nodeType: categoryType
+});
+
+const {connectionType: visitConnection, edgeType: visitEdge} = connectionDefinitions({
+    name: 'Visit',
+    nodeType: visitType
 });
 
 /**
@@ -335,23 +399,18 @@ const updateOrderMutation = mutationWithClientMutationId({
 const addCategoryMutation = mutationWithClientMutationId({
     name: 'AddCategory',
     inputFields: {
-        delivery_date: {type: new GraphQLNonNull(GraphQLString)},
-        address: {type: new GraphQLNonNull(GraphQLInt)},
-        delivery_service: {type: new GraphQLNonNull(GraphQLString)},
-        payment: {type: new GraphQLNonNull(GraphQLString)},
-        status: {type: new GraphQLNonNull(GraphQLString)},
+        title: {type: new GraphQLNonNull(GraphQLString)},
+        view_title: {type: new GraphQLNonNull(GraphQLInt)},
+        image: {type: new GraphQLNonNull(GraphQLString)},
+        description: {type: new GraphQLNonNull(GraphQLString)},
+        createdAt: {type: new GraphQLNonNull(GraphQLString)},
+        parent: {type: new GraphQLNonNull(GraphQLString)},
     },
 
     outputFields: {
-        productEdge: {
-            type: productEdge,
-            resolve: async (obj) => {
-                let products = await db.Product.findAll({raw: true});
-                let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
-                //const cursorId = cursorForObjectInConnection(productsObjects, object);
-                const cursorId = offsetToCursor(products.length);
-                return {node: obj.dataValues, cursor: cursorId}
-            }
+        categoryEdge: {
+            type: categoryEdge,
+            resolve: async (obj) => {}
         },
         viewer: {
             type: userType,
@@ -359,7 +418,7 @@ const addCategoryMutation = mutationWithClientMutationId({
         }
     },
 
-    mutateAndGetPayload: ({name, price}) => addProduct(name, price)
+    mutateAndGetPayload: () => addCategory()
 });
 
 /**
