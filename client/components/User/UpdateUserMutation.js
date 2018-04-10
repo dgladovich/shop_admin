@@ -2,14 +2,13 @@
 import { graphql, commitMutation, Environment } from 'react-relay/compat';
 
 const mutation = graphql`
-    mutation UpdateOrderMutation($input: UpdateOrderInput!) {
-        updateOrder(input: $input) {
-            orderEdge {
+    mutation UpdateUserMutation($input: UpdateUserInput!) {
+        updateUser(input: $input) {
+            userEdge {
                 __typename
                 node {
                     name
-                    description
-                    url
+                    age
                 }
             }
             viewer {

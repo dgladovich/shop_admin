@@ -1,14 +1,15 @@
 input AddCategoryInput {
-  delivery_date: String!
-  address: Int!
-  delivery_service: String!
-  payment: String!
-  status: String!
+  title: String!
+  view_title: Int!
+  image: String!
+  description: String!
+  createdAt: String!
+  parent: String!
   clientMutationId: String
 }
 
 type AddCategoryPayload {
-  productEdge: ProductEdge
+  categoryEdge: CategoryEdge
   viewer: User
   clientMutationId: String
 }
@@ -35,6 +36,80 @@ input AddProductInput {
 }
 
 type AddProductPayload {
+  productEdge: ProductEdge
+  viewer: User
+  clientMutationId: String
+}
+
+input AddUserInput {
+  name: String!
+  age: Int!
+  clientMutationId: String
+}
+
+type AddUserPayload {
+  userEdge: UserEdge
+  viewer: User
+  clientMutationId: String
+}
+
+# Category of shop and his parent
+type Category {
+  # The ID of an object
+  id: ID!
+
+  # Title of category
+  title: String
+
+  # Description of the category
+  description: String
+
+  # Title for view element
+  view_title: String
+
+  # Image src for category
+  image: String
+
+  # Id of parent category
+  parent: String
+
+  # Subcategories for category
+  children: String
+
+  # Date, when category created
+  createdAt: String
+
+  # Date, when category updated
+  updatedAt: Int
+}
+
+# A connection to a list of items.
+type CategoryConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [CategoryEdge]
+}
+
+# An edge in a connection.
+type CategoryEdge {
+  # The item at the end of the edge
+  node: Category
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input DeleteProductInput {
+  name: String!
+  price: Int!
+  created_at: String!
+  updated_at: String!
+  clientMutationId: String
+}
+
+type DeleteProductPayload {
   productEdge: ProductEdge
   viewer: User
   clientMutationId: String
@@ -76,14 +151,58 @@ type FeatureEdge {
 type Mutation {
   addFeature(input: AddFeatureInput!): AddFeaturePayload
   addProduct(input: AddProductInput!): AddProductPayload
+  updateProduct(input: UpdateProductInput!): UpdateProductPayload
+  deleteProduct(input: DeleteProductInput!): DeleteProductPayload
   addCategory(input: AddCategoryInput!): AddCategoryPayload
   updateOrder(input: UpdateOrderInput!): UpdateOrderPayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  addUser(input: AddUserInput!): AddUserPayload
 }
 
 # An object with an ID
 interface Node {
   # The id of the object.
   id: ID!
+}
+
+# Order which in queue
+type Order implements Node {
+  # The ID of an object
+  id: ID!
+
+  # Products, which user ordered
+  products(after: String, first: Int, before: String, last: Int): ProductConnection
+
+  # Users's username
+  user: UserConnection
+  website: String
+  delivery_date: String
+  address: String
+  delivery_service: String
+  payment: String
+  status: String
+  total_price: Float
+  price: Float
+  created_at: String
+  updated_at: String
+}
+
+# A connection to a list of items.
+type OrderConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [OrderEdge]
+}
+
+# An edge in a connection.
+type OrderEdge {
+  # The item at the end of the edge
+  node: Order
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 # Information about pagination in a connection.
@@ -137,15 +256,6 @@ type ProductEdge {
   cursor: String!
 }
 
-# Root of products array
-type ProductRoot {
-  # The ID of an object
-  id: ID!
-
-  # Products that I have
-  products: [Product]
-}
-
 type Query {
   # Fetches an object given its ID
   node(
@@ -153,7 +263,6 @@ type Query {
     id: ID!
   ): Node
   viewer: User
-  productRoot: ProductRoot
 }
 
 input UpdateOrderInput {
@@ -166,7 +275,33 @@ input UpdateOrderInput {
 }
 
 type UpdateOrderPayload {
+  orderEdge: OrderEdge
+  viewer: User
+  clientMutationId: String
+}
+
+input UpdateProductInput {
+  name: String!
+  price: Int!
+  created_at: String!
+  updated_at: String!
+  clientMutationId: String
+}
+
+type UpdateProductPayload {
   productEdge: ProductEdge
+  viewer: User
+  clientMutationId: String
+}
+
+input UpdateUserInput {
+  name: String!
+  age: Int!
+  clientMutationId: String
+}
+
+type UpdateUserPayload {
+  userEdge: UserEdge
   viewer: User
   clientMutationId: String
 }
@@ -179,10 +314,75 @@ type User implements Node {
   # Features that I have
   features(after: String, first: Int, before: String, last: Int): FeatureConnection
 
-  # New modified product shit
+  # Array of products
   products(after: String, first: Int, before: String, last: Int): ProductConnection
+
+  # Array of categories
+  categories(after: String, first: Int, before: String, last: Int): CategoryConnection
+
+  # Array of orders wich
+  orders(after: String, first: Int, before: String, last: Int): OrderConnection
+
+  # Array of visits for preset time interval
+  visits(after: String, first: Int, before: String, last: Int): VisitConnection
 
   # Users's username
   username: String
   website: String
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge
+  node: Users
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# Users which will be updated with admin
+type Users implements Node {
+  # The ID of an object
+  id: ID!
+  name: String
+  age: Int
+}
+
+# Visit object
+type Visit {
+  # The ID of an object
+  id: ID!
+
+  # Date of calendar
+  date: String
+
+  # Quantity of visits for this day
+  quantity: Int
+}
+
+# A connection to a list of items.
+type VisitConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [VisitEdge]
+}
+
+# An edge in a connection.
+type VisitEdge {
+  # The item at the end of the edge
+  node: Visit
+
+  # A cursor for use in pagination
+  cursor: String!
 }

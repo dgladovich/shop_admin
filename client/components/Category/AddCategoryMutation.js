@@ -7,9 +7,11 @@ const mutation = graphql`
             categoryEdge {
                 __typename
                 node {
-                    name
+                    title
+                    view_title
+                    image
                     description
-                    url
+                    createdAt 
                 }
             }
             viewer {

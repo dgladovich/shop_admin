@@ -7,9 +7,11 @@ const mutation = graphql`
             orderEdge {
                 __typename
                 node {
-                    name
-                    description
-                    url
+                    delivery_date
+                    address
+                    delivery_service
+                    status
+                    payment
                 }
             }
             viewer {
