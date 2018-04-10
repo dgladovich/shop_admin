@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "dev_shop_user",
+    "password": "lovesaveworld",
+    "database": "dev_shop",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "test_user",
+    "password": "lovesaveworld",
+    "database": "test_shop",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "shop_admin",
+    "password": "lovesaveworld",
+    "database": "portfolioshop",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
+
