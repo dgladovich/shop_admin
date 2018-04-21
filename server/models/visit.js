@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
                 // associations can be defined here
             }
         },
-        tableName: 'shop_visits'
+        tableName: 'shop_visits',
+        timestamps: false
     });
     return visit;
 };

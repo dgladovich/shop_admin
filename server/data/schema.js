@@ -51,26 +51,26 @@ const {nodeInterface, nodeField} = nodeDefinitions(
     (globalId) => {
         const {type, id} = fromGlobalId(globalId);
         switch (type) {
-            case 'User':
+/*            case 'User':
                 return userLoader.load(id);
                 break;
             case 'Feature':
                 return featureLoader.load(id);
                 break;
             case 'Product':
-                return productLoader.load(id);
+                return productLoader.load(id);*/
             default:
                 return null;
         }
     },
     (obj) => {
-        if (obj instanceof User) {
+/*        if (obj instanceof User) {
             return userType;
         } else if (obj instanceof Feature) {
             return featureType;
         } else if (obj instanceof Product) {
             return productType;
-        }
+        }*/
         return null;
     }
 );
@@ -96,30 +96,29 @@ const userType = new GraphQLObjectType({
             args: connectionArgs,
             resolve: (source, args) => connectionFromPromisedArray(db.Product.findAll(), args)
         },
+        users: {
+            type: usersConnection,
+            description: 'List of users',
+            args: connectionArgs,
+            resolve: (source, args) => connectionFromPromisedArray(db.User.findAll(), args)
+        },
         categories: {
             type: categoryConnection,
             description: 'Array of categories',
             args: connectionArgs,
-            resolve: ()=> {
-                return []
-            }
+            resolve: (source, args) => connectionFromPromisedArray(db.Category.findAll(), args)
         },
         orders: {
             type: orderConnection,
             description: 'Array of orders wich',
             args: connectionArgs,
-            resolve: ()=> {
-                return []
-            }
+            resolve: (source, args) => connectionFromPromisedArray(db.Order.findAll(), args)
         },
         visits: {
             type: visitConnection,
-            type: visitConnection,
             description: 'Array of visits for preset time interval',
             args: connectionArgs,
-            resolve: ()=> {
-                return []
-            }
+            resolve: (source, args) => connectionFromPromisedArray(db.Visit.findAll(), args)
         },
         username: {
             type: GraphQLString,
@@ -263,7 +262,7 @@ const categoryType = new GraphQLObjectType({
             description: 'Image src for category'
         },
         parent: {
-            type: GraphQLString,
+            type: GraphQLInt,
             description: 'Id of parent category'
         },
         children: {
@@ -275,7 +274,7 @@ const categoryType = new GraphQLObjectType({
             description: 'Date, when category created'
         },
         updatedAt: {
-            type: GraphQLInt,
+            type: GraphQLString,
             description: 'Date, when category updated'
         },
     }),
@@ -326,6 +325,11 @@ const visitType = new GraphQLObjectType({
 const {connectionType: featureConnection, edgeType: featureEdge} = connectionDefinitions({
     name: 'Feature',
     nodeType: featureType
+});
+
+const {connectionType: usersConnection, edgeType: usersEdge} = connectionDefinitions({
+    name: 'Users',
+    nodeType: usersType
 });
 
 const {connectionType: productConnection, edgeType: productEdge} = connectionDefinitions({

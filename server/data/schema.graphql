@@ -71,7 +71,7 @@ type Category {
   image: String
 
   # Id of parent category
-  parent: String
+  parent: Int
 
   # Subcategories for category
   children: String
@@ -80,7 +80,7 @@ type Category {
   createdAt: String
 
   # Date, when category updated
-  updatedAt: Int
+  updatedAt: String
 }
 
 # A connection to a list of items.
@@ -317,6 +317,9 @@ type User implements Node {
   # Array of products
   products(after: String, first: Int, before: String, last: Int): ProductConnection
 
+  # List of users
+  users(after: String, first: Int, before: String, last: Int): UsersConnection
+
   # Array of categories
   categories(after: String, first: Int, before: String, last: Int): CategoryConnection
 
@@ -355,6 +358,24 @@ type Users implements Node {
   id: ID!
   name: String
   age: Int
+}
+
+# A connection to a list of items.
+type UsersConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UsersEdge]
+}
+
+# An edge in a connection.
+type UsersEdge {
+  # The item at the end of the edge
+  node: Users
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 # Visit object

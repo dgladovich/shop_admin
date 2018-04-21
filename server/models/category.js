@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         title: DataTypes.STRING,
         view_title: DataTypes.STRING,
         image: DataTypes.STRING,
-        created_at: DataTypes.DATE,
+        createdAt: DataTypes.DATE,
         description: DataTypes.STRING
     }, {
         classMethods: {
@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
                 // associations can be defined here
             }
         },
-        tableName: 'shop_categories'
+        tableName: 'shop_categories',
+        timestamps: false
     });
     return category;
 };
