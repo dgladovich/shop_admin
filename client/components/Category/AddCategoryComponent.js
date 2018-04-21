@@ -27,7 +27,6 @@ export default class AddFeature extends React.Component {
       title: this.state.categoryTitle,
       view_title: this.state.categoryViewTitle,
       description: this.state.categoryDescription,
-      createdAt: '2018-01-18'
     }
     AddCategoryMutation.commit(
       this.props.relay.environment,

@@ -37,6 +37,7 @@ import {
     getProducts,
     addFeature,
     addProduct,
+    addCategory,
 } from './database';
 import {resolver} from 'graphql-sequelize';
 import db from '../models';
@@ -51,26 +52,26 @@ const {nodeInterface, nodeField} = nodeDefinitions(
     (globalId) => {
         const {type, id} = fromGlobalId(globalId);
         switch (type) {
-/*            case 'User':
-                return userLoader.load(id);
-                break;
-            case 'Feature':
-                return featureLoader.load(id);
-                break;
-            case 'Product':
-                return productLoader.load(id);*/
+            /*            case 'User':
+                            return userLoader.load(id);
+                            break;
+                        case 'Feature':
+                            return featureLoader.load(id);
+                            break;
+                        case 'Product':
+                            return productLoader.load(id);*/
             default:
                 return null;
         }
     },
     (obj) => {
-/*        if (obj instanceof User) {
-            return userType;
-        } else if (obj instanceof Feature) {
-            return featureType;
-        } else if (obj instanceof Product) {
-            return productType;
-        }*/
+        /*        if (obj instanceof User) {
+                    return userType;
+                } else if (obj instanceof Feature) {
+                    return featureType;
+                } else if (obj instanceof Product) {
+                    return productType;
+                }*/
         return null;
     }
 );
@@ -401,7 +402,7 @@ const addProductMutation = mutationWithClientMutationId({
     outputFields: {
         productEdge: {
             type: productEdge,
-            resolve: async(obj) => {
+            resolve: async (obj) => {
                 let products = await db.Product.findAll({raw: true});
                 let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
                 //const cursorId = cursorForObjectInConnection(productsObjects, object);
@@ -429,7 +430,7 @@ const updateProductMutation = mutationWithClientMutationId({
     outputFields: {
         productEdge: {
             type: productEdge,
-            resolve: async(obj) => {
+            resolve: async (obj) => {
                 let products = await db.Product.findAll({raw: true});
                 let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
                 //const cursorId = cursorForObjectInConnection(productsObjects, object);
@@ -458,7 +459,7 @@ const deleteProductMutation = mutationWithClientMutationId({
     outputFields: {
         productEdge: {
             type: productEdge,
-            resolve: async(obj) => {
+            resolve: async (obj) => {
                 let products = await db.Product.findAll({raw: true});
                 let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
                 //const cursorId = cursorForObjectInConnection(productsObjects, object);
@@ -487,7 +488,7 @@ const updateOrderMutation = mutationWithClientMutationId({
     outputFields: {
         orderEdge: {
             type: orderEdge,
-            resolve: async(obj) => {
+            resolve: async (obj) => {
                 let products = await db.Product.findAll({raw: true});
                 let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
                 //const cursorId = cursorForObjectInConnection(productsObjects, object);
@@ -503,7 +504,7 @@ const updateOrderMutation = mutationWithClientMutationId({
 
     mutateAndGetPayload: ({name, price}) => addProduct(name, price)
 });
- 
+
 const updateUserMutation = mutationWithClientMutationId({
     name: 'UpdateUser',
     inputFields: {
@@ -514,7 +515,7 @@ const updateUserMutation = mutationWithClientMutationId({
     outputFields: {
         userEdge: {
             type: userEdge,
-            resolve: async(obj) => {
+            resolve: async (obj) => {
             }
         },
         viewer: {
@@ -535,7 +536,7 @@ const addUserMutation = mutationWithClientMutationId({
     outputFields: {
         userEdge: {
             type: userEdge,
-            resolve: async(obj) => {
+            resolve: async (obj) => {
             }
         },
         viewer: {
@@ -550,17 +551,21 @@ const addCategoryMutation = mutationWithClientMutationId({
     name: 'AddCategory',
     inputFields: {
         title: {type: new GraphQLNonNull(GraphQLString)},
-        view_title: {type: new GraphQLNonNull(GraphQLInt)},
-        image: {type: new GraphQLNonNull(GraphQLString)},
+        view_title: {type: new GraphQLNonNull(GraphQLString)},
+        image: {type: GraphQLString},
         description: {type: new GraphQLNonNull(GraphQLString)},
-        createdAt: {type: new GraphQLNonNull(GraphQLString)},
-        parent: {type: new GraphQLNonNull(GraphQLString)},
+        parent: {type: GraphQLInt},
     },
 
     outputFields: {
         categoryEdge: {
             type: categoryEdge,
-            resolve: async(obj) => {
+            resolve: async (obj) => {
+                let categories = await db.Category.findAll({raw: true});
+                let categoryObjects = categories.map(category => new Product(category.id, category.name, category.price));
+                //const cursorId = cursorForObjectInConnection(productsObjects, object);
+                const cursorId = offsetToCursor(categories.length);
+                return {node: obj.dataValues, cursor: cursorId}
             }
         },
         viewer: {
@@ -569,7 +574,10 @@ const addCategoryMutation = mutationWithClientMutationId({
         }
     },
 
-    mutateAndGetPayload: () => addCategory()
+    mutateAndGetPayload: (title, view_title, image, description, parent) => {
+        //console.log(title, view_title, image, description, parent);
+        addCategory(title, view_title, image, description, parent)
+    }
 });
 
 /**

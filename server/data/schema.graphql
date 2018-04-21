@@ -1,10 +1,9 @@
 input AddCategoryInput {
   title: String!
-  view_title: Int!
-  image: String!
+  view_title: String!
+  image: String
   description: String!
-  createdAt: String!
-  parent: String!
+  parent: Int
   clientMutationId: String
 }
 

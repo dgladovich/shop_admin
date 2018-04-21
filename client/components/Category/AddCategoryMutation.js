@@ -11,7 +11,6 @@ const mutation = graphql`
                     view_title
                     image
                     description
-                    createdAt 
                 }
             }
             viewer {
@@ -55,7 +54,7 @@ function commit(environment: Environment,
         {
             mutation,
             variables: {input: data},
-            optimisticResponse: () => getOptimisticResponse(data, viewerId),
+            optimisticResponse: getOptimisticResponse(data, viewerId),
             configs: getConfigs(viewerId),
         }
     );

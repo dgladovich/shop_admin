@@ -133,6 +133,17 @@ function addProduct(name: string, price: number, created_at: string, updated_at:
         return product;
     })
 }
+function addCategory(title: string, view_title: string, image: string, description: string, parent: int){
+    return db.Category.create({
+        title: title,
+        view_title: view_title,
+        image: image,
+        parent: parent,
+        description: description
+    }).then((category)=>{
+        return category;
+    })
+}
 
 export {
     userLoader,
@@ -144,5 +155,6 @@ export {
     getFeatures,
     getProducts,
     addFeature,
-    addProduct
+    addProduct,
+    addCategory
 };
