@@ -4,7 +4,10 @@
     "password": "lovesaveworld",
     "database": "dev_shop",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "migrationStorage": "json",
+    "migrationStoragePath": "sequelizeMeta.json",
+    "migrationStorageTableName": "sequelize_meta"
   },
   "test": {
     "username": "test_user",

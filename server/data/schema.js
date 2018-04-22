@@ -30,6 +30,7 @@ import {
     User,
     Feature,
     Product,
+    Category,
     userLoader,
     featureLoader,
     productLoader,
@@ -418,6 +419,38 @@ const addProductMutation = mutationWithClientMutationId({
 
     mutateAndGetPayload: ({name, price}) => addProduct(name, price)
 });
+
+const addCategoryMutation = mutationWithClientMutationId({
+    name: 'AddCategory',
+    inputFields: {
+        title: {type: new GraphQLNonNull(GraphQLString)},
+        view_title: {type: new GraphQLNonNull(GraphQLString)},
+        image: {type: GraphQLString},
+        description: {type: new GraphQLNonNull(GraphQLString)},
+        parent: {type: GraphQLInt},
+    },
+
+    outputFields: {
+        categoryEdge: {
+            type: categoryEdge,
+            resolve: async (obj) => {
+                let categories = await db.Category.findAll({raw: true});
+                let categoryObjects = categories.map(category => new Category(category.id, category.name, category.price));
+                const cursorId = offsetToCursor(categories.length);
+                console.log('some fuckojtajmsdklohsf', cursorId)
+                return {node: obj.dataValues, cursor: cursorId}
+            }
+        },
+        viewer: {
+            type: userType,
+            resolve: () => userLoader.load('1')
+        }
+    },
+
+    mutateAndGetPayload: (categoyData) => addCategory(categoyData)
+
+});
+
 const updateProductMutation = mutationWithClientMutationId({
     name: 'UpdateProduct',
     inputFields: {
@@ -547,38 +580,7 @@ const addUserMutation = mutationWithClientMutationId({
 
     mutateAndGetPayload: ({name, price}) => addProduct(name, price)
 });
-const addCategoryMutation = mutationWithClientMutationId({
-    name: 'AddCategory',
-    inputFields: {
-        title: {type: new GraphQLNonNull(GraphQLString)},
-        view_title: {type: new GraphQLNonNull(GraphQLString)},
-        image: {type: GraphQLString},
-        description: {type: new GraphQLNonNull(GraphQLString)},
-        parent: {type: GraphQLInt},
-    },
 
-    outputFields: {
-        categoryEdge: {
-            type: categoryEdge,
-            resolve: async (obj) => {
-                let categories = await db.Category.findAll({raw: true});
-                let categoryObjects = categories.map(category => new Product(category.id, category.name, category.price));
-                //const cursorId = cursorForObjectInConnection(productsObjects, object);
-                const cursorId = offsetToCursor(categories.length);
-                return {node: obj.dataValues, cursor: cursorId}
-            }
-        },
-        viewer: {
-            type: userType,
-            resolve: () => userLoader.load('1')
-        }
-    },
-
-    mutateAndGetPayload: (title, view_title, image, description, parent) => {
-        //console.log(title, view_title, image, description, parent);
-        addCategory(title, view_title, image, description, parent)
-    }
-});
 
 /**
  * This is the type that will be the root of our query,

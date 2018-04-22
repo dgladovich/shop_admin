@@ -4,16 +4,27 @@ module.exports = (sequelize, DataTypes) => {
         title: DataTypes.STRING,
         view_title: DataTypes.STRING,
         image: DataTypes.STRING,
-        createdAt: DataTypes.DATE,
+        createdAt: {
+            type: DataTypes.DATE(3),
+            allowNull: false,
+            defaultValue: sequelize.literal('NOW()'),
+        },
+        updatedAt: {
+            type: DataTypes.DATE(3),
+            allowNull: false,
+            defaultValue: sequelize.literal('NOW()'),
+        },
         description: DataTypes.STRING
     }, {
         classMethods: {
             associate: function (models) {
                 // associations can be defined here
             }
-        },
+        }
+        ,
         tableName: 'shop_categories',
-        timestamps: false
+        timestamps:
+            false
     });
     return category;
 };

@@ -44,6 +44,24 @@ class Product {
     }
 }
 
+class Category {
+    id: string;
+    title: string;
+    view_title: string;
+    image: string;
+    description: string;
+    parent: number;
+
+    constructor(id: string, title: string, view_title: string, image: string, description: string, parent: number,) {
+        this.id = id;
+        this.title = title;
+        this.view_title = view_title;
+        this.image = image;
+        this.description = description;
+        this.parent = parent;
+    }
+}
+
 const features = [
     new Feature('1', 'React', 'A JavaScript library for building user interfaces.', 'https://facebook.github.io/react'),
     new Feature('2', 'Relay', 'A JavaScript framework for building data-driven react applications.', 'https://facebook.github.io/relay'),
@@ -90,7 +108,7 @@ function fetchFeature(id) {
     });
 }
 
-function fetchProducts(){
+function fetchProducts() {
 
     return db.Product.findAll()
 }
@@ -123,24 +141,21 @@ function addFeature(name: string, description: string, url: string) {
     curFeatures += 1;
     return newFeature;
 }
-function addProduct(name: string, price: number, created_at: string, updated_at: string){
+
+function addProduct(name: string, price: number, created_at: string, updated_at: string) {
     return db.Product.create({
         name: name,
         price: price,
         created_at: created_at,
         updated_at: created_at,
-    }).then((product)=>{
+    }).then((product) => {
         return product;
     })
 }
-function addCategory(title: string, view_title: string, image: string, description: string, parent: int){
-    return db.Category.create({
-        title: title,
-        view_title: view_title,
-        image: image,
-        parent: parent,
-        description: description
-    }).then((category)=>{
+
+function addCategory(categoryData) {
+
+    return db.Category.create(categoryData).then((category) => {
         return category;
     })
 }
@@ -152,6 +167,7 @@ export {
     User,
     Feature,
     Product,
+    Category,
     getFeatures,
     getProducts,
     addFeature,
