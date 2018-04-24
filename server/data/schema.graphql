@@ -170,7 +170,7 @@ type Order implements Node {
   id: ID!
 
   # Products, which user ordered
-  products(after: String, first: Int, before: String, last: Int): ProductConnection
+  products(after: String, first: Int, before: String, last: Int): OrderProductConnection
 
   # Users's username
   user: UserConnection
@@ -202,6 +202,35 @@ type OrderEdge {
 
   # A cursor for use in pagination
   cursor: String!
+}
+
+# A connection to a list of items.
+type OrderProductConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [OrderProductEdge]
+}
+
+# An edge in a connection.
+type OrderProductEdge {
+  # The item at the end of the edge
+  node: OrderProducts
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# Order which in queue
+type OrderProducts implements Node {
+  # The ID of an object
+  id: ID!
+  product_id: Int
+  product: Product
+  order_id: Int
+  createdAt: String
+  updatedAt: String
 }
 
 # Information about pagination in a connection.

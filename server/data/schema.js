@@ -114,7 +114,7 @@ const userType = new GraphQLObjectType({
             type: orderConnection,
             description: 'Array of orders wich',
             args: connectionArgs,
-            resolve: (source, args) => connectionFromPromisedArray(db.Order.findAll(), args)
+            resolve: (source, args) => connectionFromPromisedArray(db.Order.findAll({ include: [{model: db.ProductOrder, as: 'products'}] }), args)
         },
         visits: {
             type: visitConnection,
@@ -154,10 +154,12 @@ const orderType = new GraphQLObjectType({
     fields: () => ({
         id: globalIdField('Order'),
         products: {
-            type: productConnection,
+            type: orderProductConnection,
             description: 'Products, which user ordered',
             args: connectionArgs,
-            resolve: (source, args) => connectionFromPromisedArray(db.Product.findAll(), args)
+            resolve: (source, args) => {
+
+            }
         },
         user: {
             type: userConnection,
