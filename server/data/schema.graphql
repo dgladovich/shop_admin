@@ -227,7 +227,9 @@ type OrderProducts implements Node {
   # The ID of an object
   id: ID!
   product_id: Int
-  product: Product
+
+  # product object in db
+  product(after: String, first: Int, before: String, last: Int): Product
   order_id: Int
   createdAt: String
   updatedAt: String

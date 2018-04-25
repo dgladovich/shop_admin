@@ -9,14 +9,12 @@ module.exports = (sequelize, DataTypes) => {
         status: DataTypes.STRING,
         total_price: DataTypes.FLOAT
     }, {
-        classMethods: {
-            associate: function (models) {
-            let {ProductOrder} = models;
-                // associations can be defined here
-                order.hasMany(ProductOrder, {as: 'products', foreignKey: 'order_id'});
-            }
-        },
         tableName: 'shop_orders'
     });
+
+    order.associate = function (models) {
+        let {ProductOrder} = models;
+        order.hasMany(ProductOrder, {as: 'products', foreignKey: 'order_id'});
+    };
     return order;
 };
