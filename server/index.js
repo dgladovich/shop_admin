@@ -45,4 +45,13 @@ if (config.env === 'development') {
     relayServer.use('/', express.static(path.join(__dirname, '../build/app')));
     relayServer.use('/graphql', graphQLHTTP({schema}));
     relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
+} else if (config.env === 'server'){
+    // Simple GraphQL server without shit    console.log('Server running in development environment');
+    const graphql = express();
+    graphql.use('/', graphQLHTTP({
+        graphiql: true,
+        pretty: true,
+        schema
+    }));
+    graphql.listen(config.graphql.port, () => console.log(chalk.green(`GraphQL is listening on port ${config.graphql.port}`)));
 }
