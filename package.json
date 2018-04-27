@@ -6,13 +6,16 @@
     "start": "nodemon --watch server/data/**/*.js --exec \"npm run update && npm run start-sub-task\"",
     "start-sub-task": "./node_modules/.bin/babel-node server/index.js",
     "update": "./node_modules/.bin/babel-node server/utils/updateSchema.js && npm run relay",
+    "update-server": "./node_modules/.bin/babel-node server/utils/updateSchema.js",
     "deploy": "npm run clean && cross-env NODE_ENV=production webpack --config webpack.config.js && npm run update && npm run build-server && cross-env NODE_ENV=production node ./build/index.js",
     "build-server": "cross-env NODE_ENV=production ./node_modules/.bin/babel ./server --out-dir ./build",
     "lint": "eslint client server",
     "flow": "flow",
     "heroku-postbuild": "cross-env NODE_ENV=production webpack --config webpack.config.js && cross-env NODE_ENV=production ./node_modules/.bin/babel ./server --out-dir ./lib",
     "clean": "rm -rf build && mkdir build",
-    "relay": "relay-compiler --src ./client --schema server/data/schema.graphql"
+    "relay": "relay-compiler --src ./client --schema server/data/schema.graphql",
+    "graphql-server": "nodemon --watch server/data/**/*.js --exec \"npm run update-server && STAGE=graph npm run start-sub-task\"",
+    "relay_server": ""
   },
   "engines": {
     "node": ">=6.6.0",
