@@ -39,7 +39,7 @@ if (config.stage === 'graph') {
     // Serve static resources
     relayServer.use('/', express.static(path.join(__dirname, '../build')));
     relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
-<<<<<<< HEAD
+
 } else {
     if (config.env === 'development') {
         // Launch GraphQL
@@ -76,23 +76,5 @@ if (config.stage === 'graph') {
         relayServer.use('/graphql', graphQLHTTP({schema}));
         relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
     }
-=======
-} else if (config.env === 'production') {
-    // Launch Relay by creating a normal express server
-    const relayServer = express();
-    relayServer.use(historyApiFallback());
-    relayServer.use('/', express.static(path.join(__dirname, '../build/app')));
-    relayServer.use('/graphql', graphQLHTTP({schema}));
-    relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
-} else if (config.env === 'server'){
-    // Simple GraphQL server without shit    console.log('Server running in development environment');
-    const graphql = express();
-    graphql.use('/', graphQLHTTP({
-        graphiql: true,
-        pretty: true,
-        schema
-    }));
-    graphql.listen(config.graphql.port, () => console.log(chalk.green(`GraphQL is listening on port ${config.graphql.port}`)));
->>>>>>> f5da04281644b1445fe59b4bcb3b94cf97c6a1f6
 }
 
