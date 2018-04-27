@@ -114,7 +114,9 @@ const userType = new GraphQLObjectType({
             type: orderConnection,
             description: 'Array of orders wich',
             args: connectionArgs,
-            resolve: (source, args) => connectionFromPromisedArray(db.Order.findAll(), args)
+            resolve: (source, args) => {
+                return connectionFromPromisedArray(db.Order.findAll({ include: [{model: db.ProductOrder, as: 'products', include: [{ model: db.Product, as: 'productObject', required: false }]}] }), args)
+            }
         },
         visits: {
             type: visitConnection,
@@ -154,10 +156,11 @@ const orderType = new GraphQLObjectType({
     fields: () => ({
         id: globalIdField('Order'),
         products: {
-            type: productConnection,
+            type: orderProductConnection,
             description: 'Products, which user ordered',
             args: connectionArgs,
-            resolve: (source, args) => connectionFromPromisedArray(db.Product.findAll(), args)
+            resolve: (source, args) => connectionFromArray(source.dataValues.products, args)
+
         },
         user: {
             type: userConnection,
@@ -205,7 +208,12 @@ const orderProductType = new GraphQLObjectType({
             type: GraphQLInt
         },
         product: {
-            type: productType
+            type: productType,
+            description: 'product object in db',
+            args: connectionArgs,
+            resolve: (source, args) => {
+                return source.dataValues.productObject.dataValues
+            }
 
         },
         order_id: {
@@ -437,7 +445,6 @@ const addCategoryMutation = mutationWithClientMutationId({
                 let categories = await db.Category.findAll({raw: true});
                 let categoryObjects = categories.map(category => new Category(category.id, category.name, category.price));
                 const cursorId = offsetToCursor(categories.length);
-                console.log('some fuckojtajmsdklohsf', cursorId)
                 return {node: obj.dataValues, cursor: cursorId}
             }
         },
