@@ -71,7 +71,7 @@
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
     "faker": "^4.1.0",
-    "favicons-webpack-plugin": "0.0.7",``вц
+    "favicons-webpack-plugin": "0.0.7",
     "file-loader": "^1.1.5",
     "graphql": "^0.11.7",
     "graphql-relay": "^0.5.3",

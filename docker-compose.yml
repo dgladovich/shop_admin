@@ -1,0 +1,11 @@
+version: "2"
+services:
+  node:
+    image: "dgladovich/shop_admin"
+    user: "node"
+    working_dir: /
+    volumes:
+      - ./:/home/node/app
+    expose:
+      - "8000"
+    command: "npm start"
