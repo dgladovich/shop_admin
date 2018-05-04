@@ -2,11 +2,12 @@
 import _ from 'lodash';
 
 const config = {
-  env: process.env.NODE_ENV || 'development',
-  port: process.env.PORT || 3000,
-  graphql: {
-    port: 8000
-  }
+    env: process.env.NODE_ENV || 'development',
+    port: process.env.PORT || 3000,
+    stage: process.env.STAGE || '',
+    graphql: {
+        port: 8000
+    }
 };
 
 export default _.extend(config, require(`./${config.env}`).default);
