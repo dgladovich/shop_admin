@@ -414,10 +414,10 @@ type Visit {
   id: ID!
 
   # Date of calendar
-  date: String
+  created_at: String
 
   # Quantity of visits for this day
-  quantity: Int
+  user_id: Int
 }
 
 # A connection to a list of items.

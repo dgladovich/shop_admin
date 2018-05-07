@@ -1947,7 +1947,7 @@
               "deprecationReason": null
             },
             {
-              "name": "date",
+              "name": "created_at",
               "description": "Date of calendar",
               "args": [],
               "type": {
@@ -1959,7 +1959,7 @@
               "deprecationReason": null
             },
             {
-              "name": "quantity",
+              "name": "user_id",
               "description": "Quantity of visits for this day",
               "args": [],
               "type": {
