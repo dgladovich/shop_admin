@@ -1,11 +1,32 @@
 version: "2"
 services:
-  node:
-    image: "dgladovich/shop_admin"
+  web:
+    build: .
     user: "node"
     working_dir: /
     volumes:
       - ./:/home/node/app
-    expose:
-      - "8000"
+    ports:
+      - "3000:8000"
+    volumes:
+     - .:/usr/src/app
+    depends_on:
+      - postgres
     command: "npm start"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: dev_shop_user
+      POSTGRES_DB: dev_shop
+      POSTGRES_PASSWORD: lovesaveworld
+    volumes:
+       - /data/postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
