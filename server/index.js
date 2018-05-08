@@ -13,7 +13,7 @@ import schema from './data/schema';
 
 if (config.stage === 'graph') {
     // Launch GraphQL
-    console.log('Server running in development environment');
+    console.log('Server running in server environment');
     const graphql = express();
     graphql.use('/', graphQLHTTP({
         graphiql: true,
@@ -39,6 +39,7 @@ if (config.stage === 'graph') {
     // Serve static resources
     relayServer.use('/', express.static(path.join(__dirname, '../build')));
     relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
+
 
 } else {
     if (config.env === 'development') {
@@ -76,5 +77,6 @@ if (config.stage === 'graph') {
         relayServer.use('/graphql', graphQLHTTP({schema}));
         relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
     }
+
 }
 
