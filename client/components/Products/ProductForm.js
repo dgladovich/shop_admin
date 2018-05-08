@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Cell, Button, Textfield} from 'react-mdl';
+import {Grid, Cell, Button, Textfield, FABButton, Icon} from 'react-mdl';
 import {MDLSelectField} from 'react-mdl-select';
 import AddProductMutation from './AddProductMutation';
-import styles from 'style/ProductForm.scss';
+import styles from './style/ProductForm.scss';
 
 
 export default class AddProduct extends React.Component {
@@ -29,6 +29,9 @@ export default class AddProduct extends React.Component {
             this.props.viewer.id,
         );
     };
+    chooseFile = () => {
+        console.log('choosing file')
+    };
 
     render() {
         return (
@@ -37,15 +40,17 @@ export default class AddProduct extends React.Component {
                     onChange={(e) => {
                         this.setState({name: e.target.value});
                     }}
+                    floatingLabel
                     label="Product name..."
                 />
                 <Textfield
                     onChange={(e) => {
                         this.setState({price: +e.target.value})
                     }}
+                    floatingLabel
                     pattern="-?[0-9]*(\.[0-9]+)?"
                     error="Input is not a number!"
-                    label="Number..."
+                    label="Price..."
                 />
                 <MDLSelectField
                     label="Category"
@@ -61,18 +66,24 @@ export default class AddProduct extends React.Component {
                 <Textfield
                     onChange={() => {
                     }}
+                    floatingLabel
                     label="Short description..."
                     rows={3}
-                    style={{width: '200px'}}
                 />
                 <Textfield
                     onChange={() => {
                     }}
+                    floatingLabel
                     label="Complete description..."
                     rows={6}
-                    style={{width: '200px'}}
                 />
-                <Button raised accent onClick={this.addProduct.bind(this)}>Add product</Button>
+
+                <input name={'file-upload'} type="file" />
+                <FABButton onClick={this.chooseFile.bind(this)} ripple className={styles.file}>
+                    <Icon name="add"/>
+                </FABButton>
+
+                <Button type={'button'} raised accent onClick={this.addProduct.bind(this)}>Create</Button>
             </Cell>
 
 
