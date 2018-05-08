@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import {Grid, Cell, Button, Textfield, FABButton, Icon} from 'react-mdl';
 import {MDLSelectField} from 'react-mdl-select';
 import AddProductMutation from './AddProductMutation';
+import CategoriesSelect from './CategoriesSelectContainer';
 import styles from './style/ProductForm.scss';
+import axios from 'axios';
 
 
 export default class AddProduct extends React.Component {
@@ -17,20 +19,30 @@ export default class AddProduct extends React.Component {
         price: 0,
     };
 
-    addProduct = () => {
-
-        let value = Object.assign(this.state, {
-            created_at: '2018-02-12',
-            updated_at: '2018-02-12',
-        });
-        AddProductMutation.commit(
-            this.props.relay.environment,
-            value,
-            this.props.viewer.id,
-        );
+    addProduct = (e) => {
+        let file = document.getElementById('file').files[0];
+        let fd = new FormData();
+        fd.append('file-', file);
+        axios.put('/upload/server', fd)
+            .then()
+            .catch();
+        console.log(fd)
+        //fd.append;
+        /*        let value = Object.assign(this.state, {
+                    created_at: '2018-02-12',
+                    updated_at: '2018-02-12',
+                });
+                AddProductMutation.commit(
+                    this.props.relay.environment,
+                    value,
+                    this.props.viewer.id,
+                );*/
+    };
+    onInputChange = (e) => {
+        document.getElementById('form-preview').src = e.target.value;
     };
     chooseFile = () => {
-        console.log('choosing file')
+        document.getElementById('file').click();
     };
 
     render() {
@@ -52,17 +64,7 @@ export default class AddProduct extends React.Component {
                     error="Input is not a number!"
                     label="Price..."
                 />
-                <MDLSelectField
-                    label="Category"
-                    value={{name: 'Main shit', id: 34}}
-                    autocomplete
-                    floatingLabel
-                    onChange={() => {
-                    }}
-                    items={[{name: 'shit one', id: 123}, {name: 'shit two', id: 12}]}
-                    keyField="id"
-                    valueField="name"
-                />
+                <CategoriesSelect/>
                 <Textfield
                     onChange={() => {
                     }}
@@ -78,7 +80,9 @@ export default class AddProduct extends React.Component {
                     rows={6}
                 />
 
-                <input name={'file-upload'} type="file" />
+                <input id={'file'} name={'file-upload'} onChange={this.onInputChange.bind(this)} type="file"
+                       className={styles.fileInput}/>
+                <img id={'form-preview'} alt="Image preview"/>
                 <FABButton onClick={this.chooseFile.bind(this)} ripple className={styles.file}>
                     <Icon name="add"/>
                 </FABButton>
