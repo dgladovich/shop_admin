@@ -318,11 +318,11 @@ const visitType = new GraphQLObjectType({
     description: 'Visit object',
     fields: () => ({
         id: globalIdField('Visit'),
-        date: {
+        created_at: {
             type: GraphQLString,
             description: 'Date of calendar'
         },
-        quantity: {
+        user_id: {
             type: GraphQLInt,
             description: 'Quantity of visits for this day'
         }
