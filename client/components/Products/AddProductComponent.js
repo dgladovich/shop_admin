@@ -6,11 +6,6 @@ import Page from '../Page/PageComponent';
 import {MDLSelectField} from 'react-mdl-select';
 import AddProductMutation from './AddProductMutation';
 
-const inputData = {
-    nodejs: { name: 'Nodejs', url: 'https://nodejs.org', description: 'Node.js® is a JavaScript runtime built on Chrome\'s V8 JavaScript engine' },
-    html: { name: 'Html5', url: 'https://www.w3.org/TR/html5/', description: '5th major revision of the core language of the World Wide Web' },
-    css: { name: 'css', url: 'https://www.w3.org/Style/CSS/Overview.en.html', description: 'Cascading Style Sheets (CSS) is a simple mechanism for adding style to Web documents.' }
-};
 
 export default class AddProduct extends React.Component {
     static propTypes = {
