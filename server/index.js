@@ -16,7 +16,8 @@ if (config.stage === 'graph') {
     // Launch GraphQL
     console.log('Server running in server environment');
     const graphql = express();
-    graphql.use(router)
+    graphql.use(router);
+    graphql.use(express.static('uploads'));
     graphql.use('/', graphQLHTTP({
         graphiql: true,
         pretty: true,
@@ -49,6 +50,7 @@ if (config.stage === 'graph') {
         console.log('Server running in development environment');
         const graphql = express();
         graphql.use(router)
+        graphql.use(express.static('uploads'));
         graphql.use('/', graphQLHTTP({
             graphiql: true,
             pretty: true,
