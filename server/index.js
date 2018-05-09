@@ -10,11 +10,13 @@ import chalk from 'chalk';
 import webpackConfig from '../webpack.config';
 import config from './config/environment';
 import schema from './data/schema';
+import router from './router';
 
 if (config.stage === 'graph') {
     // Launch GraphQL
     console.log('Server running in server environment');
     const graphql = express();
+    graphql.use(router)
     graphql.use('/', graphQLHTTP({
         graphiql: true,
         pretty: true,
@@ -46,6 +48,7 @@ if (config.stage === 'graph') {
         // Launch GraphQL
         console.log('Server running in development environment');
         const graphql = express();
+        graphql.use(router)
         graphql.use('/', graphQLHTTP({
             graphiql: true,
             pretty: true,
