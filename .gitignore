@@ -39,3 +39,4 @@ flow-typed/npm/
 # --------------------
 *.swp
 *.vim
+uploads/
