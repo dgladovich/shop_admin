@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Grid, Cell, Button, Textfield, FABButton, Icon} from 'react-mdl';
 import {MDLSelectField} from 'react-mdl-select';
 import AddProductMutation from './AddProductMutation';
-import CategoriesSelect from './CategoriesSelectContainer';
+import CategoriesSelect from './CategoriesSelect';
 import styles from './style/ProductForm.scss';
 import axios from 'axios';
 
@@ -22,8 +22,8 @@ export default class AddProduct extends React.Component {
     addProduct = (e) => {
         let file = document.getElementById('file').files[0];
         let fd = new FormData();
-        fd.append('file-', file);
-        axios.put('/upload/server', fd)
+        fd.append('file', file);
+        axios.post('http://localhost:8000/upload', fd)
             .then()
             .catch();
         console.log(fd)
@@ -41,6 +41,9 @@ export default class AddProduct extends React.Component {
     onInputChange = (e) => {
         document.getElementById('form-preview').src = e.target.value;
     };
+    onSelectChange = (e)=>{
+
+    }
     chooseFile = () => {
         document.getElementById('file').click();
     };
@@ -64,7 +67,7 @@ export default class AddProduct extends React.Component {
                     error="Input is not a number!"
                     label="Price..."
                 />
-                <CategoriesSelect/>
+                <CategoriesSelect onChange={this.onSelectChange.bind(this)} relay={this.props.relay} viewer={this.props.viewer}/>
                 <Textfield
                     onChange={() => {
                     }}

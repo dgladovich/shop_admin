@@ -10,18 +10,26 @@ export default class CategoriesSelect extends React.Component {
         viewer: PropTypes.object.isRequired,
         relay: PropTypes.object.isRequired,
     };
+    prepareCategories(){
+        return this.props.viewer.categories.edges.map(category => {
+            let cat = category.node;
+            return {
+                id: cat.id,
+                name: cat.title
+            }
+        });
+    }
 
     render() {
-        console.log(this.props.viewer, this.props.relay);
+        let categories = this.prepareCategories();
         return (
             <MDLSelectField
                 label="Category"
-                value={{name: 'Main shit', id: 34}}
+                value={categories[0]}
                 autocomplete
                 floatingLabel
-                onChange={() => {
-                }}
-                items={[{name: 'shit one', id: 123}, {name: 'shit two', id: 12}]}
+                onChange={this.props.onChange}
+                items={categories}
                 keyField="id"
                 valueField="name"
             />

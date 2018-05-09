@@ -3,7 +3,6 @@ import {
     createFragmentContainer,
     graphql,
 } from 'react-relay/compat';
-
 import CategoriesSelect from './CategoriesSelect';
 
 
