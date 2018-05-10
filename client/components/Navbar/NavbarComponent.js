@@ -8,7 +8,7 @@ export default class Navbar extends React.Component {
   render() {
     const title = 'Relay Fullstack';
     return (
-      <Layout className={styles.root}>
+      <Layout className={styles.root} fixedHeader>
         <Header title={<Link to='/'>{title}</Link>} scroll>
           <Navigation>
             <Link to='/signup'>Sign up</Link>

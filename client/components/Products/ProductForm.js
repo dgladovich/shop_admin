@@ -17,31 +17,46 @@ export default class AddProduct extends React.Component {
     state: {
         name: '',
         price: 0,
+        short_decsription: '',
+        full_description: '',
+        category: '',
+        image_src: ''
     };
+    onImageUpload(response){
+        this.setState({imageSrc: response.data.imageSrc})
+        let value = Object.assign(this.state, {
+            created_at: '2018-02-12',
+            updated_at: '2018-02-12',
+        });
+        AddProductMutation.commit(
+            this.props.relay.environment,
+            value,
+            this.props.viewer.id,
+        );
+    }
+    onChangeName(e){
+        this.setState({name: e.target.value});
+    }
+    onChangePrice(e){
+        this.setState({price: +e.target.value})
+    }
+    onChangeShortDescription(e){
+        this.setState({price: +e.target.value})
+    }
+    onChangeCategory(e){}
 
     addProduct = (e) => {
         let file = document.getElementById('file').files[0];
         let fd = new FormData();
         fd.append('file', file);
         axios.post('http://localhost:8000/upload', fd)
-            .then()
-            .catch();
-        console.log(fd)
-        //fd.append;
-        /*        let value = Object.assign(this.state, {
-                    created_at: '2018-02-12',
-                    updated_at: '2018-02-12',
-                });
-                AddProductMutation.commit(
-                    this.props.relay.environment,
-                    value,
-                    this.props.viewer.id,
-                );*/
+            .then(this.onImageUpload.bind(this))
+            .catch(e=>{ console.log(e) });
     };
-    onInputChange = (e) => {
+    onInputFileChange = (e) => {
         document.getElementById('form-preview').src = e.target.value;
     };
-    onSelectChange = (e)=>{
+    onSelectChange = (e) => {
 
     }
     chooseFile = () => {
@@ -52,22 +67,21 @@ export default class AddProduct extends React.Component {
         return (
             <Cell col={12}>
                 <Textfield
-                    onChange={(e) => {
-                        this.setState({name: e.target.value});
-                    }}
+                    onChange={this.onChangeName.bind(this)}
                     floatingLabel
                     label="Product name..."
                 />
                 <Textfield
                     onChange={(e) => {
-                        this.setState({price: +e.target.value})
+
                     }}
                     floatingLabel
                     pattern="-?[0-9]*(\.[0-9]+)?"
                     error="Input is not a number!"
                     label="Price..."
                 />
-                <CategoriesSelect onChange={this.onSelectChange.bind(this)} relay={this.props.relay} viewer={this.props.viewer}/>
+                <CategoriesSelect onChange={this.onChangeCategory.bind(this)} relay={this.props.relay}
+                                  viewer={this.props.viewer}/>
                 <Textfield
                     onChange={() => {
                     }}
@@ -83,9 +97,9 @@ export default class AddProduct extends React.Component {
                     rows={6}
                 />
 
-                <input id={'file'} name={'file-upload'} onChange={this.onInputChange.bind(this)} type="file"
+                <input id={'file'} name={'file-upload'} onChange={this.onInputFileChange.bind(this)} type="file"
                        className={styles.fileInput}/>
-                <img id={'form-preview'} alt="Image preview"/>
+                <img id={'form-preview'} src={'uploads/not_available.png'} alt="Image preview"/>
                 <FABButton onClick={this.chooseFile.bind(this)} ripple className={styles.file}>
                     <Icon name="add"/>
                 </FABButton>
