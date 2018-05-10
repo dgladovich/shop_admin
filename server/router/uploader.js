@@ -22,9 +22,11 @@ router.post('/', upload.single('file'), function(req, res) {
     let mime = file.mimetype.split('/')[0];
     let extension = file.mimetype.split('/')[1];
 
-    console.log(mime, extension);
-
-    res.send({});
+    res.send({
+        data: {
+            fileName: file.fileName
+        }
+    });
 });
 
 module.exports = router;
