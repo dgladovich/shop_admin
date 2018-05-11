@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Grid, Cell, Button, Textfield, FABButton, Icon, Tooltip} from 'react-mdl';
 import {MDLSelectField} from 'react-mdl-select';
 import AddProductMutation from './AddProductMutation';
-import CategoriesSelect from './CategoriesSelect';
+//import CategoriesSelect from './CategoriesSelect';
 import styles from './style/ProductForm.scss';
 import axios from 'axios';
 
@@ -97,8 +97,8 @@ export default class AddProduct extends React.Component {
                     error="Input is not a number!"
                     label="Price..."
                 />
-                <CategoriesSelect onChange={this.onChangeCategory.bind(this)} relay={this.props.relay}
-                                  viewer={this.props.viewer}/>
+{/*                <CategoriesSelect onChange={this.onChangeCategory.bind(this)} relay={this.props.relay}
+                                  viewer={this.props.viewer}/>*/}
                 <Textfield
                     onChange={this.onChangeShortDescription.bind(this)}
                     floatingLabel
@@ -119,13 +119,6 @@ export default class AddProduct extends React.Component {
                         <Icon name="add"/>
                     </FABButton>
                 </Tooltip>
-                <Button
-                    type={'button'}
-                    raised
-                    accent
-                    className={styles.formSubmit}
-                    onClick={this.addProduct.bind(this)
-                    }>Create</Button>
             </Cell>
 
 

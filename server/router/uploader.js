@@ -26,8 +26,13 @@ router.post('/', upload.single('file'), function(req, res) {
             filename: file.filename
         }
     };
+    
+    res.send({
+        data: {
+            fileName: file.fileName
+        }
+    });
 
-    res.json(resp);
 });
 
 module.exports = router;
