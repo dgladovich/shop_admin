@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Cell, Button, Textfield, ListItem, ListItemContent, ListItemAction, Icon} from 'react-mdl';
+import {Grid, Cell, Button, IconButton, Textfield, ListItem, ListItemContent, ListItemAction, Icon} from 'react-mdl';
 
 
 export default class AddFeature extends React.Component {
@@ -11,13 +11,16 @@ export default class AddFeature extends React.Component {
         relay: PropTypes.object.isRequired
     };
 
+    editCategory = ()=>{};
+    deleteCategory = ()=>{};
 
     render() {
         return (
             <ListItem threeLine>
-                <ListItemContent avatar="person" subtitle={this.props.description}>{this.props.title}</ListItemContent>
+                <ListItemContent subtitle={this.props.description}>{this.props.title}</ListItemContent>
                 <ListItemAction>
-                    <a href="#"><Icon name="star" /></a>
+                    <IconButton onClick={this.deleteCategory.bind(this)} name="delete_outline" />
+                    <IconButton onClick={this.editCategory.bind(this)} name="build" />
                 </ListItemAction>
             </ListItem>
         );

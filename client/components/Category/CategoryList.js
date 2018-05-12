@@ -6,7 +6,7 @@ import {Grid, Cell, Button, Textfield, List} from 'react-mdl';
 import Page from '../Page/PageComponent';
 import AddCategoryMutation from './AddCategoryMutation';
 import CategoryItem from './CategoryItem';
-
+import styles from './styles/CategoryList.scss';
 
 export default class AddFeature extends React.Component {
     constructor() {
@@ -64,8 +64,10 @@ export default class AddFeature extends React.Component {
     render() {
         return (
             <Grid>
-                <h2>Category list</h2>
-                <List style={{width: '650px'}}>
+                <Cell col={12}>
+                    <h4>Categories</h4>
+                </Cell>
+                <List className={styles.list}>
                     {this.props.viewer.categories.edges.map(category => {
                         return <CategoryItem
                             key={category.node.id}

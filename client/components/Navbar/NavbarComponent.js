@@ -4,11 +4,12 @@ import { Link } from 'react-router';
 import { Layout, Header, Navigation, Drawer } from 'react-mdl';
 import styles from './Navbar.scss';
 
+
 export default class Navbar extends React.Component {
   render() {
     const title = 'Relay Fullstack';
     return (
-      <Layout className={styles.root} fixedHeader>
+      <Layout style={{position: 'relative'}} className={styles.root}>
         <Header title={<Link to='/'>{title}</Link>} scroll>
           <Navigation>
             <Link to='/signup'>Sign up</Link>

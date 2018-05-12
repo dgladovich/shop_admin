@@ -5,6 +5,8 @@ import Dropdown from 'react-dropdown';
 import {Grid, Cell, Button, Textfield} from 'react-mdl';
 import Page from '../Page/PageComponent';
 import AddCategoryMutation from './AddCategoryMutation';
+import CategorySelectComponent from './CategorySelectComponent';
+import styles from './styles/CategoryForm.scss';
 
 
 export default class AddFeature extends React.Component {
@@ -63,6 +65,9 @@ export default class AddFeature extends React.Component {
     render() {
         return (
             <Grid>
+                <Cell col={12}>
+                    <h4>Category form</h4>
+                </Cell>
                 <Textfield
                     onChange={this.onChangeTitleInput.bind(this)}
                     label="Title"
@@ -76,6 +81,7 @@ export default class AddFeature extends React.Component {
                     label="Description"
                     rows={3}
                 />
+                <CategorySelectComponent queries={ViewerQuery}/>
                 <Button raised accent onClick={this.addCategory.bind(this)}>Add</Button>
             </Grid>
         );
