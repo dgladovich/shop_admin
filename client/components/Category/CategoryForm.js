@@ -8,7 +8,6 @@ import AddCategoryMutation from './AddCategoryMutation';
 import CategorySelectComponent from './CategorySelectComponent';
 import styles from './styles/CategoryForm.scss';
 
-
 export default class AddFeature extends React.Component {
     constructor() {
         super();
@@ -62,6 +61,8 @@ export default class AddFeature extends React.Component {
         });
     }
 
+    onChangeCategory(e){
+    }
     render() {
         return (
             <Grid>
@@ -81,7 +82,7 @@ export default class AddFeature extends React.Component {
                     label="Description"
                     rows={3}
                 />
-                <CategorySelectComponent queries={ViewerQuery}/>
+                <CategorySelectComponent relay={this.props.relay} viewer={this.props.viewer} onChange={this.onChangeCategory.bind(this)}/>
                 <Button raised accent onClick={this.addCategory.bind(this)}>Add</Button>
             </Grid>
         );

@@ -21,5 +21,6 @@ export default createFragmentContainer(Category, {
           }
         }
       }
+      ...CateforySelectComponent
     }`
 });
