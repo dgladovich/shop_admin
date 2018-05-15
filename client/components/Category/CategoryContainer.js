@@ -4,6 +4,7 @@ import {
   graphql,
 } from 'react-relay/compat';
 import Category from './CategoryComponent';
+import CategorySelectComponent from './CategorySelectComponent';
 
 
 export default createFragmentContainer(Category, {
@@ -21,6 +22,6 @@ export default createFragmentContainer(Category, {
           }
         }
       }
-      ...CateforySelectComponent
+      ...CategorySelectComponent_viewer
     }`
 });

@@ -25,7 +25,7 @@ class CategoriesSelect extends React.Component {
     }
 
     render() {
-        let categories = this.prepareCategories();
+/*        let categories = this.prepareCategories();
         return (
             < MDLSelectField
                 label="Category"
@@ -37,7 +37,8 @@ class CategoriesSelect extends React.Component {
                 keyField="id"
                 valueField="name"
             />
-        );
+        );*/
+        return (<div/>)
     }
 }
 
