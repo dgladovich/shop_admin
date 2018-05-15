@@ -145,6 +145,9 @@ const usersType = new GraphQLObjectType({
         },
         age: {
             type: GraphQLInt
+        },
+        email: {
+            type: GraphQLString
         }
     }),
     interfaces: [nodeInterface]

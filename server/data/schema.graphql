@@ -388,6 +388,7 @@ type Users implements Node {
   id: ID!
   name: String
   age: Int
+  email: String
 }
 
 # A connection to a list of items.
