@@ -67,7 +67,7 @@ export default class AddFeature extends React.Component {
         return (
             <Grid>
                 <Cell col={12}>
-                    <h4>Category form</h4>
+                    <h4>Create category</h4>
                 </Cell>
                 <Textfield
                     onChange={this.onChangeTitleInput.bind(this)}
