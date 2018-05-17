@@ -42,7 +42,7 @@ import {
 } from './database';
 import {resolver} from 'graphql-sequelize';
 import db from '../models';
-
+import moment from 'moment';
 /**
  * We get the node interface and field from the Relay library.
  *
@@ -122,7 +122,7 @@ const userType = new GraphQLObjectType({
             type: visitConnection,
             description: 'Array of visits for preset time interval',
             args: connectionArgs,
-            resolve: (source, args) => connectionFromPromisedArray(db.Visit.findAll(), args)
+            resolve: (source, args) => connectionFromPromisedArray(db.Visit.findAll({where: {created_at: {[db.Sequelize.Op.between]: [moment().startOf('month').format('YYYY-MM-DD'), moment().endOf('month').format('YYYY-MM-DD')]}}}), args)
         },
         username: {
             type: GraphQLString,

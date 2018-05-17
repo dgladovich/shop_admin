@@ -8,7 +8,7 @@ module.exports = {
         for(let i = 0; i < 100000; i++){
             visits.push({
                 user_id: _.random(10000, 1000000),
-                created_at: faker.date.between('2017-01-01', '2017-12-31')
+                created_at: faker.date.between('2018-01-01', '2018-12-31')
             })
         }
 
