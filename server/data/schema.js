@@ -518,6 +518,34 @@ const deleteProductMutation = mutationWithClientMutationId({
 
     mutateAndGetPayload: ({name, price}) => addProduct(name, price)
 });
+const deleteCategoryMutation = mutationWithClientMutationId({
+    name: 'DeleteCategory',
+    inputFields: {
+        name: {type: new GraphQLNonNull(GraphQLString)},
+        price: {type: new GraphQLNonNull(GraphQLInt)},
+        created_at: {type: new GraphQLNonNull(GraphQLString)},
+        updated_at: {type: new GraphQLNonNull(GraphQLString)},
+    },
+
+    outputFields: {
+        categoryEdge: {
+            type: categoryEdge,
+            resolve: async (obj) => {
+                let products = await db.Category.findAll({raw: true});
+                let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
+                //const cursorId = cursorForObjectInConnection(productsObjects, object);
+                const cursorId = offsetToCursor(products.length);
+                return {node: obj.dataValues, cursor: cursorId}
+            }
+        },
+        viewer: {
+            type: userType,
+            resolve: () => userLoader.load('1')
+        }
+    },
+
+    mutateAndGetPayload: ({name, price}) => addProduct(name, price)
+});
 const updateOrderMutation = mutationWithClientMutationId({
     name: 'UpdateOrder',
     inputFields: {
@@ -619,6 +647,7 @@ const mutationType = new GraphQLObjectType({
         addProduct: addProductMutation,
         updateProduct: updateProductMutation,
         deleteProduct: deleteProductMutation,
+        deleteCategory: deleteCategoryMutation,
         addCategory: addCategoryMutation,
         updateOrder: updateOrderMutation,
         updateUser: updateUserMutation,

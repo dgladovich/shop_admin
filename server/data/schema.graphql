@@ -100,6 +100,20 @@ type CategoryEdge {
   cursor: String!
 }
 
+input DeleteCategoryInput {
+  name: String!
+  price: Int!
+  created_at: String!
+  updated_at: String!
+  clientMutationId: String
+}
+
+type DeleteCategoryPayload {
+  categoryEdge: CategoryEdge
+  viewer: User
+  clientMutationId: String
+}
+
 input DeleteProductInput {
   name: String!
   price: Int!
@@ -152,6 +166,7 @@ type Mutation {
   addProduct(input: AddProductInput!): AddProductPayload
   updateProduct(input: UpdateProductInput!): UpdateProductPayload
   deleteProduct(input: DeleteProductInput!): DeleteProductPayload
+  deleteCategory(input: DeleteCategoryInput!): DeleteCategoryPayload
   addCategory(input: AddCategoryInput!): AddCategoryPayload
   updateOrder(input: UpdateOrderInput!): UpdateOrderPayload
   updateUser(input: UpdateUserInput!): UpdateUserPayload

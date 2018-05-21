@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dropdown from 'react-dropdown';
-import {Grid, Cell, Button, Textfield, List} from 'react-mdl';
+import {Grid, Cell, Button, Textfield} from 'react-mdl';
 import Page from '../Page/PageComponent';
 import AddCategoryMutation from './AddCategoryMutation';
-import CategoryItem from './CategoryItem';
-import styles from './styles/CategoryList.scss';
+import CategorySelectComponent from './CategorySelectComponent';
+import styles from './styles/CategoryForm.scss';
 
 export default class AddFeature extends React.Component {
     constructor() {
@@ -18,10 +18,10 @@ export default class AddFeature extends React.Component {
         }
     }
 
-    static propTypes = {
+/*    static propTypes = {
         viewer: PropTypes.object.isRequired,
         relay: PropTypes.object.isRequired
-    };
+    };*/
 
 
     addCategory = () => {
@@ -61,21 +61,30 @@ export default class AddFeature extends React.Component {
         });
     }
 
+    onChangeCategory(e){
+    }
     render() {
+        console.log('this party rock')
         return (
-            <Grid style={{zIndex: 999}}>
+            <Grid>
                 <Cell col={12}>
-                    <h4>Categories</h4>
+                    <h4>Create category</h4>
                 </Cell>
-                <List className={styles.list}>
-                    {this.props.viewer.categories.edges.map(category => {
-                        return <CategoryItem
-                            key={category.node.id}
-                            title={category.node.view_title}
-                            description={category.node.description}
-                        />
-                    })}
-                </List>
+                <Textfield
+                    onChange={this.onChangeTitleInput.bind(this)}
+                    label="Title"
+                />
+                <Textfield
+                    onChange={this.onChangeViewTitleInput.bind(this)}
+                    label="View title"
+                />
+                <Textfield
+                    onChange={this.onChangeDescriptionTextArea.bind(this)}
+                    label="Description"
+                    rows={3}
+                />
+                <CategorySelectComponent onChange={this.onChangeCategory.bind(this)}/>
+                <Button raised accent onClick={this.addCategory.bind(this)}>Add</Button>
             </Grid>
         );
     }

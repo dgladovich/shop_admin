@@ -2,10 +2,11 @@
 /* eslint-disable global-require */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Cell, Card, CardTitle, CardText, CardActions, Button} from 'react-mdl';
+import {Grid, Cell, Card, CardTitle, CardText, CardActions, Button, FABButton, Icon} from 'react-mdl';
 import styles from './styles/CategoriesPage.scss';
 import CategoryForm from './CategoryForm';
 import CategoryList from './CategoryList';
+import { Link } from 'react-router';
 
 export default class Category extends React.Component {
     static propTypes = {

@@ -1,18 +1,16 @@
 // @flow
 import React from 'react';
 import PropTypes from 'prop-types';
+import DeleteCategoryMutation from './DeleteCategoryMutation'
 import {Grid, Cell, Button, IconButton, Textfield, ListItem, ListItemContent, ListItemAction, Icon} from 'react-mdl';
 
 
 export default class AddFeature extends React.Component {
 
-    static propTypes = {
-        viewer: PropTypes.object.isRequired,
-        relay: PropTypes.object.isRequired
-    };
-
     editCategory = ()=>{};
-    deleteCategory = ()=>{};
+    deleteCategory = ()=>{
+        DeleteCategoryMutation.commit();
+    };
 
     render() {
         return (
