@@ -73,6 +73,8 @@ export default class AddFeature extends React.Component {
                             key={category.node.id}
                             title={category.node.view_title}
                             description={category.node.description}
+                            categoryId={category.node.id}
+                            relay={this.props.relay}
                         />
                     })}
                 </List>

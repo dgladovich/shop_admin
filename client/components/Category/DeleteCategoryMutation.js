@@ -3,35 +3,23 @@ import {graphql, commitMutation, Environment} from 'react-relay/compat';
 
 const mutation = graphql`
   mutation DeleteCategoryMutation($input: DeleteCategoryInput!) {
-    deleteCategory(input: $input) {
-      categoryEdge {
-        node {
-            title
-            view_title
-            image
-            description
-        }
-      }
-    }
+    deleteCategory
   }
 `;
 
-function getConfigs(viewerId) {
+function getConfigs(categoryId) {
     return [{
         type: 'RANGE_DELETE',
         parentName: 'viewer',
-        parentID: viewerId,
+        parentID: categoryId,
         connectionName: 'categories',
-        edgeName: 'categoryEdge',
-        rangeBehaviors: {
-            '': 'append',
-        },
+        deletedIDFieldName: 'categoryEdge',
     }];
 }
 
 function getOptimisticResponse(data, viewerId) {
     return {
-        addCategory: {
+        deleteCategory: {
             categoryEdge: {
                 node: data,
             },
@@ -44,16 +32,15 @@ function getOptimisticResponse(data, viewerId) {
 
 function commit(environment: Environment,
                 data: Object,
-                viewerId: number) {
+                categoryId: number) {
     commitMutation(
         environment,
         {
             mutation,
-            variables: {input: data},
-            optimisticResponse: getOptimisticResponse(data, viewerId),
-            configs: getConfigs(viewerId),
+            optimisticResponse: getOptimisticResponse(data, categoryId),
+            configs: getConfigs(categoryId),
         }
     );
 }
 
-export default {commit};
+export default { commit };

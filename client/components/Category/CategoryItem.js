@@ -9,7 +9,8 @@ export default class AddFeature extends React.Component {
 
     editCategory = ()=>{};
     deleteCategory = ()=>{
-        DeleteCategoryMutation.commit();
+        console.log(this.props)
+        DeleteCategoryMutation.commit(this.props.relay.environment, {}, this.props.categoryId);
     };
 
     render() {
