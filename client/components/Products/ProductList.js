@@ -4,6 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Cell, Card, CardTitle, CardText, CardActions, Button} from 'react-mdl';
 import CommodityItem from './CommodityItem';
+import ViewerQuery from "../../routes/ViewerQuery";
+import ProductContainer from "./ProductContainer";
 
 
 
@@ -23,9 +25,11 @@ export default class ProductComponent extends React.Component {
                                 key={product.node.id}
                                 name={product.node.name}
                                 price={product.node.price}
+                                productId={product.node.id}
                             />
                         )
                     })}
+
             </Grid>
         );
     }
