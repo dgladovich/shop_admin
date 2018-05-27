@@ -8,6 +8,7 @@ import CategoriesSelect from './CategoriesSelect';
 import styles from './style/ProductForm.scss';
 import axios from 'axios';
 
+
 export default class AddProduct extends React.Component {
     static propTypes = {
         viewer: PropTypes.object.isRequired,
@@ -83,6 +84,12 @@ export default class AddProduct extends React.Component {
 
     render() {
         return (
+            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores assumenda cumque dicta doloribus ducimus eaque error illum inventore itaque laborum molestiae mollitia nemo nobis officia praesentium quidem repudiandae, sit.</div>
+
+
+        );
+    }/*  render() {
+        return (
             <Cell col={12}>
                 <Textfield
                     onChange={this.onChangeName.bind(this)}
@@ -129,5 +136,5 @@ export default class AddProduct extends React.Component {
 
 
         );
-    }
+    }*/
 }

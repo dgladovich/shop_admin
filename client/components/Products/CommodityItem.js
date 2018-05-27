@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import styles from './style/CommodityItem.scss';
 import CommodityUpdateDialog from './CommodityUpdateDialog';
 import {Grid, Cell, Card, CardTitle, CardText, CardActions, Button, IconButton} from 'react-mdl';
+import { Link } from 'react-router';
+import ViewerQuery from "../../routes/ViewerQuery";
+import ProductContainer from "./ProductContainer";
 
 
 export default class CommodityItem extends React.Component {
@@ -25,7 +28,9 @@ export default class CommodityItem extends React.Component {
             <Cell cel={3} shadow={2} className={styles.commodity}>
                 <div className={styles.controllButtons}>
                     <IconButton onClick={this.deleteCommodity.bind(this)} className={styles.deleteButton} name="delete_outline" />
-                    <IconButton onClick={this.openEditWindow.bind(this)} className={styles.editButton} name="build" />
+                    <Link to={`/products/${this.props.productId}`}>
+                        <IconButton  className={styles.editButton} name="build" />
+                    </Link>
                 </div>
                 <span>{this.props.name}</span>
                 <p>Price<span>{this.props.price}</span></p>
