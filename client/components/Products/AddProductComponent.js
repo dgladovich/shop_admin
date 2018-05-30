@@ -30,6 +30,7 @@ export default class AddProduct extends React.Component {
     }
 
     render() {
+        console.log(this.props.relay, this.props.viewer)
         return (
             <Page heading='Add a Product'>
                 <Grid>

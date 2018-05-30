@@ -92,6 +92,15 @@ const userType = new GraphQLObjectType({
             args: connectionArgs,
             resolve: (source, args) => connectionFromPromisedArray(featureLoader.loadMany(source.features), args)
         },
+        product: {
+            type: productType,
+            description: 'ProductType',
+            args: connectionArgs,
+            resolve: async function(source, args){
+                let shit = await db.Product.find({where: {id: 350}, raw: true});
+                return shit;
+            }
+        },
         products: {
             type: productConnection,
             description: 'Array of products',

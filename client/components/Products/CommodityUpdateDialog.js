@@ -24,7 +24,7 @@ export default class CommodityUpdateDialog extends React.Component {
             <Dialog open={this.props.isOpen}>
                 <DialogTitle>Update commodity</DialogTitle>
                 <DialogContent>
-                    <UpdateProductForm/>
+                    <UpdateProductForm relay={this.props.relay} viewer={this.props.viewer}/>
                 </DialogContent>
                 <DialogActions>
                     <Button type='button'>Agree</Button>
