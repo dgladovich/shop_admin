@@ -4,12 +4,11 @@ import {graphql, commitMutation, Environment} from 'react-relay/compat';
 const mutation = graphql`
   mutation DeleteCategoryMutation($input: DeleteCategoryInput!) {
     deleteCategory(input: $input) {
-      categoryEdge {09
+      categoryEdge {
         node {
           id
         }
       }
-      removedTagId
     }
   }
 `;

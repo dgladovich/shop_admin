@@ -357,6 +357,9 @@ type User implements Node {
   # Features that I have
   features(after: String, first: Int, before: String, last: Int): FeatureConnection
 
+  # ProductType
+  product(after: String, first: Int, before: String, last: Int): Product
+
   # Array of products
   products(after: String, first: Int, before: String, last: Int): ProductConnection
 

@@ -26,6 +26,8 @@ export default class ProductComponent extends React.Component {
                                 name={product.node.name}
                                 price={product.node.price}
                                 productId={product.node.id}
+                                relay={this.props.relay}
+                                viewer={this.props.viewer}
                             />
                         )
                     })}

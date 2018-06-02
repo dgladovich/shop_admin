@@ -24,7 +24,6 @@ export default class AddProduct extends React.Component {
 
     onImageUpload(response) {
         this.setState({imageSrc: response.data.imageSrc})
-        console.log(this.state)
         let value = Object.assign(this.state, {
             created_at: '2018-02-12',
             updated_at: '2018-02-12',
@@ -42,7 +41,6 @@ export default class AddProduct extends React.Component {
 
     onChangePrice(e) {
         this.setState({price: +e.target.value})
-        console.log(this.state)
     }
 
     onChangeShortDescription(e) {
