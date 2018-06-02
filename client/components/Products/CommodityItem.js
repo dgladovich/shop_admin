@@ -20,7 +20,7 @@ export default class CommodityItem extends React.Component {
         this.setState({isOpenDialog: false});
     };
     deleteCommodity = () => {
-        DeleteProductMutation.commit(this.props.relay.environment, {}, this.props.viewer.id)
+        DeleteProductMutation.commit(this.props.relay.environment, {id: this.props.productId}, this.props.viewer.id)
     };
 
     render() {
