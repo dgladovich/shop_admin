@@ -110,15 +110,13 @@ input DeleteCategoryInput {
 
 type DeleteCategoryPayload {
   categoryEdge: CategoryEdge
+  removeCategoryId: CategoryEdge
   viewer: User
   clientMutationId: String
 }
 
 input DeleteProductInput {
-  name: String!
-  price: Int!
-  created_at: String!
-  updated_at: String!
+  id: String!
   clientMutationId: String
 }
 
