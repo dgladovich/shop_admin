@@ -44,6 +44,7 @@ import {
 import {resolver} from 'graphql-sequelize';
 import db from '../models';
 import moment from 'moment';
+
 /**
  * We get the node interface and field from the Relay library.
  *
@@ -97,7 +98,7 @@ const userType = new GraphQLObjectType({
             type: productType,
             description: 'ProductType',
             args: connectionArgs,
-            resolve: async function(source, args){
+            resolve: async function (source, args) {
                 let shit = await db.Product.find({where: {id: 350}, raw: true});
                 return shit;
             }
@@ -125,7 +126,13 @@ const userType = new GraphQLObjectType({
             description: 'Array of orders wich',
             args: connectionArgs,
             resolve: (source, args) => {
-                return connectionFromPromisedArray(db.Order.findAll({ include: [{model: db.ProductOrder, as: 'products', include: [{ model: db.Product, as: 'productObject', required: false }]}] }), args)
+                return connectionFromPromisedArray(db.Order.findAll({
+                    include: [{
+                        model: db.ProductOrder,
+                        as: 'products',
+                        include: [{model: db.Product, as: 'productObject', required: false}]
+                    }]
+                }), args)
             }
         },
         visits: {
@@ -510,11 +517,9 @@ const deleteProductMutation = mutationWithClientMutationId({
         productEdge: {
             type: productEdge,
             resolve: async (obj) => {
-                console.log(obj)
-                let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
-                //const cursorId = cursorForObjectInConnection(productsObjects, object);
-                const cursorId = offsetToCursor(products.length);
-                return {node: obj.dataValues, cursor: cursorId}
+                let node = {id: obj.id};
+                let cursor = globalIdField({type: 'product', id: obj.id});
+                return {node: node, cursor: cursor}
             }
         },
         viewer: {
