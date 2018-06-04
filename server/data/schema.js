@@ -509,7 +509,8 @@ const deleteProductMutation = mutationWithClientMutationId({
         productEdge: {
             type: productEdge,
             resolve: async (obj) => {
-                let products = await db.Product.findAll({raw: true});
+                console.log(obj)
+                let products = await db.Product.destroy({where: { }, raw: true});
                 let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
                 //const cursorId = cursorForObjectInConnection(productsObjects, object);
                 const cursorId = offsetToCursor(products.length);
