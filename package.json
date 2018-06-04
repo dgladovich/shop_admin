@@ -17,8 +17,7 @@
     "clean": "rm -rf build && mkdir build",
     "relay": "relay-compiler --src ./client --schema server/data/schema.graphql",
     "graphql_server": "nodemon --watch server/data/**/*.js --exec \"npm run update-server && STAGE=graph npm run start-sub-task\"",
-    "relay_server": "",
-    "server": "nodemon --watch server/data/**/*.js --exec \"npm run updateSchema && PURP=server npm run start-sub-task\""
+    "relay_server": "STAGE=relay ./node_modules/.bin/babel-node server/index.js"
   },
   "engines": {
     "node": ">=6.6.0",

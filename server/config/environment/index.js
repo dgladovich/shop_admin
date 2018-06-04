@@ -5,7 +5,7 @@ const config = {
     env: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 3000,
     stage: process.env.STAGE || '',
-    purp: process.env.PURP || "",
+    purp: process.env.PURP || '',
     graphql: {
         port: 8000
     }

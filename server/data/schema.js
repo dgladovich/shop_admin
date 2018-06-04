@@ -39,6 +39,7 @@ import {
     addFeature,
     addProduct,
     addCategory,
+    deleteProduct
 } from './database';
 import {resolver} from 'graphql-sequelize';
 import db from '../models';
@@ -510,7 +511,6 @@ const deleteProductMutation = mutationWithClientMutationId({
             type: productEdge,
             resolve: async (obj) => {
                 console.log(obj)
-                let products = await db.Product.destroy({where: { }, raw: true});
                 let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
                 //const cursorId = cursorForObjectInConnection(productsObjects, object);
                 const cursorId = offsetToCursor(products.length);
@@ -523,15 +523,16 @@ const deleteProductMutation = mutationWithClientMutationId({
         }
     },
 
-    mutateAndGetPayload: ({name, price}) => addProduct(name, price)
+    mutateAndGetPayload: async ({id}) => {
+        const productId = fromGlobalId(id).id;
+        const shit = await deleteProduct(productId);
+        return {id: productId};
+    }
 });
 const deleteCategoryMutation = mutationWithClientMutationId({
     name: 'DeleteCategory',
     inputFields: {
-        name: {type: new GraphQLNonNull(GraphQLString)},
-        price: {type: new GraphQLNonNull(GraphQLInt)},
-        created_at: {type: new GraphQLNonNull(GraphQLString)},
-        updated_at: {type: new GraphQLNonNull(GraphQLString)},
+        productId: {type: new GraphQLNonNull(GraphQLString)},
     },
 
     outputFields: {
@@ -561,7 +562,9 @@ const deleteCategoryMutation = mutationWithClientMutationId({
         }
     },
 
-    mutateAndGetPayload: ({name, price}) => addProduct(name, price)
+    mutateAndGetPayload: (productId) => {
+        deleteProduct(productId)
+    }
 });
 const updateOrderMutation = mutationWithClientMutationId({
     name: 'UpdateOrder',
