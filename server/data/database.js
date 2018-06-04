@@ -152,6 +152,9 @@ function addProduct(name: string, price: number, created_at: string, updated_at:
         return product;
     })
 }
+function deleteProduct(id) {
+    return db.Product.destroy({where: {id: id}});
+}
 
 function addCategory(categoryData) {
 
@@ -172,5 +175,6 @@ export {
     getProducts,
     addFeature,
     addProduct,
-    addCategory
+    addCategory,
+    deleteProduct
 };
