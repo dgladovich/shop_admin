@@ -3,10 +3,9 @@ import {
     createFragmentContainer,
     graphql,
 } from 'react-relay/compat';
-import Product from './ProductComponent';
+import EditProductComponent from './EditProductComponent';
 
-
-export default createFragmentContainer(Product, {
+export default createFragmentContainer(EditProductComponent, {
     viewer: graphql`
         fragment EditProductContainer_viewer on User {
             product{

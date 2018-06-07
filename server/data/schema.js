@@ -507,15 +507,11 @@ const deleteProductMutation = mutationWithClientMutationId({
     },
 
     outputFields: {
-        productEdge: {
-            type: productEdge,
+        deletedProductId: {
+            type:  new GraphQLNonNull(GraphQLString),
             resolve: async (obj) => {
-                console.log(obj)
-                let products = await db.Product.findAll({raw: true});
-                let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
-                //const cursorId = cursorForObjectInConnection(productsObjects, object);
-                const cursorId = offsetToCursor(products.length);
-                return {node: obj.dataValues, cursor: cursorId}
+                let deletedId = obj.id;
+                return deletedId;
             }
         },
         viewer: {
@@ -527,7 +523,7 @@ const deleteProductMutation = mutationWithClientMutationId({
     mutateAndGetPayload: async ({id}) => {
         const productId = fromGlobalId(id).id;
         const shit = await deleteProduct(productId);
-        return {id: productId};
+        return {id: id};
     }
 });
 const deleteCategoryMutation = mutationWithClientMutationId({
@@ -550,6 +546,7 @@ const deleteCategoryMutation = mutationWithClientMutationId({
         removeCategoryId: {
             type: categoryEdge,
             resolve: async (obj) => {
+
                 let products = await db.Category.findAll({raw: true});
                 let productsObjects = products.map(product => new Product(product.id, product.name, product.price));
                 //const cursorId = cursorForObjectInConnection(productsObjects, object);
@@ -564,6 +561,7 @@ const deleteCategoryMutation = mutationWithClientMutationId({
     },
 
     mutateAndGetPayload: (productId) => {
+        console.log(productId)
         deleteProduct(productId)
     }
 });

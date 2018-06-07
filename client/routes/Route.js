@@ -19,8 +19,9 @@ export default (
         <IndexRoute component={FeatureContainer} queries={ViewerQuery}/>
         <Route path='/signup' component={SignupComponent}/>
         <Route path='/login' component={LoginComponent}/>
-        <Route path='/products' component={ProductContainer} queries={ViewerQuery}>
-            <Route path='/products/:productId' component={EditProductContainer} queries={ViewerQuery}/>
+        <Route path='/products'>
+                <IndexRoute component={ProductContainer} queries={ViewerQuery}/>
+                <Route path=':productId' component={EditProductContainer} queries={ViewerQuery}/>
         </Route>
         <Route path='/categories' component={CategoryContainer} queries={ViewerQuery}/>
         <Route path='/orders' component={OrderContainer} queries={ViewerQuery}/>
