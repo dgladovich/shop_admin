@@ -517,14 +517,8 @@ const deleteProductMutation = mutationWithClientMutationId({
         deletedProductId: {
             type:  new GraphQLNonNull(GraphQLString),
             resolve: async (obj) => {
-<<<<<<< HEAD
                 let deletedId = obj.id;
                 return deletedId;
-=======
-                let node = {id: obj.id};
-                let cursor = globalIdField({type: 'product', id: obj.id});
-                return {node: node, cursor: cursor}
->>>>>>> 140dd61ca156efb661c68d9ff9170df23f43d2fe
             }
         },
         viewer: {
