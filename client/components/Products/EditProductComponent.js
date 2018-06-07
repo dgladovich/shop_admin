@@ -83,6 +83,7 @@ export default class AddProduct extends React.Component {
     };
 
     render() {
+        console.log(this.props)
         return (
             <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores assumenda cumque dicta doloribus ducimus eaque error illum inventore itaque laborum molestiae mollitia nemo nobis officia praesentium quidem repudiandae, sit.</div>
 

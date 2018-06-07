@@ -99,7 +99,9 @@ const userType = new GraphQLObjectType({
             description: 'ProductType',
             args: connectionArgs,
             resolve: async function (source, args) {
+                console.log(source, args);
                 let shit = await db.Product.find({where: {id: 350}, raw: true});
+                console.log(shit)
                 return shit;
             }
         },
