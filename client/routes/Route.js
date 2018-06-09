@@ -11,7 +11,6 @@ import OrderContainer from '../components/Order/OrderContainer';
 import VisitContainer from '../components/Visit/VisitContainer';
 import UserContainer from '../components/User/UserContainer';
 import CategoryEditComponent from '../components/Category/CategoryEditContainer';
-import EditProductComponent from "../components/Products/EditProductComponent";
 import EditProductContainer from "../components/Products/EditProductContainer";
 
 export default (
