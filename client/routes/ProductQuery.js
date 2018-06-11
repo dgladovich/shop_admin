@@ -4,6 +4,7 @@ export default {
     viewer: Component => Relay.QL`
     query {
       viewer {
+        product(id: $productId)
         ${Component.getFragment('viewer')}
       }
     }

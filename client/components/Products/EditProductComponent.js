@@ -82,60 +82,53 @@ export default class AddProduct extends React.Component {
         document.getElementById('file').click();
     };
 
-    render() {
-        console.log(this.props)
+  render() {
         return (
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores assumenda cumque dicta doloribus ducimus eaque error illum inventore itaque laborum molestiae mollitia nemo nobis officia praesentium quidem repudiandae, sit.</div>
+            <Grid>
+                <Cell col={12}>
+                    <Textfield
+                        onChange={this.onChangeName.bind(this)}
+                        floatingLabel
+                        label="Product name..."
+                    />
+                    <Textfield
+                        onChange={this.onChangePrice.bind(this)}
+                        floatingLabel
+                        pattern="-?[0-9]*(\.[0-9]+)?"
+                        error="Input is not a number!"
+                        label="Price..."
+                    />
+                    {/*                <CategoriesSelect onChange={this.onChangeCategory.bind(this)} relay={this.props.relay}
+                                  viewer={this.props.viewer}/>*/}
+                    <Textfield
+                        onChange={this.onChangeShortDescription.bind(this)}
+                        floatingLabel
+                        label="Short description..."
+                        rows={3}
+                    />
+                    <Textfield
+                        onChange={this.onChangeFullDescription.bind(this)}
+                        floatingLabel
+                        label="Complete description..."
+                        rows={6}
+                    />
 
-
+                    <input id={'file'} name={'file-upload'} onChange={this.onInputFileChange.bind(this)} type="file"
+                           className={styles.fileInput}/>
+                    <Tooltip label={'upload photo'} className={styles.file}>
+                        <FABButton onClick={this.chooseFile.bind(this)} ripple >
+                            <Icon name="add"/>
+                        </FABButton>
+                    </Tooltip>
+                    <Button
+                        type={'button'}
+                        raised
+                        accent
+                        className={styles.formSubmit}
+                        onClick={this.addProduct.bind(this)
+                        }>Create</Button>
+                </Cell>
+            </Grid>
         );
-    }/*  render() {
-        return (
-            <Cell col={12}>
-                <Textfield
-                    onChange={this.onChangeName.bind(this)}
-                    floatingLabel
-                    label="Product name..."
-                />
-                <Textfield
-                    onChange={this.onChangePrice.bind(this)}
-                    floatingLabel
-                    pattern="-?[0-9]*(\.[0-9]+)?"
-                    error="Input is not a number!"
-                    label="Price..."
-                />
-                <CategoriesSelect onChange={this.onChangeCategory.bind(this)} relay={this.props.relay}
-                                  viewer={this.props.viewer}/>
-                <Textfield
-                    onChange={this.onChangeShortDescription.bind(this)}
-                    floatingLabel
-                    label="Short description..."
-                    rows={3}
-                />
-                <Textfield
-                    onChange={this.onChangeFullDescription.bind(this)}
-                    floatingLabel
-                    label="Complete description..."
-                    rows={6}
-                />
-
-                <input id={'file'} name={'file-upload'} onChange={this.onInputFileChange.bind(this)} type="file"
-                       className={styles.fileInput}/>
-                <Tooltip label={'upload photo'} className={styles.file}>
-                    <FABButton onClick={this.chooseFile.bind(this)} ripple >
-                        <Icon name="add"/>
-                    </FABButton>
-                </Tooltip>
-                <Button
-                    type={'button'}
-                    raised
-                    accent
-                    className={styles.formSubmit}
-                    onClick={this.addProduct.bind(this)
-                    }>Create</Button>
-            </Cell>
-
-
-        );
-    }*/
+    }
 }

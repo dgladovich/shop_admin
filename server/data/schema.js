@@ -9,7 +9,7 @@ import {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLSchema,
-    GraphQLString
+    GraphQLString,
 } from 'graphql';
 
 
@@ -97,7 +97,9 @@ const userType = new GraphQLObjectType({
         product: {
             type: productType,
             description: 'ProductType',
-            args: connectionArgs,
+            args: {
+                id: {type: GraphQLString}
+            },
             resolve: async function (source, args) {
                 console.log(source, args);
                 let shit = await db.Product.find({where: {id: 350}, raw: true});

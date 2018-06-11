@@ -12,7 +12,7 @@ import VisitContainer from '../components/Visit/VisitContainer';
 import UserContainer from '../components/User/UserContainer';
 import CategoryEditComponent from '../components/Category/CategoryEditContainer';
 import EditProductContainer from "../components/Products/EditProductContainer";
-
+import ProductQuery from './ProductQuery';
 export default (
     <Route path='/' component={AppContainer} queries={ViewerQuery}>
         <IndexRoute component={FeatureContainer} queries={ViewerQuery}/>
@@ -20,7 +20,7 @@ export default (
         <Route path='/login' component={LoginComponent}/>
         <Route path='/products'>
                 <IndexRoute component={ProductContainer} queries={ViewerQuery}/>
-                <Route path=':productId' component={EditProductContainer} queries={ViewerQuery}/>
+                <Route path=':productId' component={EditProductContainer} queries={ProductQuery}/>
         </Route>
         <Route path='/categories' component={CategoryContainer} queries={ViewerQuery}/>
         <Route path='/orders' component={OrderContainer} queries={ViewerQuery}/>
