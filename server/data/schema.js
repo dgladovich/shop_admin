@@ -662,6 +662,19 @@ const queryType = new GraphQLObjectType({
         viewer: {
             type: userType,
             resolve: () => userLoader.load('1')
+        },
+        product: {
+            type: productType,
+            args: {
+              id: {
+                  type: GraphQLString
+              }
+            },
+            resolve: async()=>{
+                let shit = await db.Product.find({where: {id: 350}, raw: true});
+                console.log(shit)
+                return shit;
+            }
         }
     })
 });

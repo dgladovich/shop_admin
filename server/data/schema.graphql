@@ -303,6 +303,7 @@ type Query {
     id: ID!
   ): Node
   viewer: User
+  product(id: String): Product
 }
 
 input UpdateOrderInput {

@@ -13,6 +13,7 @@ import UserContainer from '../components/User/UserContainer';
 import CategoryEditComponent from '../components/Category/CategoryEditContainer';
 import EditProductContainer from "../components/Products/EditProductContainer";
 import ProductQuery from './ProductQuery';
+
 export default (
     <Route path='/' component={AppContainer} queries={ViewerQuery}>
         <IndexRoute component={FeatureContainer} queries={ViewerQuery}/>
