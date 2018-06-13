@@ -10,6 +10,7 @@ import axios from 'axios';
 
 
 export default class AddProduct extends React.Component {
+
     static propTypes = {
         viewer: PropTypes.object.isRequired,
         relay: PropTypes.object.isRequired,
@@ -60,7 +61,7 @@ export default class AddProduct extends React.Component {
         })
     }
 
-    addProduct = (e) => {
+    updateProduct = (e) => {
         let file = document.getElementById('file').files[0];
         let fd = new FormData();
         fd.append('file', file);
@@ -83,6 +84,7 @@ export default class AddProduct extends React.Component {
     };
 
   render() {
+      console.log(this.props)
         return (
             <Grid>
                 <Cell col={12}>
@@ -125,7 +127,7 @@ export default class AddProduct extends React.Component {
                         raised
                         accent
                         className={styles.formSubmit}
-                        onClick={this.addProduct.bind(this)
+                        onClick={this.updateProduct.bind(this)
                         }>Create</Button>
                 </Cell>
             </Grid>

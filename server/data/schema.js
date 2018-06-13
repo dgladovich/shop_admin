@@ -101,9 +101,8 @@ const userType = new GraphQLObjectType({
                 id: {type: GraphQLString}
             },
             resolve: async function (source, args) {
-                console.log(source, args);
-                let shit = await db.Product.find({where: {id: 350}, raw: true});
-                console.log(shit)
+                let {id} = fromGlobalId(args.id);
+                let shit = await db.Product.find({where: {id: id}, raw: true});
                 return shit;
             }
         },
@@ -324,6 +323,14 @@ const productType = new GraphQLObjectType({
         },
         price: {
             type: GraphQLInt,
+            description: 'Description of the pruduct'
+        },
+        title: {
+            type: GraphQLString,
+            description: 'Description of the pruduct'
+        },
+        category: {
+            type: GraphQLString,
             description: 'Description of the pruduct'
         },
         created_at: {
@@ -663,19 +670,7 @@ const queryType = new GraphQLObjectType({
             type: userType,
             resolve: () => userLoader.load('1')
         },
-        product: {
-            type: productType,
-            args: {
-              id: {
-                  type: GraphQLString
-              }
-            },
-            resolve: async()=>{
-                let shit = await db.Product.find({where: {id: 350}, raw: true});
-                console.log(shit)
-                return shit;
-            }
-        }
+
     })
 });
 

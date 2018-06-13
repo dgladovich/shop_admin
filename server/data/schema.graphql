@@ -271,6 +271,12 @@ type Product {
   # Description of the pruduct
   price: Int
 
+  # Description of the pruduct
+  title: String
+
+  # Description of the pruduct
+  category: String
+
   # Date where product created
   created_at: String
 
@@ -303,7 +309,6 @@ type Query {
     id: ID!
   ): Node
   viewer: User
-  product(id: String): Product
 }
 
 input UpdateOrderInput {

@@ -6,10 +6,14 @@ import {
 import EditProductComponent from './EditProductComponent';
 
 export default createFragmentContainer(EditProductComponent, {
-    product: graphql`
-        fragment EditProductContainer_product on Product {
-            id
-            price
-            name
+    viewer: graphql`
+        fragment EditProductContainer_viewer on User {
+            product(id: $productId){
+                id
+                price
+                name
+                title
+                category
+            }
         }`
 });
