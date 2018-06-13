@@ -333,6 +333,14 @@ const productType = new GraphQLObjectType({
             type: GraphQLString,
             description: 'Description of the pruduct'
         },
+        short_description: {
+            type: GraphQLString,
+            description: 'Description of the pruduct'
+        },
+        full_description: {
+            type: GraphQLString,
+            description: 'Description of the pruduct'
+        },
         created_at: {
             type: GraphQLString,
             description: 'Date where product created'

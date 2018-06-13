@@ -277,6 +277,12 @@ type Product {
   # Description of the pruduct
   category: String
 
+  # Description of the pruduct
+  short_description: String
+
+  # Description of the pruduct
+  full_description: String
+
   # Date where product created
   created_at: String
 

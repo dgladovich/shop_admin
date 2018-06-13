@@ -827,6 +827,30 @@
               "deprecationReason": null
             },
             {
+              "name": "short_description",
+              "description": "Description of the pruduct",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "full_description",
+              "description": "Description of the pruduct",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "created_at",
               "description": "Date where product created",
               "args": [],

@@ -15,7 +15,7 @@ import EditProductContainer from "../components/Products/EditProductContainer";
 
 export default (
     <Route path='/' component={AppContainer} queries={ViewerQuery}>
-        <IndexRoute component={FeatureContainer} queries={ViewerQuery}/>
+        <IndexRoute component={ProductContainer} queries={ViewerQuery}/>
         <Route path='/signup' component={SignupComponent}/>
         <Route path='/login' component={LoginComponent}/>
         <Route path='/products'>

@@ -21,9 +21,7 @@ export default class AddProduct extends React.Component {
         category: '',
         image_src: ''
     };
-
-    onImageUpload(response) {
-        this.setState({imageSrc: response.data.imageSrc})
+    createCommodity(){
         let value = Object.assign(this.state, {
             created_at: '2018-02-12',
             updated_at: '2018-02-12',
@@ -35,20 +33,26 @@ export default class AddProduct extends React.Component {
         );
     }
 
+    onImageUpload(response) {
+        this.setState({imageSrc: response.data.imageSrc})
+        this.createCommodity();
+    }
+
     onChangeName(e) {
         this.setState({name: e.target.value});
     }
 
     onChangePrice(e) {
-        this.setState({price: +e.target.value})
+        console.log(e.target.value, +e.target.value)
+        this.setState({price: +e.target.value});
     }
 
     onChangeShortDescription(e) {
-        this.setState({price: +e.target.value})
+        this.setState({short_description: e.target.value})
     }
 
     onChangeFullDescription(e) {
-        this.setState({price: +e.target.value})
+        this.setState({full_description: e.target.value})
     }
 
     onChangeCategory(e) {
@@ -58,21 +62,27 @@ export default class AddProduct extends React.Component {
     }
 
     addProduct = (e) => {
-        let file = document.getElementById('file').files[0];
-        let fd = new FormData();
-        fd.append('file', file);
-        const options = {
-            method: 'POST',
-            data: fd,
-            url: 'http://localhost:8000/upload',
-        };
-        axios(options)
-            .then(this.onImageUpload.bind(this))
-            .catch(e => {
-                console.log(e)
-            });
+        if(this.state.image_src){
+            let file = document.getElementById('file').files[0];
+            let fd = new FormData();
+            fd.append('file', file);
+            const options = {
+                method: 'POST',
+                data: fd,
+                url: 'http://localhost:8000/upload',
+            };
+            axios(options)
+                .then(this.onImageUpload.bind(this))
+                .catch(e => {
+                    console.log(e)
+                });
+        } else {
+            this.createCommodity();
+        }
+
     };
     onInputFileChange = (e) => {
+        this.setState({image_src: ''});
         document.getElementById('form-preview').src = e.target.value;
     };
     chooseFile = () => {
