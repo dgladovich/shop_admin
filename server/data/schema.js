@@ -302,6 +302,10 @@ const categoryType = new GraphQLObjectType({
             type: GraphQLString,
             description: 'Subcategories for category'
         },
+        lang_key: {
+            type: GraphQLString,
+            description: 'Subcategories for category'
+        },
         createdAt: {
             type: GraphQLString,
             description: 'Date, when category created'
@@ -338,6 +342,10 @@ const productType = new GraphQLObjectType({
             description: 'Description of the pruduct'
         },
         full_description: {
+            type: GraphQLString,
+            description: 'Description of the pruduct'
+        },
+        lang_key: {
             type: GraphQLString,
             description: 'Description of the pruduct'
         },

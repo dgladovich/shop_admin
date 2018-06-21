@@ -14,6 +14,9 @@ export default createFragmentContainer(EditProductComponent, {
                 name
                 title
                 category
+                short_description
+                full_description
+                lang_key
             }
         }`
 });

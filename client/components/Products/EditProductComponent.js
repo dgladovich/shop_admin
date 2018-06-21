@@ -87,7 +87,11 @@ export default class AddProduct extends React.Component {
       console.log(this.props)
         return (
             <Grid>
-                <Cell col={12}>
+
+                <Cell style={{
+                    margin: 'auto'
+                }} col={4}>
+                    <h3>Edit product</h3>
                     <Textfield
                         onChange={this.onChangeName.bind(this)}
                         floatingLabel

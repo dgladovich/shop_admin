@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes) => {
         image: DataTypes.STRING,
         createdAt: {
             type: DataTypes.DATE(3),
-            allowNull: false,
+            allowNull: true,
             defaultValue: sequelize.literal('NOW()'),
         },
         updatedAt: {
             type: DataTypes.DATE(3),
-            allowNull: false,
+            allowNull: true,
             defaultValue: sequelize.literal('NOW()'),
         },
         description: DataTypes.STRING

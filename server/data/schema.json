@@ -851,6 +851,18 @@
               "deprecationReason": null
             },
             {
+              "name": "lang_key",
+              "description": "Description of the pruduct",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "created_at",
               "description": "Date where product created",
               "args": [],
@@ -1278,6 +1290,18 @@
             },
             {
               "name": "children",
+              "description": "Subcategories for category",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lang_key",
               "description": "Subcategories for category",
               "args": [],
               "type": {

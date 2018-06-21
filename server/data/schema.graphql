@@ -75,6 +75,9 @@ type Category {
   # Subcategories for category
   children: String
 
+  # Subcategories for category
+  lang_key: String
+
   # Date, when category created
   createdAt: String
 
@@ -282,6 +285,9 @@ type Product {
 
   # Description of the pruduct
   full_description: String
+
+  # Description of the pruduct
+  lang_key: String
 
   # Date where product created
   created_at: String
