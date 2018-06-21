@@ -102,7 +102,7 @@ const userType = new GraphQLObjectType({
             },
             resolve: async function (source, args) {
                 let {id} = fromGlobalId(args.id);
-                let shit = await db.Product.find({where: {id: id}, raw: true});
+                let shit = await db.Product.find({where: {id: +id}, raw: true});
                 return shit;
             }
         },

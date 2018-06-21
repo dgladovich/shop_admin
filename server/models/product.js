@@ -4,8 +4,9 @@ module.exports = (sequelize, DataTypes) => {
         name: DataTypes.STRING,
         price: DataTypes.FLOAT,
         category: DataTypes.STRING,
-        short_decsription: DataTypes.STRING,
-        full_decsription: DataTypes.STRING,
+        title: DataTypes.STRING,
+        short_description: DataTypes.STRING,
+        full_description: DataTypes.STRING,
         created_at: DataTypes.DATE,
         updated_at: DataTypes.DATE
     }, {

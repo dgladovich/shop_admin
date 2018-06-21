@@ -25,7 +25,7 @@ export default class CategoriesSelect extends React.Component {
         return (
             <MDLSelectField
                 label="Category"
-                value={categories[0]}
+                value={this.props.viewer}
                 autocomplete
                 floatingLabel
                 onChange={this.props.onChange}

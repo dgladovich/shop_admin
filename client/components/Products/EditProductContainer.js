@@ -17,6 +17,17 @@ export default createFragmentContainer(EditProductComponent, {
                 short_description
                 full_description
                 lang_key
+            }            
+            categories(first: 20){
+                edges{
+                    node{
+                        id
+                        title
+                        view_title
+                        description
+                        parent
+                    }
+                }
             }
         }`
 });

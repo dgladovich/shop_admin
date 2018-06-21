@@ -15,17 +15,14 @@ export default class AddProduct extends React.Component {
         viewer: PropTypes.object.isRequired,
         relay: PropTypes.object.isRequired,
     };
-    state: {
-        name: '',
-        price: 0,
-        short_decsription: '',
-        full_description: '',
-        category: '',
-        image_src: ''
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = props.viewer.product
+    }
 
     onImageUpload(response) {
-        this.setState({imageSrc: response.data.imageSrc})
+        this.setState({imageSrc: response.data.imageSrc});
         console.log(this.state)
         let value = Object.assign(this.state, {
             created_at: '2018-02-12',
@@ -83,8 +80,7 @@ export default class AddProduct extends React.Component {
         document.getElementById('file').click();
     };
 
-  render() {
-      console.log(this.props)
+    render() {
         return (
             <Grid>
 
@@ -96,6 +92,7 @@ export default class AddProduct extends React.Component {
                         onChange={this.onChangeName.bind(this)}
                         floatingLabel
                         label="Product name..."
+                        value={this.state.name}
                     />
                     <Textfield
                         onChange={this.onChangePrice.bind(this)}
@@ -103,26 +100,29 @@ export default class AddProduct extends React.Component {
                         pattern="-?[0-9]*(\.[0-9]+)?"
                         error="Input is not a number!"
                         label="Price..."
+                        value={this.state.price}
                     />
-                    {/*                <CategoriesSelect onChange={this.onChangeCategory.bind(this)} relay={this.props.relay}
-                                  viewer={this.props.viewer}/>*/}
+                    <CategoriesSelect onChange={this.onChangeCategory.bind(this)} relay={this.props.relay}
+                                      viewer={this.props.viewer}/>
                     <Textfield
                         onChange={this.onChangeShortDescription.bind(this)}
                         floatingLabel
                         label="Short description..."
                         rows={3}
+                        value={this.state.short_description}
                     />
                     <Textfield
                         onChange={this.onChangeFullDescription.bind(this)}
                         floatingLabel
                         label="Complete description..."
                         rows={6}
+                        value={this.state.full_description}
                     />
 
                     <input id={'file'} name={'file-upload'} onChange={this.onInputFileChange.bind(this)} type="file"
                            className={styles.fileInput}/>
                     <Tooltip label={'upload photo'} className={styles.file}>
-                        <FABButton onClick={this.chooseFile.bind(this)} ripple >
+                        <FABButton onClick={this.chooseFile.bind(this)} ripple>
                             <Icon name="add"/>
                         </FABButton>
                     </Tooltip>
