@@ -1,5 +1,5 @@
 'use strict';
-let categories = require('../categories');
+let categories = require('../seed_data/categories');
 module.exports = {
   up: (queryInterface, Sequelize) => {
 

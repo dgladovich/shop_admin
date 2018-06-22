@@ -3,7 +3,7 @@
 const faker = require('faker'),
     moment = require('moment'),
     _ = require('lodash'),
-    categories = require('../categories');
+    categories = require('../seed_data/categories');
 
 faker.locale = 'ru';
 

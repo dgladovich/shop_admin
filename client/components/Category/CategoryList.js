@@ -71,7 +71,7 @@ export default class AddFeature extends React.Component {
                     {this.props.viewer.categories.edges.map(category => {
                         return <CategoryItem
                             key={category.node.id}
-                            title={category.node.view_title}
+                            title={category.node.title}
                             description={category.node.description}
                             categoryId={category.node.id}
                             relay={this.props.relay}
