@@ -1,15 +1,16 @@
 // @flow
 /* eslint-disable global-require */
 import React from 'react';
-import PropTypes from 'prop-types';
 
-export default class ProductComponent extends React.Component {
-    static propTypes = {
-        viewer: PropTypes.object.isRequired,
-        relay: PropTypes.object.isRequired,
-    };
+export default class OrderDetails extends React.Component {
+    componentDidMount(){
+        console.log(this.props)
+        let order = {id: this.props.orderId};
+        this.props.relay.refetch(order);
+    }
 
     render() {
+        console.log(this.props)
         return <div>Order details</div>;
     }
 }

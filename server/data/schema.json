@@ -427,6 +427,29 @@
               "deprecationReason": null
             },
             {
+              "name": "order",
+              "description": "Array of orders wich",
+              "args": [
+                {
+                  "name": "id",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Order",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "visits",
               "description": "Array of visits for preset time interval",
               "args": [

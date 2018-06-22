@@ -387,6 +387,9 @@ type User implements Node {
   # Array of orders wich
   orders(after: String, first: Int, before: String, last: Int): OrderConnection
 
+  # Array of orders wich
+  order(id: String): Order
+
   # Array of visits for preset time interval
   visits(after: String, first: Int, before: String, last: Int): VisitConnection
 

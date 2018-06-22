@@ -4,10 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {ListItem, ListItemAction, ListItemContent, Icon} from 'react-mdl';
 
-export default class ProductComponent extends React.Component {
-    static propTypes = {
-        viewer: PropTypes.object.isRequired,
-    };
+export default class OrderItem extends React.Component {
 
     render() {
         return (

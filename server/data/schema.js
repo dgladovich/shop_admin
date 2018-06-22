@@ -138,6 +138,37 @@ const userType = new GraphQLObjectType({
                 }), args)
             }
         },
+        order: {
+            type: orderType,
+            description: 'Array of orders wich',
+            args: {
+                id: {type: GraphQLString}
+            },
+            resolve: (source, args) => {
+                console.log(source, args)
+                return {
+                    user: {
+                        edges: [
+                            {
+                                node: {
+                                    name: 'Pidor'
+                                },
+                                cursor: "YXJyYXljb25uZWN0aW9uOjE="
+                            }
+                        ],
+                        pageInfo: {
+                            hasNextPage: false,
+                            hasPreviousPage: false
+                        }
+                    },
+                    address: 'Some address',
+                    payment: 'unexpected',
+                    status: 'active',
+                    total_price: 1232
+
+                }
+            }
+        },
         visits: {
             type: visitConnection,
             description: 'Array of visits for preset time interval',
