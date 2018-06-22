@@ -7,7 +7,7 @@ for(let i = 0; i < 2; i++){
     users.push({
         name: faker.name.firstName(),
         email: faker.internet.email(),
-        phone_number: faker.phone.phone(),
+       // phone_number: faker.phone(),
         age: _.random(18, 40),
         active: true
     })
@@ -15,7 +15,7 @@ for(let i = 0; i < 2; i++){
 module.exports = {
     up: (queryInterface, Sequelize) => {
 
-        return queryInterface.bulkInsert('Person', users, {});
+        return queryInterface.bulkInsert('shop_users', users, {});
     },
 
     down: (queryInterface, Sequelize) => {

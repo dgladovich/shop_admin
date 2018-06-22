@@ -2,11 +2,13 @@
 let orderProducts = [];
 const _ = require('lodash');
 
-for (let i = 0; i < 500; i++) {
-    orderProducts.push({
-        product_id: _.random(1, 50),
-        order_id: _.random(1, 50)
-    })
+for (let i = 1; i < 51; i++) {
+    for (let j = 0; j < _.random(1, 20); j++){
+        orderProducts.push({
+            product_id: _.random(1, 50),
+            order_id: i
+        })
+    } 
 }
 module.exports = {
     up: (queryInterface, Sequelize) => {
