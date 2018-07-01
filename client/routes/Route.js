@@ -2,11 +2,11 @@ import React from 'react';
 import {IndexRoute, Route, Redirect} from 'react-router';
 import ViewerQuery from './ViewerQuery';
 import AppContainer from '../components/App/AppContainer';
-import FeatureContainer from '../components/Feature/FeatureContainer';
 import SignupComponent from '../components/Signup/SignupComponent';
 import LoginComponent from '../components/Login/LoginComponent';
 import ProductContainer from '../components/Products/ProductContainer';
 import CategoryContainer from '../components/Category/CategoryContainer';
+import DashboardContainer from '../components/Dashoboard/DashboardContainer';
 import OrderContainer from '../components/Order/OrderContainer';
 import VisitContainer from '../components/Visit/VisitContainer';
 import UserContainer from '../components/User/UserContainer';
@@ -15,7 +15,7 @@ import EditProductContainer from "../components/Products/EditProductContainer";
 
 export default (
     <Route path='/' component={AppContainer} queries={ViewerQuery}>
-        <IndexRoute component={ProductContainer} queries={ViewerQuery}/>
+        <IndexRoute component={DashboardContainer}  queries={ViewerQuery}/>
         <Route path='/signup' component={SignupComponent}/>
         <Route path='/login' component={LoginComponent}/>
         <Route path='/products'>
