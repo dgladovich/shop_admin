@@ -7,7 +7,7 @@ import {Grid, Cell, Card, CardTitle, CardText, CardActions, Button} from 'react-
 
 export default class CustomersComponent extends React.Component {
   static propTypes = {
-    users: PropTypes.object.isRequired,
+    viewer: PropTypes.object.isRequired,
     relay: PropTypes.object.isRequired,
   };
 

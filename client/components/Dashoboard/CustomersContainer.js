@@ -7,8 +7,9 @@ import CustomersComponent from './CustomersComponent';
 
 
 export default createFragmentContainer(CustomersComponent, {
-  categories: graphql`
-        fragment CustomersContainer_categories on CategoryConnection {
+  viewer: graphql`
+        fragment CustomersContainer_viewer on User {
+            categories(first: 20) {
                 edges{
                     node{
                         id
@@ -18,5 +19,6 @@ export default createFragmentContainer(CustomersComponent, {
                         parent
                     }
                 }
+            }
         }`
 });

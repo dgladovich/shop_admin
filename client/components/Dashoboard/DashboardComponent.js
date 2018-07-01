@@ -56,7 +56,7 @@ export default class ProductPage extends React.Component {
                 </div>
               </Cell>
               <Cell col={6}>
-                <CustomersContainer/>
+                <CustomersContainer viewer={this.props.viewer}/>
               </Cell>
             </Grid>
           </Cell>

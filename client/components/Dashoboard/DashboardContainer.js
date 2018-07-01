@@ -20,9 +20,9 @@ export default createFragmentContainer(DashboardComponent, {
                     }
                 }
             }
-            categories(first: 20) {
-                ...CustomersContainer_categories
-            }
+            
+            ...CustomersContainer_viewer
+            
             orders(first: 20) {
                 ...OrdersContainer_orders                  
             }
