@@ -103,6 +103,33 @@ type CategoryEdge {
   cursor: String!
 }
 
+# Users which will be updated with admin
+type Comment implements Node {
+  # The ID of an object
+  id: ID!
+  name: String
+  age: Int
+  email: String
+}
+
+# A connection to a list of items.
+type CommentConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [CommentEdge]
+}
+
+# An edge in a connection.
+type CommentEdge {
+  # The item at the end of the edge
+  node: Comment
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 input DeleteCategoryInput {
   productId: String!
   clientMutationId: String
@@ -159,6 +186,13 @@ type FeatureEdge {
   cursor: String!
 }
 
+# Total review of month
+type MonthlyRevenue implements Node {
+  # The ID of an object
+  id: ID!
+  total: Int
+}
+
 type Mutation {
   addFeature(input: AddFeatureInput!): AddFeaturePayload
   addProduct(input: AddProductInput!): AddProductPayload
@@ -169,6 +203,13 @@ type Mutation {
   updateOrder(input: UpdateOrderInput!): UpdateOrderPayload
   updateUser(input: UpdateUserInput!): UpdateUserPayload
   addUser(input: AddUserInput!): AddUserPayload
+}
+
+# Count off new orders
+type NewOrdersCount implements Node {
+  # The ID of an object
+  id: ID!
+  total: Int
 }
 
 # An object with an ID
@@ -381,6 +422,9 @@ type User implements Node {
   # List of users
   users(after: String, first: Int, before: String, last: Int): UsersConnection
 
+  # List of comments
+  comments(after: String, first: Int, before: String, last: Int): CommentConnection
+
   # Array of categories
   categories(after: String, first: Int, before: String, last: Int): CategoryConnection
 
@@ -395,6 +439,8 @@ type User implements Node {
 
   # Users's username
   username: String
+  monthlyRevenue: MonthlyRevenue
+  newOrdersCount: NewOrdersCount
   website: String
 }
 

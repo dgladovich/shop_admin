@@ -118,6 +118,12 @@ const userType = new GraphQLObjectType({
             args: connectionArgs,
             resolve: (source, args) => connectionFromPromisedArray(db.User.findAll(), args)
         },
+        comments: {
+            type: commentConnection,
+            description: 'List of comments',
+            args: connectionArgs,
+            resolve: (source, args) => connectionFromPromisedArray(db.Comment.findAll(), args)
+        },
         categories: {
             type: categoryConnection,
             description: 'Array of categories',
@@ -179,8 +185,37 @@ const userType = new GraphQLObjectType({
             type: GraphQLString,
             description: 'Users\'s username'
         },
+        monthlyRevenue: {
+            type: monthlyRevenueType,
+        },
+        newOrdersCount: {
+            type: newOrdersCountType
+        },
         website: {
             type: GraphQLString,
+        }
+    }),
+    interfaces: [nodeInterface]
+});
+
+const newOrdersCountType = new GraphQLObjectType({
+    name: 'NewOrdersCount',
+    description: 'Count off new orders',
+    fields: () => ({
+        id: globalIdField('NewOrdersCount'),
+        total: {
+            type: GraphQLInt
+        }
+    }),
+    interfaces: [nodeInterface]
+});
+const monthlyRevenueType = new GraphQLObjectType({
+    name: 'MonthlyRevenue',
+    description: 'Total review of month',
+    fields: () => ({
+        id: globalIdField('MonthlyRevenue'),
+        total: {
+            type: GraphQLInt
         }
     }),
     interfaces: [nodeInterface]
@@ -191,6 +226,23 @@ const usersType = new GraphQLObjectType({
     description: 'Users which will be updated with admin',
     fields: () => ({
         id: globalIdField('Users'),
+        name: {
+            type: GraphQLString
+        },
+        age: {
+            type: GraphQLInt
+        },
+        email: {
+            type: GraphQLString
+        }
+    }),
+    interfaces: [nodeInterface]
+});
+const commentType = new GraphQLObjectType({
+    name: 'Comment',
+    description: 'Users which will be updated with admin',
+    fields: () => ({
+        id: globalIdField('Comment'),
         name: {
             type: GraphQLString
         },
@@ -448,6 +500,10 @@ const {connectionType: userConnection, edgeType: userEdge} = connectionDefinitio
     name: 'User',
     nodeType: usersType
 });
+const {connectionType: commentConnection, edgeType: commentEdge} = connectionDefinitions({
+    name: 'Comment',
+    nodeType: commentType
+});
 
 /**
  * Create feature example
@@ -573,7 +629,7 @@ const deleteProductMutation = mutationWithClientMutationId({
 
     outputFields: {
         deletedProductId: {
-            type:  new GraphQLNonNull(GraphQLString),
+            type: new GraphQLNonNull(GraphQLString),
             resolve: async (obj) => {
                 let deletedId = obj.id;
                 return deletedId;
