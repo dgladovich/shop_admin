@@ -14,7 +14,7 @@ export default class OrdersComponent extends React.Component {
     render() {
         return (
             <div>
-                <h3>Orders counter</h3>
+                <h3>New Orders</h3>
             </div>
         );
     }

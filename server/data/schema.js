@@ -41,10 +41,10 @@ import {
     addCategory,
     deleteProduct
 } from './database';
-import {resolver} from 'graphql-sequelize';
+
 import db from '../models';
 import moment from 'moment';
-
+import _ from 'lodash';
 /**
  * We get the node interface and field from the Relay library.
  *
@@ -187,6 +187,9 @@ const userType = new GraphQLObjectType({
         },
         monthlyRevenue: {
             type: monthlyRevenueType,
+            resolve: ()=>{
+                return {total: _.random(10, 1000)}
+            }
         },
         newOrdersCount: {
             type: newOrdersCountType

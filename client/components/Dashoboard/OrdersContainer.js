@@ -7,19 +7,21 @@ import OrdersComponent from './OrdersComponent';
 
 
 export default createFragmentContainer(OrdersComponent, {
-  orders: graphql`
-        fragment OrdersContainer_orders on OrderConnection {
-                edges{
-                    node{
-                        address
-                        delivery_service
-                        payment
-                        status
-                        total_price
-                        created_at
-                        updated_at
-                        price
-                    }
-                }   
-        }`
+  viewer: graphql`
+      fragment OrdersContainer_viewer on User {
+          orders(first: 20) {
+              edges{
+                  node{
+                      address
+                      delivery_service
+                      payment
+                      status
+                      total_price
+                      created_at
+                      updated_at
+                      price
+                  }
+              }
+          }   
+      }`
 });

@@ -15,7 +15,7 @@ export default class OrdersComponent extends React.Component {
     console.log(this.props)
     return (
       <div>
-        <h3>Orders component</h3>
+        <h3>Pending orders</h3>
       </div>
     );
   }

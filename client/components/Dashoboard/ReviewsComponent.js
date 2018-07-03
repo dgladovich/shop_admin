@@ -5,7 +5,7 @@ import {Grid, Cell, Card, CardTitle, CardText, CardActions, Button} from 'react-
 
 
 
-export default class ProductPage extends React.Component {
+export default class ReviewsComponent extends React.Component {
   static propTypes = {
     viewer: PropTypes.object.isRequired,
     relay: PropTypes.object.isRequired,
@@ -14,7 +14,7 @@ export default class ProductPage extends React.Component {
   render() {
     return (
       <div>
-        <h3>Reviews component</h3>
+        <h3>Pending Reviews</h3>
       </div>
     );
   }
