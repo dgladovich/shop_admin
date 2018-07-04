@@ -12,6 +12,7 @@ export default class ReviewsComponent extends React.Component {
   };
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <h3>Pending Reviews</h3>

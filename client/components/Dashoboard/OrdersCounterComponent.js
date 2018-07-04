@@ -5,13 +5,14 @@ import {Grid, Cell, Card, CardTitle, CardText, CardActions, Button} from 'react-
 
 
 
-export default class OrdersComponent extends React.Component {
+export default class OrdersCounterComponent extends React.Component {
     static propTypes = {
-        orders: PropTypes.object.isRequired,
+        viewer: PropTypes.object.isRequired,
         relay: PropTypes.object.isRequired,
     };
 
     render() {
+        console.log(this.props)
         return (
             <div>
                 <h3>New Orders</h3>

@@ -12,7 +12,7 @@ export default class CustomersComponent extends React.Component {
   };
 
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div>
           <h3>Customers component</h3>

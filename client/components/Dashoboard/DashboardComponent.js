@@ -26,17 +26,17 @@ export default class ProductPage extends React.Component {
                                 <MonthlyRevenueContainer viewer={this.props.viewer}/>
                             </Cell>
                             <Cell col={6}>
-                                <OrdersCounterContainer/>
+                                <OrdersCounterContainer viewer={this.props.viewer}/>
                             </Cell>
                             <Cell col={12}>
-                                <OrdersContainer/>
+                                <OrdersContainer viewer={this.props.viewer}/>
                             </Cell>
                         </Grid>
                     </Cell>
                     <Cell col={5}>
                         <Grid>
                             <Cell col={6}>
-                                <ReviewsContainer/>
+                                <ReviewsContainer viewer={this.props.viewer}/>
                             </Cell>
                             <Cell col={6}>
                                 <CustomersContainer viewer={this.props.viewer}/>

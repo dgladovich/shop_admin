@@ -7,7 +7,7 @@ import {Grid, Cell, Card, CardTitle, CardText, CardActions, Button} from 'react-
 
 export default class OrdersComponent extends React.Component {
   static propTypes = {
-    orders: PropTypes.object.isRequired,
+    viewer: PropTypes.object.isRequired,
     relay: PropTypes.object.isRequired,
   };
 
