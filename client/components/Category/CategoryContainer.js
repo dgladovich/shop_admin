@@ -3,9 +3,9 @@ import {
   createFragmentContainer,
   graphql,
 } from 'react-relay/compat';
-import Category from './CategoryComponent';
+import CategoryTableComponent from './CategoryTableComponent';
 
-export default createFragmentContainer(Category, {
+export default createFragmentContainer(CategoryTableComponent, {
   viewer: graphql`
     fragment CategoryContainer_viewer on User {
       id,
