@@ -20,6 +20,13 @@ import FilterEditorContainer from '../components/Filters/FilterEditorContainer';
 import OrderEditorContainer from '../components/Order/OrderEditorContainer';
 import UserEditorContainer from '../components/User/UserEditorContainer';
 
+import ProductCreateContainer from '../components/Products/ProductCreateContainer';
+import CategoryCreateContainer from '../components/Category/CategoryCreateContainer';
+import FilterCreateContainer from '../components/Filters/FilterCreateContainer';
+import UserCreateContainer from '../components/User/UserCreateContainer';
+
+import OrderDetailsContainer from '../components/Order/OrderDetailsContainer';
+
 export default (
   <Route path='/' component={AppContainer} queries={ViewerQuery}>
     <IndexRoute component={DashboardContainer} queries={ViewerQuery}/>
@@ -29,16 +36,20 @@ export default (
     <Route path='/products'>
       <IndexRoute component={ProductContainer} queries={ViewerQuery}/>
       <Route path=':productId' component={ProductEditorContainer} queries={ViewerQuery}/>
+      <Route path='/create' component={ProductCreateContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/categories'>
       <IndexRoute component={CategoryContainer} queries={ViewerQuery}/>
       <Route path=':categoryId' component={CategoryEditorContainer} queries={ViewerQuery}/>
+      <Route path='/create' component={CategoryCreateContainer} queries={ViewerQuery}/>
+
     </Route>
 
     <Route path='/orders'>
       <IndexRoute component={OrderContainer} queries={ViewerQuery}/>
-      <Route path=':categoryId' component={OrderEditorContainer} queries={ViewerQuery}/>
+      <Route path=':categoryId' component={OrderDetailsContainer} queries={ViewerQuery}/>
+      <Route path=':categoryId/edit' component={OrderEditorContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/visits'>
@@ -48,6 +59,8 @@ export default (
     <Route path='/users'>
       <IndexRoute component={UserContainer} queries={ViewerQuery}/>
       <Route path=':categoryId' component={UserEditorContainer} queries={ViewerQuery}/>
+      <Route path='/create' component={UserCreateContainer} queries={ViewerQuery}/>
+
     </Route>
 
     <Route path='/comments'>
@@ -58,6 +71,8 @@ export default (
     <Route path='/filters'>
       <IndexRoute component={FiltersContainer} queries={ViewerQuery}/>
       <Route path=':categoryId' component={FilterEditorContainer} queries={ViewerQuery}/>
+      <Route path='/create' component={FilterCreateContainer} queries={ViewerQuery}/>
+
     </Route>
 
     <Route path='/settings'>

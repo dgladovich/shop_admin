@@ -96,7 +96,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: '#cecece',
     padding: theme.spacing.unit * 3,
   },
 });

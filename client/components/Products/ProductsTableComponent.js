@@ -9,6 +9,7 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
+import Grid from '@material-ui/core/Grid';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,10 +17,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
+import SettingIcon from '@material-ui/icons/Settings';
+import AddIcon from '@material-ui/icons/Add';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
+import {lighten} from '@material-ui/core/styles/colorManipulator';
 import ProductCardContainer from "./ProductCardContainer";
 
 
@@ -38,7 +42,7 @@ const toolbarStyles = theme => ({
         backgroundColor: theme.palette.secondary.dark,
       },
   spacer: {
-    flex: '1 1 100%',
+    flex: '1 1',
   },
   actions: {
     color: theme.palette.text.secondary,
@@ -49,7 +53,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-  const {numSelected, classes} = props;
+  const {numSelected, classes, editorRoute} = props;
 
   return (
     <Toolbar
@@ -70,19 +74,21 @@ let EnhancedTableToolbar = props => {
       </div>
       <div className={classes.spacer}/>
       <div className={classes.actions}>
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete">
-              <DeleteIcon/>
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="Filter list">
-              <FilterListIcon/>
-            </IconButton>
-          </Tooltip>
-        )}
+        <Tooltip title="Filter list">
+          <IconButton aria-label="Filter list">
+            <FilterListIcon/>
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Create">
+          <IconButton aria-label="Create" onClick={editorRoute}>
+            <AddIcon/>
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Refresh">
+          <IconButton aria-label="Refresh">
+            <RefreshIcon/>
+          </IconButton>
+        </Tooltip>
       </div>
     </Toolbar>
   );
@@ -184,15 +190,15 @@ function createData(name, calories, fat) {
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-  },
-  table: {
-    minWidth: 500,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
-  },
+    background: 'none',
+    boxShadow: 'none'
+  }
+  /*  table: {
+      minWidth: 500,
+    },
+    tableWrapper: {
+      overflowX: 'auto',
+    },*/
 });
 
 class CustomPaginationActionsTable extends React.Component {
@@ -220,6 +226,9 @@ class CustomPaginationActionsTable extends React.Component {
       rowsPerPage: 5,
     };
   }
+  routeToEditor(){
+    this.props.router.push('/products/create')
+  }
 
   handleChangePage = (event, page) => {
     this.setState({page});
@@ -231,23 +240,26 @@ class CustomPaginationActionsTable extends React.Component {
 
   render() {
     const {classes} = this.props;
+    console.log(this.props)
     const {data, rowsPerPage, page, selected} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-    console.log(this.props)
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length}/>
 
-        <div className={classes.tableWrapper}>
+        <EnhancedTableToolbar numSelected={selected.length} editorRoute={this.routeToEditor.bind(this)}/>
+        <Grid container spacing={8}>
           {
-            this.props.viewer.products.edges.map((edge)=>{
+            this.props.viewer.products.edges.map((edge) => {
               return (
-                <ProductCardContainer key={edge.node.__dataID__} product={edge.node}/>
+                <Grid item xs={12} sm={6} md={4} lg={3}  key={edge.node.__dataID__}>
+                  <ProductCardContainer product={edge.node}/>
+                </Grid>
               )
             })
           }
-        </div>
+        </Grid>
+
       </Paper>
     );
   }
