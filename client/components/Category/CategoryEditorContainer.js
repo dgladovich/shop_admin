@@ -8,7 +8,7 @@ import CategoryEditorComponent from './CategoryEditorComponent';
 
 export default createFragmentContainer(CategoryEditorComponent, {
   viewer: graphql`
-    fragment CommentsContainer_viewer on User {
+    fragment CategoryEditorContainer_viewer on User {
       id,
       products(first: 20) {
         edges{

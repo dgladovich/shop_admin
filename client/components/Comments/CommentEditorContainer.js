@@ -8,7 +8,7 @@ import CommentsTableComponent from './CommentsTableComponent';
 
 export default createFragmentContainer(CommentsTableComponent, {
   viewer: graphql`
-    fragment CommentsContainer_viewer on User {
+    fragment CommentEditorContainer_viewer on User {
       id,
       products(first: 20) {
         edges{

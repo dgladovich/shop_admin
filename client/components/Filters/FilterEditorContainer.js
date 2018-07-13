@@ -8,7 +8,7 @@ import FilterEditorComponent from './FilterEditorComponent';
 
 export default createFragmentContainer(FilterEditorComponent, {
   viewer: graphql`
-    fragment CommentsContainer_viewer on User {
+    fragment FilterEditorContainer_viewer on User {
       id,
       products(first: 20) {
         edges{

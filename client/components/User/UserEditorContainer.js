@@ -7,7 +7,7 @@ import UserEditorComponent from './UserEditorComponent';
 
 export default createFragmentContainer(UserEditorComponent, {
   viewer: graphql`
-    fragment EditProductContainer_viewer on User {
+    fragment UserEditorContainer_viewer on User {
       product(id: $productId){
         id
         price

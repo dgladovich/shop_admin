@@ -3,12 +3,12 @@ import {
   createFragmentContainer,
   graphql,
 } from 'react-relay/compat';
-import CommentsTableComponent from './CommentsTableComponent';
+import OrderEditorComponent from './OrderEditorComponent';
 
 
-export default createFragmentContainer(CommentsTableComponent, {
+export default createFragmentContainer(OrderEditorComponent, {
   viewer: graphql`
-    fragment CommentsContainer_viewer on User {
+    fragment OrderEditorContainer_viewer on User {
       id,
       products(first: 20) {
         edges{

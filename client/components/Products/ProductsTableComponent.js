@@ -20,6 +20,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+import ProductCardContainer from "./ProductCardContainer";
 
 
 const toolbarStyles = theme => ({
@@ -232,45 +233,20 @@ class CustomPaginationActionsTable extends React.Component {
     const {classes} = this.props;
     const {data, rowsPerPage, page, selected} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    console.log(this.props)
 
     return (
       <Paper className={classes.root}>
         <EnhancedTableToolbar numSelected={selected.length}/>
 
         <div className={classes.tableWrapper}>
-          <Table className={classes.table}>
-            <TableBody>
-              {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
-                return (
-                  <TableRow key={n.id}>
-                    <TableCell component="th" scope="row">
-                      {n.name}
-                    </TableCell>
-                    <TableCell numeric>{n.calories}</TableCell>
-                    <TableCell numeric>{n.fat}</TableCell>
-                  </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow style={{height: 48 * emptyRows}}>
-                  <TableCell colSpan={6}/>
-                </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  colSpan={3}
-                  count={data.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onChangePage={this.handleChangePage}
-                  onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                  ActionsComponent={TablePaginationActionsWrapped}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
+          {
+            this.props.viewer.products.edges.map((edge)=>{
+              return (
+                <ProductCardContainer key={edge.node.__dataID__} product={edge.node}/>
+              )
+            })
+          }
         </div>
       </Paper>
     );

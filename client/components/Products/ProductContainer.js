@@ -4,6 +4,7 @@ import {
     graphql,
 } from 'react-relay/compat';
 import ProductsTableComponent from './ProductsTableComponent';
+import ProductCardContainer from './ProductCardContainer';
 
 
 export default createFragmentContainer(ProductsTableComponent, {
@@ -13,9 +14,7 @@ export default createFragmentContainer(ProductsTableComponent, {
             products(first: 20) {
                 edges{
                     node{
-                        id,
-                        name,
-                        price
+                        ...ProductCardContainer_product
                     }
                 }
             }

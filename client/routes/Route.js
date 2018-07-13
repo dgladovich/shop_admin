@@ -13,8 +13,12 @@ import UserContainer from '../components/User/UserContainer';
 import CommentsContainer from "../components/Comments/CommentsContainer";
 import FiltersContainer from "../components/Filters/FiltersContainer";
 import SettingsContainer from "../components/Settings/SettingsContainer";
-import EditProductContainer from "../components/Products/EditProductContainer";
-
+import ProductEditorContainer from '../components/Products/ProductEditorContainer';
+import CategoryEditorContainer from '../components/Category/CategoryEditorContainer';
+import CommentEditorContainer from '../components/Comments/CommentEditorContainer';
+import FilterEditorContainer from '../components/Filters/FilterEditorContainer';
+import OrderEditorContainer from '../components/Order/OrderEditorContainer';
+import UserEditorContainer from '../components/User/UserEditorContainer';
 
 export default (
   <Route path='/' component={AppContainer} queries={ViewerQuery}>
@@ -24,37 +28,36 @@ export default (
 
     <Route path='/products'>
       <IndexRoute component={ProductContainer} queries={ViewerQuery}/>
-      <Route path=':productId' component={EditProductContainer} queries={ViewerQuery}/>
+      <Route path=':productId' component={ProductEditorContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/categories'>
       <IndexRoute component={CategoryContainer} queries={ViewerQuery}/>
-      <Route path=':categoryId' component={EditCategoryContainer} queries={ViewerQuery}/>
+      <Route path=':categoryId' component={CategoryEditorContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/orders'>
       <IndexRoute component={OrderContainer} queries={ViewerQuery}/>
-      <Route path=':categoryId' component={EditOrderContainer} queries={ViewerQuery}/>
+      <Route path=':categoryId' component={OrderEditorContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/visits'>
       <IndexRoute component={VisitContainer} queries={ViewerQuery}/>
-      <Route path=':categoryId' component={EditVisitContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/users'>
       <IndexRoute component={UserContainer} queries={ViewerQuery}/>
-      <Route path=':categoryId' component={EditUserContainer} queries={ViewerQuery}/>
+      <Route path=':categoryId' component={UserEditorContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/comments'>
       <IndexRoute component={CommentsContainer} queries={ViewerQuery}/>
-      <Route path=':categoryId' component={EditCommentContainer} queries={ViewerQuery}/>
+      <Route path=':categoryId' component={CommentEditorContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/filters'>
       <IndexRoute component={FiltersContainer} queries={ViewerQuery}/>
-      <Route path=':categoryId' component={EditFilterContainer} queries={ViewerQuery}/>
+      <Route path=':categoryId' component={FilterEditorContainer} queries={ViewerQuery}/>
     </Route>
 
     <Route path='/settings'>
