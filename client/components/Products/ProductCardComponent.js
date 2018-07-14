@@ -18,6 +18,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import moment from 'moment';
 
 const styles = theme => ({
   card: {
@@ -59,15 +60,15 @@ class RecipeReviewCard extends React.Component {
 
   render() {
     const {classes, product} = this.props;
+    const {name, title, category, status, short_description, full_description, price, updated_at} = product;
+    let lastModified = moment(updated_at).format('YYYY-MM-DD HH:mm:ss');
     let mainSrc;
     let main = product.images.edges.filter( edge => edge.node.main );
     if(main.length){
-      console.log(main)
       mainSrc = main[0].node.src;
     } else {
       mainSrc = 'noimage.png';
     }
-    console.log(mainSrc)
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -76,8 +77,8 @@ class RecipeReviewCard extends React.Component {
               <MoreVertIcon/>
             </IconButton>
           }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={title}
+          subheader={lastModified}
         />
         <CardMedia
           className={classes.media}
