@@ -8,16 +8,7 @@ import EditProductComponent from './EditProductComponent';
 export default createFragmentContainer(EditProductComponent, {
   viewer: graphql`
     fragment ProductEditorContainer_viewer on User {
-      product(id: $productId){
-        id
-        price
-        name
-        title
-        category
-        short_description
-        full_description
-        lang_key
-      }
+
       categories(first: 20){
         edges{
           node{

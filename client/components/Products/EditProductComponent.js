@@ -81,10 +81,11 @@ export default class AddProduct extends React.Component {
     };
 
     render() {
+      console.log('its it')
         return (
             <Grid>
 
-                <Cell style={{
+{/*                <Cell style={{
                     margin: 'auto'
                 }} col={4}>
                     <h3>Edit product</h3>
@@ -133,7 +134,7 @@ export default class AddProduct extends React.Component {
                         className={styles.formSubmit}
                         onClick={this.updateProduct.bind(this)
                         }>Create</Button>
-                </Cell>
+                </Cell>*/}
             </Grid>
         );
     }

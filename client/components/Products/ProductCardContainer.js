@@ -11,6 +11,23 @@ export default createFragmentContainer(ProductCardComponent, {
     fragment ProductCardContainer_product on Product {
       id,
       name,
-      price
+      price,
+      title,
+      category,
+      status,
+      short_description,
+      full_description,
+      updated_at,
+      images {
+        edges{
+          node{
+            id,
+            title,
+            src,
+            main,
+            updatedAt
+          }
+        }
+      }
     }`
 });

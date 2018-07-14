@@ -226,8 +226,11 @@ class CustomPaginationActionsTable extends React.Component {
       rowsPerPage: 5,
     };
   }
-  routeToEditor(){
+  routeToCreate(){
     this.props.router.push('/products/create')
+  }
+  routeToEditor(productId){
+    this.props.router.push(`/products/${productId}`)
   }
 
   handleChangePage = (event, page) => {
@@ -240,20 +243,20 @@ class CustomPaginationActionsTable extends React.Component {
 
   render() {
     const {classes} = this.props;
-    console.log(this.props)
+    console.log(this.props, this.state)
     const {data, rowsPerPage, page, selected} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
 
-        <EnhancedTableToolbar numSelected={selected.length} editorRoute={this.routeToEditor.bind(this)}/>
+        <EnhancedTableToolbar numSelected={selected.length} editorRoute={this.routeToCreate.bind(this)}/>
         <Grid container spacing={8}>
           {
             this.props.viewer.products.edges.map((edge) => {
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3}  key={edge.node.__dataID__}>
-                  <ProductCardContainer product={edge.node}/>
+                  <ProductCardContainer editRoute={this.routeToEditor.bind(this)} product={edge.node}/>
                 </Grid>
               )
             })

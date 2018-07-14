@@ -35,14 +35,14 @@ export default (
 
     <Route path='/products'>
       <IndexRoute component={ProductContainer} queries={ViewerQuery}/>
-      <Route path=':productId' component={ProductEditorContainer} queries={ViewerQuery}/>
-      <Route path='/create' component={ProductCreateContainer} queries={ViewerQuery}/>
+      <Route path='create'  component={ProductCreateContainer} queries={ViewerQuery}/>
+      <Route path=':productId'  component={ProductEditorContainer} queries={ViewerQuery}/>
     </Route>
 
-    <Route path='/categories'>
-      <IndexRoute component={CategoryContainer} queries={ViewerQuery}/>
-      <Route path=':categoryId' component={CategoryEditorContainer} queries={ViewerQuery}/>
-      <Route path='/create' component={CategoryCreateContainer} queries={ViewerQuery}/>
+    <Route path='/categories' >
+      <IndexRoute component={CategoryContainer}  queries={ViewerQuery}/>
+      <Route path=':categoryId'  component={CategoryEditorContainer} queries={ViewerQuery}/>
+      <Route path='/create'  component={CategoryCreateContainer} queries={ViewerQuery}/>
 
     </Route>
 
@@ -79,7 +79,7 @@ export default (
       <IndexRoute component={SettingsContainer} queries={ViewerQuery}/>
     </Route>
 
-    <Redirect from='*' to='/'/>
+    {/*<Redirect from='*' to='/'/>*/}
   </Route>
 );
 

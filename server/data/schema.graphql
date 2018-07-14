@@ -324,6 +324,12 @@ type Product {
   # Description of the pruduct
   short_description: String
 
+  # Array of product images
+  images: ProductImageConnection
+
+  # Description of the pruduct
+  status: Boolean
+
   # Description of the pruduct
   full_description: String
 
@@ -334,7 +340,7 @@ type Product {
   created_at: String
 
   # Date where product updated
-  updadet_at: String
+  updated_at: String
 }
 
 # A connection to a list of items.
@@ -350,6 +356,48 @@ type ProductConnection {
 type ProductEdge {
   # The item at the end of the edge
   node: Product
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# Product Image 
+type ProductImage {
+  # The ID of an object
+  id: ID!
+
+  # Id of parent product
+  product_id: Int
+
+  # title for image
+  title: String
+
+  # path for image
+  src: String
+
+  # Description of the pruduct
+  main: Boolean
+
+  # Description of the pruduct
+  createdAt: String
+
+  # Description of the pruduct
+  updatedAt: String
+}
+
+# A connection to a list of items.
+type ProductImageConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ProductImageEdge]
+}
+
+# An edge in a connection.
+type ProductImageEdge {
+  # The item at the end of the edge
+  node: ProductImage
 
   # A cursor for use in pagination
   cursor: String!

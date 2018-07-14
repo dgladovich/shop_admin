@@ -1,18 +1,16 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var product_images = sequelize.define('ProductImages', {
+    var product_images = sequelize.define('ProductImage', {
         title: DataTypes.STRING,
         product_id: DataTypes.INTEGER,
         src: DataTypes.STRING,
-        created_at: DataTypes.DATE,
-        updated_at: DataTypes.DATE
+        main: DataTypes.BOOLEAN,
     }, {
-        classMethods: {
-            associate: function (models) {
-                // associations can be defined here
-            }
-        },
         tableName: 'shop_product_images'
     });
+    product_images.associate = function (models) {
+      models.Product.hasMany(product_images, {as: 'images', foreignKey: 'product_id'})
+      // associations can be defined here
+    };
     return product_images;
 };

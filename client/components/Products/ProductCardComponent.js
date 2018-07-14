@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import SettingsIcon from '@material-ui/icons/Settings';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -49,10 +51,23 @@ class RecipeReviewCard extends React.Component {
   handleExpandClick = () => {
     this.setState(state => ({expanded: !state.expanded}));
   };
+  handleUpdateClick = () => {
+    let {id} = this.props.product;
+    this.props.editRoute(id);
+
+  };
 
   render() {
-    const {classes} = this.props;
-    console.log(this.props)
+    const {classes, product} = this.props;
+    let mainSrc;
+    let main = product.images.edges.filter( edge => edge.node.main );
+    if(main.length){
+      console.log(main)
+      mainSrc = main[0].node.src;
+    } else {
+      mainSrc = 'noimage.png';
+    }
+    console.log(mainSrc)
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -66,15 +81,18 @@ class RecipeReviewCard extends React.Component {
         />
         <CardMedia
           className={classes.media}
-          image="/yeoman.png"
+          image={mainSrc}
           title="Contemplative Reptile"
         />
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon/>
+          <IconButton aria-label="Delete">
+            <DeleteIcon/>
           </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon/>
+          <IconButton
+            aria-label="Edit"
+            onClick={this.handleUpdateClick.bind(this)}
+          >
+            <SettingsIcon/>
           </IconButton>
           <IconButton
             className={classnames(classes.expand, {
