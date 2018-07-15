@@ -121,8 +121,7 @@ const userType = new GraphQLObjectType({
           return product;
         });
         const productsConnection = connectionFromArray(products, args);
-
-        let shit = connectionFromPromisedArray(db.Product.findAll(), args);
+        console.log(productsConnection)
 
         return productsConnection;
       }

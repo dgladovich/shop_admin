@@ -6,19 +6,18 @@ import {
 import EditProductComponent from './EditProductComponent';
 
 export default createFragmentContainer(EditProductComponent, {
-  viewer: graphql`
-    fragment ProductEditorContainer_viewer on User {
+  product: graphql`
+    fragment ProductEditorContainer_product on User {
 
-      categories(first: 20){
-        edges{
-          node{
-            id
-            title
-            view_title
-            description
-            parent
-          }
-        }
+      product(id: $productId) {
+        id,
+        name,
+        title,
+        category,
+        short_description,
+        full_description,
+        price,
+        updated_at
       }
     }`
 });

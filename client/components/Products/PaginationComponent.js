@@ -9,7 +9,6 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-import Grid from '@material-ui/core/Grid';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,15 +16,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
-import SettingIcon from '@material-ui/icons/Settings';
-import AddIcon from '@material-ui/icons/Add';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
-import {lighten} from '@material-ui/core/styles/colorManipulator';
-import ProductCardContainer from "./ProductCardContainer";
-import PaginationComponent from './PaginationComponent';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
+
 
 const toolbarStyles = theme => ({
   root: {
@@ -42,7 +37,7 @@ const toolbarStyles = theme => ({
         backgroundColor: theme.palette.secondary.dark,
       },
   spacer: {
-    flex: '1 1',
+    flex: '1 1 100%',
   },
   actions: {
     color: theme.palette.text.secondary,
@@ -53,7 +48,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-  const {numSelected, classes, editorRoute} = props;
+  const {numSelected, classes} = props;
 
   return (
     <Toolbar
@@ -68,27 +63,25 @@ let EnhancedTableToolbar = props => {
           </Typography>
         ) : (
           <Typography variant="title" id="tableTitle">
-            Commodities
+            Categories
           </Typography>
         )}
       </div>
       <div className={classes.spacer}/>
       <div className={classes.actions}>
-        <Tooltip title="Filter list">
-          <IconButton aria-label="Filter list">
-            <FilterListIcon/>
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Create">
-          <IconButton aria-label="Create" onClick={editorRoute}>
-            <AddIcon/>
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Refresh">
-          <IconButton aria-label="Refresh">
-            <RefreshIcon/>
-          </IconButton>
-        </Tooltip>
+        {numSelected > 0 ? (
+          <Tooltip title="Delete">
+            <IconButton aria-label="Delete">
+              <DeleteIcon/>
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Filter list">
+            <IconButton aria-label="Filter list">
+              <FilterListIcon/>
+            </IconButton>
+          </Tooltip>
+        )}
       </div>
     </Toolbar>
   );
@@ -190,15 +183,15 @@ function createData(name, calories, fat) {
 
 const styles = theme => ({
   root: {
-    background: 'none',
-    boxShadow: 'none'
-  }
-  /*  table: {
-      minWidth: 500,
-    },
-    tableWrapper: {
-      overflowX: 'auto',
-    },*/
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+  },
+  table: {
+    minWidth: 500,
+  },
+  tableWrapper: {
+    overflowX: 'auto',
+  },
 });
 
 class CustomPaginationActionsTable extends React.Component {
@@ -227,14 +220,6 @@ class CustomPaginationActionsTable extends React.Component {
     };
   }
 
-  routeToCreate() {
-    this.props.router.push('/products/create')
-  }
-
-  routeToEditor(productId) {
-    this.props.router.push(`/products/${productId}`)
-  }
-
   handleChangePage = (event, page) => {
     this.setState({page});
   };
@@ -243,53 +228,21 @@ class CustomPaginationActionsTable extends React.Component {
     this.setState({rowsPerPage: event.target.value});
   };
 
-  loadMore() {
-    console.log('sending signal to load more');
-    console.log(this.props.relay.hasMore(), this.props.relay.isLoading());
-    setTimeout(()=>{
-      console.log(this.props.relay.isLoading())
-    }, 3000)
-    this.props.relay.loadMore(
-      10,  // Fetch the next 10 feed items
-      error => {
-        console.log(error);
-      },
-    );
-  }
-
   render() {
     const {classes} = this.props;
-    console.log(this.props, this.state)
-
     const {data, rowsPerPage, page, selected} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
-      <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} editorRoute={this.routeToCreate.bind(this)}/>
-        <Grid container spacing={8}>
-          {
-            this.props.viewer.products.edges.map((edge) => {
-              return (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={edge.node.__dataID__}>
-                  <ProductCardContainer loadMore={this.loadMore.bind(this)} editRoute={this.routeToEditor.bind(this)} product={edge.node}/>
-                </Grid>
-              )
-            })
-          }
-        </Grid>
-{/*        <PaginationComponent
-          colSpan={3}
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          onChangePage={() => {
-          }}
-          onChangeRowsPerPage={() => {
-          }}
-          page={page}
-        />*/}
-
-      </Paper>
+      <TablePagination
+        colSpan={3}
+        count={data.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={this.handleChangePage}
+        onChangeRowsPerPage={this.handleChangeRowsPerPage}
+        ActionsComponent={TablePaginationActionsWrapped}
+      />
     );
   }
 }

@@ -18,7 +18,14 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
+import TagFacesIcon from '@material-ui/icons/TagFaces';
 import moment from 'moment';
+
+
+
+
 
 const styles = theme => ({
   card: {
@@ -61,7 +68,9 @@ class RecipeReviewCard extends React.Component {
   render() {
     const {classes, product} = this.props;
     const {name, title, category, status, short_description, full_description, price, updated_at} = product;
-    let lastModified = moment(updated_at).format('YYYY-MM-DD HH:mm:ss');
+    let timeFormat = 'ddd MMM DD YYYY HH:mm:ss';
+    let updatedAtMod = updated_at.split('GMT')[0];
+    let lastModified = moment(updatedAtMod, timeFormat).format('YYYY-MM-DD HH:mm:ss');
     let mainSrc;
     let main = product.images.edges.filter( edge => edge.node.main );
     if(main.length){
@@ -86,24 +95,17 @@ class RecipeReviewCard extends React.Component {
           title="Contemplative Reptile"
         />
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Delete">
+          <IconButton aria-label="Delete" onClick={this.props.loadMore}>
             <DeleteIcon/>
           </IconButton>
           <IconButton
             aria-label="Edit"
-            onClick={this.handleUpdateClick.bind(this)}
-          >
-            <SettingsIcon/>
-          </IconButton>
-          <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
             })}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
+            onClick={this.handleUpdateClick.bind(this)}
           >
-            <ExpandMoreIcon/>
+            <SettingsIcon/>
           </IconButton>
         </CardActions>
 

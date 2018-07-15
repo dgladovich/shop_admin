@@ -1,6 +1,9 @@
 import React from 'react';
 import {IndexRoute, Route, Redirect} from 'react-router';
+
 import ViewerQuery from './ViewerQuery';
+import ProductQuery from './ProductQuery'
+
 import AppContainer from '../components/App/AppContainer';
 import SignupComponent from '../components/Signup/SignupComponent';
 import LoginComponent from '../components/Login/LoginComponent';
@@ -13,6 +16,7 @@ import UserContainer from '../components/User/UserContainer';
 import CommentsContainer from "../components/Comments/CommentsContainer";
 import FiltersContainer from "../components/Filters/FiltersContainer";
 import SettingsContainer from "../components/Settings/SettingsContainer";
+
 import ProductEditorContainer from '../components/Products/ProductEditorContainer';
 import CategoryEditorContainer from '../components/Category/CategoryEditorContainer';
 import CommentEditorContainer from '../components/Comments/CommentEditorContainer';
@@ -36,7 +40,7 @@ export default (
     <Route path='/products'>
       <IndexRoute component={ProductContainer} queries={ViewerQuery}/>
       <Route path='create'  component={ProductCreateContainer} queries={ViewerQuery}/>
-      <Route path=':productId'  component={ProductEditorContainer} queries={ViewerQuery}/>
+      <Route path=':productId'  component={ProductEditorContainer} queries={ProductQuery}/>
     </Route>
 
     <Route path='/categories' >
