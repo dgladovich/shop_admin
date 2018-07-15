@@ -250,7 +250,7 @@ class CustomPaginationActionsTable extends React.Component {
       console.log(this.props.relay.isLoading())
     }, 3000)
     this.props.relay.loadMore(
-      10,  // Fetch the next 10 feed items
+      20,  // Fetch the next 10 feed items
       error => {
         console.log(error);
       },

@@ -1,13 +1,15 @@
 // @flow
 import {
-    createPaginationContainer,
-    graphql,
+  createPaginationContainer,
+  graphql,
 } from 'react-relay/compat';
 import ProductsTableComponent from './ProductsTableComponent';
 import ProductCardContainer from './ProductCardContainer';
 
 
-export default createPaginationContainer(ProductsTableComponent, {
+export default createPaginationContainer(
+  ProductsTableComponent,
+  {
     viewer: graphql`
       fragment ProductContainer_viewer on User
       @argumentDefinitions(
@@ -26,6 +28,7 @@ export default createPaginationContainer(ProductsTableComponent, {
             endCursor
           }
           edges {
+            cursor
             node {
               id
               ...ProductCardContainer_product
@@ -59,11 +62,11 @@ export default createPaginationContainer(ProductsTableComponent, {
         userID: fragmentVariables.userID,
       };
     },
-    viewer: graphql`      
+    viewer: graphql`
       query ProductContainerQuery(
-        $count: Int!
-        $cursor: String
-        $userID: ID!
+      $count: Int!
+      $cursor: String
+      $userID: ID!
       ) {
         viewer: node(id: $userID) {
           ...ProductContainer_viewer @arguments(count: $count, cursor: $cursor)
