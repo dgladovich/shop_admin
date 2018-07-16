@@ -325,7 +325,7 @@ type Product {
   short_description: String
 
   # Array of product images
-  images: ProductImageConnection
+  images(after: String, first: Int, before: String, last: Int): ProductImageConnection
 
   # Description of the pruduct
   status: Boolean

@@ -121,16 +121,16 @@ const userType = new GraphQLObjectType({
                 query: { type: GraphQLString }
             },
             resolve: async (source, args) => {
-                console.log(args)
                 let {after} = args;
                 let shit;
                 let where = {};
                 if (after) {
                     shit = fromGlobalId(after);
+                    console.log(shit)
                     let prodId = +shit.id;
                     where = {
                         id: {
-                            [Op.gt]: prodId
+                            [Op.gte]: prodId
                         }
                     }
                 }
@@ -139,7 +139,7 @@ const userType = new GraphQLObjectType({
                     where: where,
                     limit: 20,
                     order: [['id']],
-                    //include: [{model: ProductImage, as: 'images'}]
+                    include: [{model: ProductImage, as: 'images'}]
                 });
 
                 const products = productsFetch.map(p => {
@@ -147,8 +147,8 @@ const userType = new GraphQLObjectType({
                     //product.images = connectionFromArray(product.images, args);
                     return product;
                 });
-                const productsConnection = connectionFromArray(products, args);
-                console.log(productsConnection)
+                const productsConnection = connectionFromArray(products, {first: 20});
+                //console.log(productsConnection, shit)
 
                 return productsConnection;
             }
@@ -470,7 +470,9 @@ const productType = new GraphQLObjectType({
         },
         images: {
             type: productImageConnection,
-            description: 'Array of product images'
+            description: 'Array of product images',
+            args: connectionArgs,
+            resolve: (source, args)=> connectionFromArray(source.images, {})
         },
         status: {
             type: GraphQLBoolean,
