@@ -244,11 +244,8 @@ class CustomPaginationActionsTable extends React.Component {
   };
 
   loadMore() {
-    console.log('sending signal to load more');
     console.log(this.props.relay.hasMore(), this.props.relay.isLoading());
-    setTimeout(()=>{
-      console.log(this.props.relay.isLoading())
-    }, 3000)
+
     this.props.relay.loadMore(
       20,  // Fetch the next 10 feed items
       error => {
@@ -259,7 +256,6 @@ class CustomPaginationActionsTable extends React.Component {
 
   render() {
     const {classes} = this.props;
-    console.log(this.props, this.state)
 
     const {data, rowsPerPage, page, selected} = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);

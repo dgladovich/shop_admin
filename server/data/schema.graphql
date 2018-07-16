@@ -465,7 +465,7 @@ type User implements Node {
   product(id: String): Product
 
   # Array of products
-  products(after: String, first: Int, before: String, last: Int): ProductConnection
+  products(after: String, first: Int, before: String, last: Int, query: String): ProductConnection
 
   # List of users
   users(after: String, first: Int, before: String, last: Int): UsersConnection

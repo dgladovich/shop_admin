@@ -71,13 +71,13 @@ class RecipeReviewCard extends React.Component {
     let timeFormat = 'ddd MMM DD YYYY HH:mm:ss';
     let updatedAtMod = updated_at.split('GMT')[0];
     let lastModified = moment(updatedAtMod, timeFormat).format('YYYY-MM-DD HH:mm:ss');
-    let mainSrc;
+/*    let mainSrc;
     let main = product.images.edges.filter( edge => edge.node.main );
     if(main.length){
       mainSrc = main[0].node.src;
     } else {
       mainSrc = 'noimage.png';
-    }
+    }*/
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -91,7 +91,7 @@ class RecipeReviewCard extends React.Component {
         />
         <CardMedia
           className={classes.media}
-          image={mainSrc}
+          //image={mainSrc}
           title="Contemplative Reptile"
         />
         <CardActions className={classes.actions} disableActionSpacing>

@@ -1,20 +1,21 @@
 // @flow
 import {
-  createPaginationContainer,
-  graphql,
+    createPaginationContainer,
+    graphql,
 } from 'react-relay/compat';
 import ProductsTableComponent from './ProductsTableComponent';
 import ProductCardContainer from './ProductCardContainer';
 
 
-export default createPaginationContainer(
-  ProductsTableComponent,
-  {
-    viewer: graphql`
-      fragment ProductContainer_viewer on User
+const ProductContainer = createPaginationContainer(
+    ProductsTableComponent,
+    {
+        viewer: graphql`
+      fragment ProductContainer_viewer on User 
       @argumentDefinitions(
         count: {type: "Int", defaultValue: 20}
         cursor: {type: "String"}
+        userID: {type: "ID"}
 
       ) {
         products(
@@ -37,40 +38,46 @@ export default createPaginationContainer(
         }
       }
     `,
-  },
-  {
-    direction: 'forward',
+    },
+    {
+        direction: 'forward',
 
-    getConnectionFromProps(props) {
-      console.log('any of this fucking functions calling 1', props)
-      return props.viewer.products;
-    },
-    // This is also the default implementation of `getFragmentVariables` if it isn't provided.
-    getFragmentVariables(prevVars, totalCount) {
-      console.log('any of this fucking functions calling 2', prevVars, totalCount)
-      return {
-        ...prevVars,
-        count: totalCount,
-      };
-    },
-    getVariables(props, {count, cursor}, fragmentVariables) {
-      console.log('any of this fucking functions calling 3', props, count, cursor, fragmentVariables)
-      return {
-        count,
-        cursor,
-        // userID isn't specified as an @argument for the fragment, but it should be a variable available for the fragment under the query root.
-        userID: fragmentVariables.userID,
-      };
-    },
-    viewer: graphql`
-      query ProductContainerQuery(
-      $count: Int!
-      $cursor: String
-      $userID: ID!
-      ) {
-        viewer: node(id: $userID) {
-          ...ProductContainer_viewer @arguments(count: $count, cursor: $cursor)
-        }
-      }
-    `
-  });
+        getConnectionFromProps(props) {
+            //console.log('1', props);
+            return props.viewer.products;
+        },
+        // This is also the default implementation of `getFragmentVariables` if it isn't provided.
+        getVariables(props, {count, cursor}, fragmentVariables) {
+            console.log('2', props, count, cursor, fragmentVariables);
+            let propsToReturn = {
+                count,
+                cursor,
+                // userID isn't specified as an @argument for the fragment, but it should be a variable available for the fragment under the query root.
+                userID: props.viewer.__dataID__,
+            };
+            console.log(propsToReturn)
+            return {
+                count,
+                cursor,
+                // userID isn't specified as an @argument for the fragment, but it should be a variable available for the fragment under the query root.
+                userID: props.viewer.__dataID__,
+            };
+        },
+        getFragmentVariables(prevVars, totalCount) {
+            console.log('3', prevVars, totalCount);
+            return {
+                ...prevVars,
+                count: totalCount,
+            };
+        },
+        query: graphql`
+          query ProductContainerQuery( $count: Int! $cursor: String) {
+            viewer{
+              ...ProductContainer_viewer @arguments(count: $count, cursor: $cursor)
+            }
+          }
+        `
+    });
+
+
+export default ProductContainer;
