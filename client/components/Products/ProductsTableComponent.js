@@ -226,7 +226,8 @@ class CustomPaginationActionsTable extends React.Component {
             rowsPerPage: 5,
         };
     }
-    componentWillReceiveProps(newProps, props){
+
+    componentWillReceiveProps(newProps, props) {
         console.log(newProps, props)
     }
 
@@ -252,16 +253,24 @@ class CustomPaginationActionsTable extends React.Component {
             count: 20,
             cursor: lastItem
         };
-        this.props.relay.refetch((prevVars) => {
-            console.log(prevVars)
-               return  refetchVariables
-            }
+        this.props.relay.refetch(
+            prevVars => {
+                console.log('Refetch vars',prevVars)
+                return refetchVariables
+            },
+            (prevData, newData) =>{
+                console.log(prevData, newData);
+                return prevData
+            },
+            e => {
+                console.error('Callback of fetching',e)
+            },
+            {force: true},//callback
         );
     }
 
     render() {
         const {classes} = this.props;
-        console.log(this.props)
 
         const {data, rowsPerPage, page, selected} = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);

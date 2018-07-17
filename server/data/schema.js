@@ -130,7 +130,7 @@ const userType = new GraphQLObjectType({
                     let prodId = +shit.id;
                     where = {
                         id: {
-                            [Op.gte]: prodId
+                            [Op.gt]: prodId
                         }
                     }
                 }

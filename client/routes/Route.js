@@ -83,7 +83,7 @@ export default (
       <IndexRoute component={SettingsContainer} queries={ViewerQuery}/>
     </Route>
 
-    {/*<Redirect from='*' to='/'/>*/}
+    <Redirect from='*' to='/'/>
   </Route>
 );
 

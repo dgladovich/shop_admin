@@ -9,13 +9,11 @@ import ProductCardContainer from './ProductCardContainer';
 
 const ProductContainer = createRefetchContainer(
     ProductsTableComponent, {
+
         viewer: graphql`
               fragment ProductContainer_viewer on User 
               @argumentDefinitions(
-                count: {type: "Int", defaultValue: 20}
-                cursor: {type: "String"}
-                userID: {type: "ID"}
-        
+                count: {type: "Int", defaultValue: 20}        
               ) {
                 products( first: $count, after: $cursor) {
                   pageInfo{
@@ -39,21 +37,7 @@ const ProductContainer = createRefetchContainer(
     graphql`
           query ProductContainerQuery( $count: Int! $cursor: String) {
             viewer{
-              products( first: $count, after: $cursor) {
-                  pageInfo{
-                    hasNextPage
-                    hasPreviousPage
-                    startCursor
-                    endCursor
-                  }
-                  edges {
-                    cursor
-                    node {
-                      id
-                      ...ProductCardContainer_product
-                    }
-                  }
-                }
+                ...ProductContainer_viewer @arguments(first: $count, after: $cursor)
             }
           }
         `
