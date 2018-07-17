@@ -18,7 +18,7 @@ export default createFragmentContainer(ProductCardComponent, {
       short_description,
       full_description,
       updated_at,
-      images {
+      images(first: 10) {
         edges{
           node{
             id,
